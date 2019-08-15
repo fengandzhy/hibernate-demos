@@ -57,12 +57,40 @@ public class UserTest {
 		a、在事务的commit()提交之前自动调用了session的flush()方法，然后再提交事务。
 		b、flush()可能会发送sql语句,但是不会提交事务。
 	 *  
+	 *  补充一点哦，如果说程序执行到session.flush();的时候人为的去数据update了一条数据
+	 *  此时user里面的值也是跟数据库里的值不一致，但是它不会发起update语句.
+	 *  可见flush()是根据最初取到的值来判断与数据库里的值是否一致的
 	 * */
-	@Test
+	//@Test
 	public void testFlush() {
 		User user = session.get(User.class,1);
 		user.setUsername("abcd");
 		session.flush();//这里发起了一条update语句，但是这条语句并没有起作用,直到发起事物提交的时候		
+	}
+	
+	/**
+	 * ②refresh(): 它会强制发出一条select语句, 保证session缓存中的数据和数据库里数据记录是一致的, 
+	 * 如果发现不一致它会修改缓存中的对象中的数据让其一致。
+	 * */
+	//@Test
+	public void testReflush() {
+		User user = session.get(User.class,1);
+		user.setUsername("abcd");
+		System.out.println(user);
+		session.refresh(user);
+		System.out.println(user);
+	}
+	
+	/**
+	 * 另外Hibernate操作缓存的方法还有clear() : 清理session缓存
+	 * */
+	@Test
+	public void testClear() {
+		User user = session.get(User.class,1);
+		System.out.println(user);
+		session.clear();
+		user = session.get(User.class, 1);//这里仍然会发起select语句
+		System.out.println(user);
 	}
 	
 	@After
