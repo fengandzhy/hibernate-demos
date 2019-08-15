@@ -24,8 +24,7 @@ public class UserTest {
 		ServiceRegistry serviceRegistry = configuration.getStandardServiceRegistryBuilder().build();
 		sessionFactory = new MetadataSources(serviceRegistry).buildMetadata().buildSessionFactory();
 		session = sessionFactory.openSession();
-		transaction = session.beginTransaction();
-		
+		transaction = session.beginTransaction();		
 	}	
 	
 	//@Test
@@ -84,7 +83,7 @@ public class UserTest {
 	/**
 	 * 另外Hibernate操作缓存的方法还有clear() : 清理session缓存
 	 * */
-	@Test
+	//@Test
 	public void testClear() {
 		User user = session.get(User.class,1);
 		System.out.println(user);
@@ -92,6 +91,8 @@ public class UserTest {
 		user = session.get(User.class, 1);//这里仍然会发起select语句
 		System.out.println(user);
 	}
+	
+	
 	
 	@After
 	public void destory() {
