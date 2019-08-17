@@ -36,7 +36,7 @@ public class StudentTest {
 	 * 2. 数据库中没有相应对象(对象里的OID与数据表里的id是一致的)
 	 * save方法会把一个临时对象保存为持久化对象
 	 * */
-	//@Test
+	@Test
 	public void testTransient() {
 		//new 出来的对象先是临时状态
 		Student stu = new Student("sam","female",new Date());
@@ -46,7 +46,7 @@ public class StudentTest {
 	/**
 	 * 从临时状态到持久状态
 	 * */
-	//@Test
+	@Test
 	public void testPersistent() {
 		//new 出来的对象先是临时状态
 		Student stu = new Student("abc","female",new Date());
@@ -58,8 +58,9 @@ public class StudentTest {
 	
 	/**
 	 * stu直接就是持久化对象因为通过get方法取
+	 * 
 	 * */
-	//@Test
+	@Test
 	public void testPersistent1() {
 		Student stu = session.get(Student.class, 1);
 		stu.setName("abddd");
@@ -70,7 +71,7 @@ public class StudentTest {
 	   *    持久化对象如果commit的时候，发现其跟数据库不一致，则发起update语句
 	 * 
 	 * */
-	//@Test
+	@Test
 	public void testPersistent2() {
 		Student stu = session.load(Student.class, 1);
 		stu.setName("2");//这里set的如果跟数据库内容一致，将不发起update语句,如果不一致发起update语句
@@ -84,7 +85,7 @@ public class StudentTest {
 	 * 	它是先将处理的对象放置到session缓存中去
 	 * 	另外hibernate不允许修改处于持久状态的对象的id 
 	 * */
-	//@Test
+	@Test
 	public void testDetached() {
 		Student stu = new Student("abc","female",new Date());
 		stu.setId(1); //虽然stu是new出来的，但是这里如果设置了id，就成了游离对象
@@ -145,8 +146,9 @@ public class StudentTest {
 	2.给对象分配id,这个id叫oid, 它和数据库的记录id对应一致
 	3.执行save方法时会发起一条insert语句, 但要等到事务提交时才会作用到数据库
 	4.save方法前设置id无效, save方法后设置id报异常,持久对象的id不准修改
+	5.对于一个持久状态的对象使用session.save()不会发起insert语句
 	 * */
-	//@Test
+	@Test
 	public void testSave() {
 		Student stu = new Student("abeec","female",new Date());		
 		System.out.println(stu);				
@@ -154,7 +156,7 @@ public class StudentTest {
 		System.out.println(stu);	
 	}
 	
-	//@Test
+	@Test
 	public void testPersist() {
 		Student stu = new Student("abeec","female",new Date());
 		stu.setId(20);//在persist之前设置id报错这也是跟save方法唯一的区别
@@ -177,6 +179,7 @@ public class StudentTest {
 	public void testGet() {
 		Student stu = session.get(Student.class, 1);
 		System.out.println(stu.getClass());
+		//session.save(stu);
 		//System.out.println(stu);	
 	}
 	
@@ -186,6 +189,68 @@ public class StudentTest {
 		System.out.println(stu.getClass());
 		//System.out.println(stu);
 	}
+	
+	/**
+	 * update方法
+	 * 1.这个方法顾名思义就是更新一个对象在数据库中的对照情况，从而使一个游离对象转换为一个持久化对象
+	 * 2.若是更新一个持久化对象，不需要再显式子的进行update方法，因为在commit方法中已经进行过flush了,它会自动发起update语句
+	 * 3.若是关闭了一个session，而又打开了一个session，这时，
+	 * 前一个session对象相对于第二个session来说就是游离的对象了，
+	 * 此时，做更新的时候, 必须显式的用第二个session进行update一下
+	 * 才可以将这个对象变成相对于第二个session的持久化对象。才会发起sql语句
+	 * 4.可以在hbm.xml文件的class节点设置一个属性叫做select-before-update为true，就可以避免当对象和数据库里的值完全一致时仍然会发起update语句
+	 * 
+	 * 自我总结
+	 * 1. session.update(stu);如果stu之前是游离对象或者是临时对象时,均会发起update语句
+	 * 2. 如果是临时对象，它没有ID，即便发起update语句也无法影响到数据库
+	 * 3. 如果是游离对象，此时它的ID值在数据库里没有相应记录,也无法影响到数据库
+	 * 
+	 * */
+	@Test
+	public void testUpdate() {
+		Student stu = new Student("abc","female",new Date());
+		stu.setId(7);
+		session.update(stu);
+		
+	}
+	
+	/**
+	 * session.delete(stu);
+	 * 1.如果此时stu是持久对象,则先将stu从session缓存中清除,提交时再执行delete语句将其从数据库清除
+	 * 2.如果此时stu是游离对象的话，如果id值在数据库里有值，那么提交时执行delete语句
+	 * 3.如果stu的id在数据库里不存在,也会发起delete语句,只不过没有作用
+	 * 4.delete将stu从session缓存中移除后是无法通过session.update(stu)重新加入缓存的 ,删除了就无法update了
+	 * 5.delete将stu从session缓存中移除后是可以通过session.save(stu)重新加入缓存的
+	 * 
+	 * */
+	@Test
+	public void testDelete() {
+		Student stu = session.get(Student.class, 8);
+		//Student stu = new Student("abc","female",new Date());		
+		
+		System.out.println(stu);
+		session.delete(stu);
+//		System.out.println(stu);
+//		session.save(stu);
+//		stu.setName("def");
+		
+	}
+	
+	
+	/**
+	 *  evict方法就是将持久化对象从session缓存中删除，使其成为一个游离的对象
+	 * 1.先执行一个select语句因为get方法
+	 * 2.再执行一个insert语句,因为save方法，之前stu是游离状态的对象
+	 * 3.最后执行一条update语句,因为save方法之后,stu变成了持久状态,值改变则commit的时候自动发起update语句
+	 * */
+	@Test
+	public void testEvict() {
+		Student stu = session.get(Student.class, 15);		
+		session.evict(stu);
+		session.save(stu);
+		stu.setName("add");
+	}
+	
 	@After
 	public void destory() {
 		transaction.commit();//commit只会针对持久对象，判断其是否跟数据库一致,不一致发起sql语句操作数据库，本质上还是flash()方法在起作用
