@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.hibernate.Session;
@@ -44,6 +46,17 @@ public class StudentTest {
 		});
 	}
 	
+	@Test
+	public void doTest() throws ParseException {
+//		Student2 stu = new Student2();
+//		SimpleDateFormat sm = new SimpleDateFormat("yyyy-mm-dd");
+//		Date bd = sm.parse("2000-12-13");
+//		stu.setBirthday(bd);
+//		session.save(stu);
+		
+		Student2 stu = session.get(Student2.class, 1);
+		System.out.println(stu.getAge());
+	}	
 	
 	@After
 	public void destory() {
