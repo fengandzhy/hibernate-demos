@@ -10,6 +10,7 @@
 		<module>hibernate-firstdemo-2</module>
 		<module>hibernate-session-1</module>
 		<module>hibernate-config</module>
+		<module>hibernate-config-2</module>
 	</modules>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
