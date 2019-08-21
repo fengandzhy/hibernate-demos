@@ -3,6 +3,9 @@ package com.citi.hibernate.model;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -41,6 +44,16 @@ public class StudentTest {
 		});
 	}
 	
+	/**
+	 * 当在teacher的set节点上设置inverse="true"的时候，表名teacher不再维护外键
+	 * 也就是说，teacher.setStudents(students); 不再发起update语句去改变student1表的外键值
+	 * 默认情况下，两端都要维护外键，也就是说，stu1.setTeacher(teacher);和
+	 * teacher.setStudents(students);都要去改这个外键的值,很显然这是多余的
+	 * 
+	 * 当在teacher的set节点上设置cascade="save-update"的时候,表明保存或更改
+	 * teacher的时候，会影响到相应的student对象，例如会直接吧临时状态的student改成持久状态
+	 * 
+	 * */
 	@Test
 	public void doSave() throws ParseException {
 		Teacher teacher = new Teacher();
@@ -54,10 +67,14 @@ public class StudentTest {
 		stu2.setName("78");
 		stu2.setTeacher(teacher);
 		
+		Set<Student> students = new HashSet<>();
+		students.add(stu1);
+		students.add(stu2);
+		teacher.setStudents(students);
 		
 		//结论: 先增加一的一端的数据,发起的sql语句少, 先增加多的一端的数据发起sql语句条数多, 建议先加一的一端, 效率高些!
-		session.save(stu1);
-		session.save(stu2);
+//		session.save(stu1);
+//		session.save(stu2);
 		session.save(teacher);
 		
 	}

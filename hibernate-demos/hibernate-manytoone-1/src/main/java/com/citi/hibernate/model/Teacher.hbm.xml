@@ -11,7 +11,8 @@
         <property name="name" type="java.lang.String">
             <column name="NAME" />
         </property>
-        <set name="students" table="STUDENT1">
+        <!--  -->
+        <set name="students" table="STUDENT1" inverse="true" cascade="save-update">
         	<key>
         		<column name="teacher_id"></column>
         	</key>
