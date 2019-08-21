@@ -49,6 +49,9 @@ public class StudentTest {
 	 * 也就是说，teacher.setStudents(students); 不再发起update语句去改变student1表的外键值
 	 * 默认情况下，两端都要维护外键，也就是说，stu1.setTeacher(teacher);和
 	 * teacher.setStudents(students);都要去改这个外键的值,很显然这是多余的
+	 * 另外非常要注意的是inverse这个属性不能出现在many-to-one 这个节点上
+	 * 
+	 * 
 	 * 
 	 * 当在teacher的set节点上设置cascade="save-update"的时候,表明保存或更改
 	 * teacher的时候，会影响到相应的student对象，例如会直接吧临时状态的student改成持久状态
