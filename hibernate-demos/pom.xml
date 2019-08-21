@@ -12,7 +12,8 @@
 		<module>hibernate-config</module>
 		<module>hibernate-config-2</module>
 		<module>hibernate-manytoone-1</module>
-		<module>hibernate-onetoone</module>
+		<module>hibernate-onetoone-1</module>
+		<module>hibernate-onetoone-2</module>
 	</modules>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
