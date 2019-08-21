@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -30,8 +31,10 @@ public class Person implements Serializable{
 	private String name;
 	
 	
-	@OneToOne
-	@JoinColumn(name = "card_id")
+//	@OneToOne
+//	@JoinColumn(name = "card_id")
+	@ManyToOne
+    @JoinColumn(name="card_id",unique=true)
 	private IDCard card;
 	public int getId() {
 		return id;

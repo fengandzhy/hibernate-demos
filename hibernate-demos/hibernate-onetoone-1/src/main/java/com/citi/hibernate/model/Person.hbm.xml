@@ -12,5 +12,6 @@
             <column name="NAME" />
         </property>        
     	<many-to-one name="card" column="card_Id" unique="true"></many-to-one>
+    	<!-- <one-to-one name="card" column="card_Id"></many-to-one> -->
     </class>
 </hibernate-mapping>

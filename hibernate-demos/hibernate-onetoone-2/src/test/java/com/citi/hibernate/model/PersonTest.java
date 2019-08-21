@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.ManyToOne;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -34,13 +36,12 @@ public class PersonTest {
 	
 	
 	/**
-	 * 两边同时配置<one-to-one是无法完成外键关联的,就是说无法创建出一个含有外键的表,创建你了连个独立的表例如
-	 * person端配置<one-to-one name="card" class="com.citi.hibernate.model.IDCard"></one-to-one>
-	 * idcard端配置<one-to-one name="person" class="com.citi.hibernate.model.Person"></one-to-one>
+	 * 由于在配置文件中one-to-one当中不能出现'column'属性，所以用配置文件
+	 * 实现一对一的唯一外键关联就只有一种方法,那就是many-to-one设置成unique=true
 	 * 
-	 * 
-	 * 当在many-to-one端加入 cascade="save-update"的时候,不会执行update语句
-	 * 
+	 * 而用注解方式来实现一对一唯一外键关联的话，它有两种方式
+	 * 一种是@ManyToOne设置unique=true
+	 * 另一种就是@OneToOne 
 	 * 
 	 * */
 	@Test
