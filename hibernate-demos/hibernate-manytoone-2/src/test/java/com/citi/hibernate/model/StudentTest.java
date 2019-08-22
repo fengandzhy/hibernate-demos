@@ -17,7 +17,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PersonTest {
+public class StudentTest {
 
 	SessionFactory sessionFactory = null;
 	Session session = null;
@@ -30,35 +30,52 @@ public class PersonTest {
 		sessionFactory = new MetadataSources(serviceRegistry).buildMetadata().buildSessionFactory();
 		session = sessionFactory.openSession();
 		transaction = session.beginTransaction();		
-	}	
+	}
 	
 	
 	/**
-	 * 两边同时配置<one-to-one是无法完成外键关联的,就是说无法创建出一个含有外键的表,创建你了连个独立的表例如
-	 * person端配置<one-to-one name="card" class="com.citi.hibernate.model.IDCard"></one-to-one>
-	 * idcard端配置<one-to-one name="person" class="com.citi.hibernate.model.Person"></one-to-one>
+	 * 当在teacher的set节点上设置inverse="true"的时候，表名teacher不再维护外键
+	 * 也就是说，teacher.setStudents(students); 不再发起update语句去改变student1表的外键值
+	 * 默认情况下，两端都要维护外键，也就是说，stu1.setTeacher(teacher);和
+	 * teacher.setStudents(students);都要去改这个外键的值,很显然这是多余的
+	 * 另外非常要注意的是inverse这个属性不能出现在many-to-one 这个节点上
 	 * 
 	 * 
-	 * 当在many-to-one端加入 cascade="save-update"的时候,不会执行update语句
 	 * 
+	 * 当在teacher的set节点上设置cascade="save-update"的时候,表明保存或更改
+	 * teacher的时候，会影响到相应的student对象，例如会直接吧临时状态的student改成持久状态
 	 * 
 	 * */
 	@Test
 	public void doSave() throws ParseException {
-		Person p1 = new Person();
-		p1.setName("Amy");
+		Teacher teacher = new Teacher();
+		teacher.setName("12");
 		
-		IDCard card = new IDCard();
-		card.setNumber("123456");
+		Student stu1 = new Student();
+		stu1.setName("45");
+		stu1.setTeacher(teacher);
 		
-		//p1.setCard(card);
-		card.setPerson(p1);
+		Student stu2 = new Student();
+		stu2.setName("78");
+		stu2.setTeacher(teacher);
 		
-		session.save(p1);
-		session.save(card);
+		Set<Student> students = new HashSet<>();
+		students.add(stu1);
+		students.add(stu2);
+		teacher.setStudents(students);
+		
+		//结论: 先增加一的一端的数据,发起的sql语句少, 先增加多的一端的数据发起sql语句条数多, 建议先加一的一端, 效率高些!
+		session.save(stu1);
+		session.save(stu2);
+		session.save(teacher);
+		
 	}
 	
-	
+	/**
+	 * 结论: 默认情况下, 查询多的一端对象, 只要没使用到关联的对象, 
+	 * 不会发起关联的对象的查询! 因为使用的懒加载, 
+	 * 所以在使用关联对象之前关闭session, 必然发生赖加载异常!
+	 * */
 	@Test
 	public void doSearch() throws ParseException {
 				
