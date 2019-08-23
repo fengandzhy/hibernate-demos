@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -68,6 +71,41 @@ public class StudentTest {
 		session.save(stu1);
 		session.save(stu2);
 		session.save(teacher);
+		
+	}
+	
+	
+	/**
+	 * 	1. 当teacher端的配置为
+	 * @OneToMany
+	 * @JoinColumn(name="teacher_id")
+	 * 	如果先保存student再保存teacher的时候会执行4条update语句双端都会维护这个外键关系
+	 *  
+	 * 
+	 *  
+	 *  	
+	 * */
+	@Test
+	public void testSave1() {
+		Teacher teacher = new Teacher();
+		teacher.setName("12");
+		
+		Student stu1 = new Student();
+		stu1.setName("45");
+		stu1.setTeacher(teacher);
+		
+		Student stu2 = new Student();
+		stu2.setName("78");
+		stu2.setTeacher(teacher);
+		
+		Set<Student> students = new HashSet<>();
+		students.add(stu1);
+		students.add(stu2);
+		teacher.setStudents(students);
+		
+		session.save(teacher);
+		session.save(stu1);
+		session.save(stu2);
 		
 	}
 	
