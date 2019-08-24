@@ -106,6 +106,8 @@ public class StudentTest {
 		session.save(teacher);
 		session.save(stu1);
 		session.save(stu2);
+		session.flush();
+		System.out.println("ok");
 		
 	}
 	

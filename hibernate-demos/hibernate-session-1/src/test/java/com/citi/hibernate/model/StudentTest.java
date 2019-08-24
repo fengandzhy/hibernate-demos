@@ -41,6 +41,9 @@ public class StudentTest {
 		//new 出来的对象先是临时状态
 		Student stu = new Student("sam","female",new Date());
 		session.save(stu);//在commit的时候才会进入数据库
+//		stu = session.get(Student.class, 15);
+//		stu.setName("123456");
+		
 	}
 	
 	/**

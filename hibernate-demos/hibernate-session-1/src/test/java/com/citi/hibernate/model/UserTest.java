@@ -27,7 +27,7 @@ public class UserTest {
 		transaction = session.beginTransaction();		
 	}	
 	
-	//@Test
+	@Test
 	public void testSave() {
 		User user = new User("sam","111111");
 		System.out.println(user);
@@ -40,7 +40,7 @@ public class UserTest {
 	 * 而不会再次去访问数据库, 只有缓存中不存在的数据, 才会去发起SQL语句查询数据库, 
 	 * 所以缓存极大的减少了访问数据库的频率!
 	 * */
-	//@Test
+	@Test
 	public void testGet() {
 		User user = session.get(User.class,1);
 		user = null;
@@ -60,7 +60,7 @@ public class UserTest {
 	 *  此时user里面的值也是跟数据库里的值不一致，但是它不会发起update语句.
 	 *  可见flush()是根据最初取到的值来判断与数据库里的值是否一致的
 	 * */
-	//@Test
+	@Test
 	public void testFlush() {
 		User user = session.get(User.class,1);
 		user.setUsername("abcd");
@@ -71,7 +71,7 @@ public class UserTest {
 	 * ②refresh(): 它会强制发出一条select语句, 保证session缓存中的数据和数据库里数据记录是一致的, 
 	 * 如果发现不一致它会修改缓存中的对象中的数据让其一致。
 	 * */
-	//@Test
+	@Test
 	public void testReflush() {
 		User user = session.get(User.class,1);
 		user.setUsername("abcd");
@@ -83,7 +83,7 @@ public class UserTest {
 	/**
 	 * 另外Hibernate操作缓存的方法还有clear() : 清理session缓存
 	 * */
-	//@Test
+	@Test
 	public void testClear() {
 		User user = session.get(User.class,1);
 		System.out.println(user);
