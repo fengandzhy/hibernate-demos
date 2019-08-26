@@ -76,13 +76,14 @@ public class StudentTest {
 	
 	
 	/**
-	 * 	1. 当teacher端的配置为
+	 * 	当teacher端的配置为
 	 * @OneToMany
 	 * @JoinColumn(name="teacher_id")
-	 * 	如果先保存student再保存teacher的时候会执行4条update语句双端都会维护这个外键关系
+	 * 	1.如果先保存student再保存teacher的时候会执行4条update语句,	因为当你插入student的时候
+	 * 	还要插入对应的teacher_id,而此时此时数据库中并不存在这个Id,所以，Hibernate会先为我们插入一个空值
+	 * 	然后插入Teacher之后再根据此时生成的teacher_id去更新学生的信息
 	 *  
-	 * 
-	 *  
+	 *  2.如果先保存了teacher再保存student那么就只会执行2条update语句,
 	 *  	
 	 * */
 	@Test
@@ -105,10 +106,63 @@ public class StudentTest {
 		
 		session.save(teacher);
 		session.save(stu1);
-		session.save(stu2);
-		session.flush();
-		System.out.println("ok");
+		session.save(stu2);		
+	}
+	
+	/**
+	 * 当teacher端的配置为 @OneToMany(mappedBy="teacher")的时候
+	 * 1.先保存student再保存teacher时,生成三条insert语句两条update语句
+	 * 2.先保存teacher再保存student时,生成三条insert语句,没有update语句
+	 * 也就是说mappedBy也就是相当于inverse=true,teacher端不再参与外键维护
+	 * 一般情况下外键在多的一方,维护外键就交于多的一方,如果让1端维护,始终都会多出update语句
+	 * 
+	 * 
+	 * */
+	@Test
+	public void testSave2() {
+		Teacher teacher = new Teacher();
+		teacher.setName("12");
 		
+		Student stu1 = new Student();
+		stu1.setName("45");
+		stu1.setTeacher(teacher);
+		
+		Student stu2 = new Student();
+		stu2.setName("78");
+		stu2.setTeacher(teacher);
+		
+		Set<Student> students = new HashSet<>();
+		students.add(stu1);
+		students.add(stu2);
+		teacher.setStudents(students);
+		
+		session.save(teacher);
+		session.save(stu1);
+		session.save(stu2);			
+	}
+	
+	
+	@Test
+	public void testSave3() {
+		Teacher teacher = new Teacher();
+		teacher.setName("12");
+		
+		Student stu1 = new Student();
+		stu1.setName("45");
+		stu1.setTeacher(teacher);
+		
+		Student stu2 = new Student();
+		stu2.setName("78");
+		stu2.setTeacher(teacher);
+		
+		Set<Student> students = new HashSet<>();
+		students.add(stu1);
+		students.add(stu2);
+		teacher.setStudents(students);
+		
+//		session.save(teacher);
+		session.save(stu1);
+		session.save(stu2);			
 	}
 	
 	/**

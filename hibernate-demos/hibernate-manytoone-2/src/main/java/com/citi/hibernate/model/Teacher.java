@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+//import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,9 +40,9 @@ public class Teacher implements Serializable{
 	/**
 	 * test
 	 * */
-	@OneToMany
-	@JoinColumn(name="teacher_id")
-//	@OneToMany(mappedBy="teacher")
+//	@OneToMany
+//	@JoinColumn(name="teacher_id")
+	@OneToMany(mappedBy="teacher")	
 	private Set<Student> students = new HashSet<>();	
 	public Set<Student> getStudents() {
 		return students;

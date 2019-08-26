@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity(name = "Student")
@@ -33,6 +34,7 @@ public class Student implements Serializable{
 	
 	@ManyToOne
     @JoinColumn(name="teacher_id")
+	@Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private Teacher teacher;
 	public Teacher getTeacher() {
 		return teacher;
