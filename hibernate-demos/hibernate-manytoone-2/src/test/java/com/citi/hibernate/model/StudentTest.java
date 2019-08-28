@@ -6,12 +6,18 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.jdbc.Work;
@@ -141,7 +147,15 @@ public class StudentTest {
 		session.save(stu2);			
 	}
 	
-	
+	/**
+	 * 当student端配置为@Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	 * 表明保存或者更改student对象的时候，会影响到teacher对象
+	 * 
+	 * teacher当引入javax.persistence.CascadeType时是可以这么配置的@OneToMany(mappedBy="teacher",cascade = CascadeType.DETACH)
+	 * 如果引入org.hibernate.annotations.CascadeType就无法像上述那样配置,应该是@Cascade(value = CascadeType.DETACH)
+	 * 反过来讲当teacher端配置成@Cascade(value = CascadeType.SAVE_UPDATE),一样保存teacher的时候会影响到student
+	 * 
+	 * */
 	@Test
 	public void testSave3() {
 		Teacher teacher = new Teacher();
@@ -160,19 +174,51 @@ public class StudentTest {
 		students.add(stu2);
 		teacher.setStudents(students);
 		
-//		session.save(teacher);
-		session.save(stu1);
-		session.save(stu2);			
+		session.save(teacher);
+//		session.save(stu1);
+//		session.save(stu2);			
 	}
 	
 	/**
-	 * 结论: 默认情况下, 查询多的一端对象, 只要没使用到关联的对象, 
-	 * 不会发起关联的对象的查询! 因为使用的懒加载, 
-	 * 所以在使用关联对象之前关闭session, 必然发生赖加载异常!
+	 * 当teacher端配置@OneToMany(mappedBy="teacher",fetch = FetchType.EAGER)
+	 * 查询teacher的时候会把对应的student对象也给查出来，反之fetch = FetchType.LAZY的时候,
+	 * 只有当执行Set<Student> stu = teacher.getStudents(),并使用这个stu对象时才会执行查询student操作
+	 * 
+	 * 	@OneToMany(mappedBy="teacher", fetch=FetchType.LAZY)
+	 * 	@Fetch(FetchMode.SELECT)
+	 * 上述配置不产生join连接	
+	 * 
+	 * @OneToMany(mappedBy="teacher", fetch=FetchType.LAZY)
+	 * @Fetch(FetchMode.JOIN)
+	 * 上述fetch=FetchType.LAZY失效因为FetchMode.JOIN会直接join把student找到	
+	 * 
+	 * 
+	 * @OneToMany(mappedBy="teacher", fetch=FetchType.EAGER)
+	 * @Fetch(FetchMode.SELECT)
+	 * 直接执行N+1条sql语句
+	 * 
+	 * 	
 	 * */
 	@Test
 	public void doSearch() throws ParseException {
-				
+		Teacher teacher = session.get(Teacher.class,1);
+		Set<Student> stu =  teacher.getStudents();
+		System.out.println(stu);
+	}
+	
+	/**
+	 * 当student端配置@ManyToOne(fetch = FetchType.LAZY)效果跟teacher端一样
+	 * student是多端默认的是eager加载，就是不配置FetchType它也会用left join 方式加载teacher
+	 * 
+	 * 如果student端配置@Fetch(FetchMode.SELECT)不配置FetchType这里会执行n+1条sql语句
+	 * 由此可见FetchType默认是eager加载
+	 * */
+	@Test
+	public void doSearch1() throws ParseException {
+		System.out.println();
+		Student stu1 = session.get(Student.class,8);
+//		Teacher teacher = stu1.getTeacher();
+//		System.out.println(teacher);
 	}
 	
 	@After

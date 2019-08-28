@@ -3,18 +3,18 @@ package com.citi.hibernate.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-//import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity(name = "Teacher")
@@ -42,7 +42,9 @@ public class Teacher implements Serializable{
 	 * */
 //	@OneToMany
 //	@JoinColumn(name="teacher_id")
-	@OneToMany(mappedBy="teacher")	
+	@OneToMany(mappedBy="teacher")
+//	@Fetch(FetchMode.JOIN)
+	@Cascade(value = CascadeType.SAVE_UPDATE)
 	private Set<Student> students = new HashSet<>();	
 	public Set<Student> getStudents() {
 		return students;

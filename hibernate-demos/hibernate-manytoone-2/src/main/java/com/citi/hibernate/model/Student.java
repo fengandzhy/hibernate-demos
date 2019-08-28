@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -11,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity(name = "Student")
@@ -32,9 +35,11 @@ public class Student implements Serializable{
 	@Column(name = "name")	
 	private String name;
 	
+//	@ManyToOne(fetch = FetchType.EAGER)
 	@ManyToOne
     @JoinColumn(name="teacher_id")
-	@Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	@Fetch(FetchMode.SELECT)
+	//@Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)	
 	private Teacher teacher;
 	public Teacher getTeacher() {
 		return teacher;
