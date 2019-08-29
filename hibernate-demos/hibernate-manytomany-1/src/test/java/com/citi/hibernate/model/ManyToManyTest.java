@@ -1,3 +1,6 @@
+package com.citi.hibernate.model;
+
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -6,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 public class ManyToManyTest {
 	SessionFactory sessionFactory = null;
@@ -20,6 +24,27 @@ public class ManyToManyTest {
 		session = sessionFactory.openSession();
 		transaction = session.beginTransaction();		
 	}
+	
+	@Test
+	public void testSave() {
+		Teacher t1 = new Teacher();
+		t1.setName("a");
+		
+		Teacher t2 = new Teacher();
+		t2.setName("b");
+		
+		Course c1 = new Course();
+		c1.setName("1");
+		
+		Course c2 = new Course();
+		c2.setName("2");
+		
+		t1.getCourses().add(c1);
+		t2.getCourses().add(c2);
+		
+		
+	}
+	
 	
 	
 	
