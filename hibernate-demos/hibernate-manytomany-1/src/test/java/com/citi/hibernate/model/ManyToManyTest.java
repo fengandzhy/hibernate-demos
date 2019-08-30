@@ -25,6 +25,20 @@ public class ManyToManyTest {
 		transaction = session.beginTransaction();		
 	}
 	
+	
+	/**
+	 *  当inverse="true"出现在Course.hbm.xml的时候,如果代码是
+	 *  t1.getCourses().add(c1);
+	 *  则会更新teacher_course表,表示Course放弃更新中间表
+	 *  
+	 *  
+	 *  当inverse="true"出现在Teacher.hbm.xml的时候,如果代码是
+	 *  t1.getCourses().add(c1);
+	 *  则不会更新teacher_course表,表示Teacher放弃更新中间表只有
+	 *  c1.getTeachers().add(t1);
+	 *  才会更新中间表
+	 *  		
+	 * */
 	@Test
 	public void testSave() {
 		Teacher t1 = new Teacher();
@@ -39,10 +53,18 @@ public class ManyToManyTest {
 		Course c2 = new Course();
 		c2.setName("2");
 		
-		t1.getCourses().add(c1);
-		t2.getCourses().add(c2);
+//		t1.getCourses().add(c1);
+//		t1.getCourses().add(c2);
+//		t2.getCourses().add(c1);
+//		t2.getCourses().add(c2);
 		
+		c1.getTeachers().add(t1);
+		c2.getTeachers().add(t2);
 		
+		session.save(t1);
+		session.save(t2);
+		session.save(c1);
+		session.save(c2);
 	}
 	
 	

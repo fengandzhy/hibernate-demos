@@ -11,11 +11,11 @@
         <property name="name" type="java.lang.String">
             <column name="NAME" />
         </property>
-        <set name="courses" table="teacher_course">
+        <set name="courses" table="teacher_course"  inverse="true">
             <key>
-                <column name="course_id" />
+                <column name="teacher_id" />
             </key>
-            <many-to-many class="Teacher" column="teacher_id" />
+            <many-to-many class="Course" column="course_id" />
         </set>
     </class>
 </hibernate-mapping>
