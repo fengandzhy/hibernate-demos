@@ -1,6 +1,10 @@
 package com.citi.hibernate.model;
 
 
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -25,6 +29,16 @@ public class ManyToManyTest {
 		transaction = session.beginTransaction();		
 	}
 	
+	
+	/**
+	 * 1.当teacher端配置如下时
+	 * 	@ManyToMany
+    	@JoinTable(name="t_teachars_courses",                    
+            joinColumns= {@JoinColumn(name="teacher_id")},        
+            inverseJoinColumns= {@JoinColumn(name="course_id")})
+	 	teacher端维持t_teachars_courses两个外键
+	 	
+	 * */
 	@Test
 	public void testSave() {
 		Teacher t1 = new Teacher();
@@ -39,14 +53,21 @@ public class ManyToManyTest {
 		Course c2 = new Course();
 		c2.setName("2");
 		
-		t1.getCourses().add(c1);
-		t2.getCourses().add(c2);
+//		t1.getCourses().add(c1);
+//		t1.getCourses().add(c2);
+//		t2.getCourses().add(c1);
+//		t2.getCourses().add(c2);
 		
+		c1.getTeachers().add(t1);
+		c1.getTeachers().add(t2);
+		c2.getTeachers().add(t1);
+		c2.getTeachers().add(t2);
 		
-	}
-	
-	
-	
+		session.save(t1);
+		session.save(t2);
+		session.save(c1);
+		session.save(c2);
+	}	
 	
 	@After
 	public void destory() {
