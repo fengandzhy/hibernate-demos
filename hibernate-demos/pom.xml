@@ -18,6 +18,7 @@
 		<module>hibernate-manytomany-1</module>
 		<module>hibernate-manytomany-2</module>
 		<module>hibernate-component-1</module>
+		<module>hibernate-component-2</module>
 	</modules>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->

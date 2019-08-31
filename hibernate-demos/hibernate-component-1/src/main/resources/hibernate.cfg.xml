@@ -27,6 +27,6 @@
 
 		<!-- ORM映射关系 -->
 		<mapping resource="com/citi/hibernate/model/Student.hbm.xml" />
-		
+		<mapping resource="com/citi/hibernate/model/Person.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
