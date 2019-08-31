@@ -6,7 +6,7 @@
     <class name="Person" table="PERSON">
         <id name="id" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="age" type="int">
             <column name="AGE" />
