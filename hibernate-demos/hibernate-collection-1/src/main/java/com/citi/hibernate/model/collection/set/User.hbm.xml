@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-31 23:43:01 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.citi.hibernate.model.collection.set">
+    <class name="User" table="table_user">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="userName" type="java.lang.String">
+            <column name="USERNAME" />
+        </property>
+        <set name="address" table="table_address">
+            <key column="uid"></key>    <!-- 外键-->
+      		<element column="address" type="string"></element>  <!-- 映射表中所存放的address数据-->
+        </set>
+    </class>
+</hibernate-mapping>
