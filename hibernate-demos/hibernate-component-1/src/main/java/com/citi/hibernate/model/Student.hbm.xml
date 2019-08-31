@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-31 17:28:40 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.citi.hibernate.model">
+    <class name="Student" table="STUDENT3">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <component name="studentInfo">
+        	<property name="classes">
+        		<column name="classes"></column>
+        	</property>
+        	<property name="birthday">
+        		<column name="birthday"></column>
+        	</property>
+        	<property name="address">
+        		<column name="address"></column>
+        	</property>
+        </component>
+    </class>
+</hibernate-mapping>
