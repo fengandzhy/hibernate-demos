@@ -24,7 +24,7 @@
 		<property name="hibernate.jdbc.batch_size">30</property>
 		<property name="hibernate.jdbc.fetch_size">100</property>
 		
-		<mapping class="com.citi.hibernate.model.Student"/>
-		<mapping class="com.citi.hibernate.model.Teacher"/>
+		<mapping class="org.zhouhy.hibernate.model.Student"/>
+		<mapping class="org.zhouhy.hibernate.model.Teacher"/>
 	</session-factory>
 </hibernate-configuration>

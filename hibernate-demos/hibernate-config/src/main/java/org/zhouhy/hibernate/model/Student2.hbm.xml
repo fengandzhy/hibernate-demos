@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-21 6:01:25 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="org.zhouhy.hibernate.model.Student2" table="STUDENT2">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="SEX" />
+        </property>
+        <property name="textContent" type="text">
+            <column name="TEXTCONTENT" sql-type="text"/>
+        </property>
+        <property name="blob" type="java.sql.Blob">
+            <column name="my_blob" sql-type="mediumblob"/>
+        </property>
+        <property name="birthday" type="java.util.Date">
+            <column name="BIRTHDAY" />
+        </property>
+        <property name="age" type="int" 
+        	formula="(select floor(datediff(now(),s.birthday)/365.25) from student2 s where s.id=id)">            
+        </property>
+    </class>
+</hibernate-mapping>

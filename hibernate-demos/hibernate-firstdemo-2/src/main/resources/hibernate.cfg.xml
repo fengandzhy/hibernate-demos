@@ -14,6 +14,6 @@
   <property name="hibernate.hbm2ddl.auto">update</property>
   
   <!-- ORM映射关系 -->
-  <mapping class="com.citi.hibernate.model.Student"/>
+  <mapping class="org.zhouhy.hibernate.model.Student"/>
  </session-factory>
 </hibernate-configuration>
