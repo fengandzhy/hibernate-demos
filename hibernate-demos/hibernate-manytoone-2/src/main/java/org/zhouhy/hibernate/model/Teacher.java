@@ -42,7 +42,7 @@ public class Teacher implements Serializable{
 	 * */
 //	@OneToMany
 //	@JoinColumn(name="teacher_id")
-	@OneToMany(mappedBy="teacher")
+	@OneToMany(mappedBy="teacher",fetch=FetchType.LAZY)
 //	@Fetch(FetchMode.JOIN)
 	@Cascade(value = CascadeType.SAVE_UPDATE)
 	private Set<Student> students = new HashSet<>();	

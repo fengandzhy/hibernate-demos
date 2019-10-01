@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.jdbc.Work;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.After;
 import org.junit.Before;
@@ -219,6 +221,34 @@ public class StudentTest {
 		Student stu1 = session.get(Student.class,8);
 //		Teacher teacher = stu1.getTeacher();
 //		System.out.println(teacher);
+	}
+	
+	/**
+	     *  以下这段代码足以证明一个逻辑，hibernate先会从缓存中取数据,然后再从数据库中取
+	     * 用debug的方式来运行这段代码, 运行到这里的时候List list=query.list();	 会输出一条sql语句(inner join)，会将teacher和student都加载到session中
+	     * 但是 Set<Student> s = t.getStudents();运行到这里的时候，它不会去输出一条查询student的sql语句，因为这个lazy加载,
+	     * 只有当Student stu:s，它才会去输出查询student的sql语句,但是它不会去查表，而是在缓存中查到相应的student对象，最有利的证据就是，
+	     * 用debug运行这段代码的时候，当运行到Teacher t = (Teacher) object[0];停住，把相应的student的值从数据库里改掉，但是发现这里输出的还是修改之前的
+	     * 可见它不是从数据库中取的而是从缓存中取的
+	     * 虽然输出了sql语句但是不会去查库
+	 * */
+	
+	@Test
+	public void doSearch2() throws ParseException {
+		String hql = "from Teacher t inner join t.students s where t.id=:id";
+		
+		Query query=session.createQuery(hql);
+		query.setInteger("id", 1);
+		
+		List list=query.list();
+		Object[] object = (Object[])list.get(0);
+		Teacher t = (Teacher) object[0];
+		Set<Student> s = t.getStudents();
+		for(Student stu:s) {
+			System.out.println(stu);
+		}
+		System.out.println("aaaaaaaa");
+		
 	}
 	
 	@After
