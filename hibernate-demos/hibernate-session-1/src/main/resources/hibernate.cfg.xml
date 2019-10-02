@@ -13,7 +13,7 @@
   <property name="hibernate.format_sql">true</property>
   <!--  -->
   <property name="hibernate.hbm2ddl.auto">update</property>
-  <mapping resource="com/citi/hibernate/model/Student.hbm.xml"/>
-  <mapping resource="com/citi/hibernate/model/User.hbm.xml"/>
+  <mapping resource="org/zhouhy/hibernate/model/Student.hbm.xml"/>
+  <mapping resource="org/zhouhy/hibernate/model/User.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

@@ -94,6 +94,13 @@ public class StudentTest {
 		System.out.println(student.getTeacher().getName());		
 	}
 	
+	@Test
+	public void doSearch1() throws ParseException {
+		Teacher teacher = session.load(Teacher.class, 1);
+		System.out.println(teacher);
+		System.out.println(teacher.getStudents());		
+	}
+	
 	@After
 	public void destory() {
 		transaction.commit();//commit只会针对持久对象，判断其是否跟数据库一致,不一致发起sql语句操作数据库，本质上还是flash()方法在起作用

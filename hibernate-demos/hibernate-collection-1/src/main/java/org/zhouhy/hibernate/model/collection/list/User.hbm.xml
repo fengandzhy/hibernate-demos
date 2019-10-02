@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-10-2 22:13:16 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.zhouhy.hibernate.model.collection.list">
+    <class name="User" table="table_user">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <list name="addressList" table="t_addressList">
+        	<key column="uid"></key>
+        	<list-index column="idx"></list-index>
+        	<element column="address" type="string"></element>
+        </list>
+    </class>
+</hibernate-mapping>

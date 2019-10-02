@@ -24,7 +24,7 @@
 		<property name="hibernate.jdbc.batch_size">30</property>
 		<property name="hibernate.jdbc.fetch_size">100</property>
 		
-		<mapping resource="com/citi/hibernate/model/IDCard.hbm.xml"/>
-		<mapping resource="com/citi/hibernate/model/Person.hbm.xml"/>
+		<mapping resource="org/zhouhy/hibernate/model/IDCard.hbm.xml"/>
+		<mapping resource="org/zhouhy/hibernate/model/Person.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>

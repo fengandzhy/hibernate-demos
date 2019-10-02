@@ -26,7 +26,7 @@
 		<property name="hibernate.jdbc.fetch_size">100</property>
 
 		<!-- ORM映射关系 -->
-		<mapping resource="com/citi/hibernate/model/Course.hbm.xml" />
-		<mapping resource="com/citi/hibernate/model/Teacher.hbm.xml" />
+		<mapping resource="org/zhouhy/hibernate/model/Course.hbm.xml" />
+		<mapping resource="org/zhouhy/hibernate/model/Teacher.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
