@@ -12,7 +12,7 @@
             <column name="NAME" />
         </property>
         
-        <many-to-one name="teacher" class="Teacher" >
+        <many-to-one name="teacher" class="Teacher">
         	<column name="teacher_id"></column>
         </many-to-one>
     </class>

@@ -94,12 +94,67 @@ public class StudentTest {
 		System.out.println(student.getTeacher().getName());		
 	}
 	
+	
+	/**
+	 * 这里默认也是lazy加载，也即是说只有当用到student的时候，才会去数据库里查询
+	 * */
 	@Test
 	public void doSearch1() throws ParseException {
 		Teacher teacher = session.load(Teacher.class, 1);
 		System.out.println(teacher);
 		System.out.println(teacher.getStudents());		
 	}
+	
+	/**
+	 * 当teacher配置lazy="false"时，程序走到System.out.println(teacher);
+	 * 就会发起两条sql语句，一条去查teacher 一条去查student
+	 * */
+	@Test
+	public void doSearch2() throws ParseException {
+		Teacher teacher = session.load(Teacher.class, 1);
+		System.out.println(teacher);
+		System.out.println(teacher.getStudents());		
+	}
+	
+	/**
+	 * 当student配置lazy="false"时，程序走到System.out.println(student);
+	 * 就会发起两条sql语句，一条去查teacher 一条去查student
+	 * */
+	@Test
+	public void doSearch3() throws ParseException {
+		Student student = session.load(Student.class, 1);
+		System.out.println(student);
+		System.out.println(student.getTeacher().getName());		
+	}
+	
+	/**
+	 * 两边同时lazy="false"时，程序走到System.out.println(student);
+	 * 就会发起2+1条sql语句，
+	 * 注意在many-to-one端不能写lazy="true"
+	 * */
+	@Test
+	public void doSearch4() throws ParseException {
+		Student student = session.load(Student.class, 1);
+		System.out.println(student);
+		System.out.println(student.getTeacher().getName());		
+	}
+	
+	
+	/**
+	 * 当teacher端写成fetch="join"时，System.out.println(teacher);它会运行一条带join的sql语句
+	 * 这里也能验证hibernate先从缓存中取值后从数据库中取值的，首先当运行到System.out.println(teacher);时
+	 * 发起一条left join的sql语句，将teacher和student都加载到缓存中
+	 * 所以teacher.getStudents()时，也是先去缓存中去student对象的，如果此时在执行teacher.getStudents()某条student前发生了改变
+	 * 它不会反应出来。
+	 * 
+	 * */
+	@Test
+	public void doSearch5() throws ParseException {
+		Teacher teacher = session.load(Teacher.class, 1);
+		System.out.println(teacher);
+		System.out.println(teacher.getStudents());		
+	}
+	
 	
 	@After
 	public void destory() {

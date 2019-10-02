@@ -12,7 +12,7 @@
             <column name="NAME" />
         </property>
         <!--  -->
-        <set name="students" table="STUDENT1" inverse="true" cascade="save-update">
+        <set name="students" table="STUDENT1" inverse="true" cascade="save-update" lazy="true" fetch="join">
         	<key>
         		<column name="teacher_id"></column>
         	</key>
