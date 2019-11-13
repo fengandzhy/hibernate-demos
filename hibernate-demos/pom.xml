@@ -22,6 +22,7 @@
 		<module>hibernate-collection-1</module>
 		<module>hibernate-collection-2</module>
 		<module>hibernate-inherit-1</module>
+		<module>hibernate-inherit-2</module>
 	</modules>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
