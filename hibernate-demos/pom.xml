@@ -25,6 +25,7 @@
 		<module>hibernate-inherit-2</module>
 		<module>hibernate-serach-1</module>
 		<module>hibernate-serach-2</module>
+		<module>hibernate-hql-1</module>
 	</modules>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
