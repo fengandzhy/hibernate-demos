@@ -238,7 +238,7 @@ public class StudentTest {
 		String hql = "from Teacher t inner join t.students s where t.id=:id";
 		
 		Query query=session.createQuery(hql);
-		query.setInteger("id", 1);
+		query.setParameter("id", 1);
 		
 		List list=query.list();
 		Object[] object = (Object[])list.get(0);
