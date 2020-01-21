@@ -247,8 +247,7 @@ public class StudentTest {
 		for(Student stu:s) {
 			System.out.println(stu);
 		}
-		System.out.println("aaaaaaaa");
-		
+		System.out.println("aaaaaaaa");		
 	}
 	
 	@After
