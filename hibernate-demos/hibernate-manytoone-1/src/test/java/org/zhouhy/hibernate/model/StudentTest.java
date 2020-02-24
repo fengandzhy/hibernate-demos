@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -85,12 +86,15 @@ public class StudentTest {
 	/**
 	 * 结论: 默认情况下, 查询多的一端对象, 只要没使用到关联的对象, 
 	 * 不会发起关联的对象的查询! 因为使用的懒加载, 
-	 * 所以在使用关联对象之前关闭session, 必然发生赖加载异常!
+	 * 所以在使用关联对象之前关闭session,也就是说在 student.getTeacher().getName()之前关闭session 
+	 * 必然发生赖加载异常!
+	 * 当fetch="join"只在student端的时候，查询student会把teacher也join出来,反之查询teacher不会把student join出来
 	 * */
 	@Test
 	public void doSearch() throws ParseException {
 		Student student = session.load(Student.class, 1);
 		System.out.println(student);
+		//session.close();
 		System.out.println(student.getTeacher().getName());		
 	}
 	
@@ -102,6 +106,7 @@ public class StudentTest {
 	public void doSearch1() throws ParseException {
 		Teacher teacher = session.load(Teacher.class, 1);
 		System.out.println(teacher);
+		session.close();
 		System.out.println(teacher.getStudents());		
 	}
 	
@@ -130,7 +135,7 @@ public class StudentTest {
 	/**
 	 * 两边同时lazy="false"时，程序走到System.out.println(student);
 	 * 就会发起2+1条sql语句，
-	 * 注意在many-to-one端不能写lazy="true"
+	 * 注意在many-to-one端不能写lazy="true" 在这端默认为true
 	 * */
 	@Test
 	public void doSearch4() throws ParseException {
@@ -152,6 +157,20 @@ public class StudentTest {
 	public void doSearch5() throws ParseException {
 		Teacher teacher = session.load(Teacher.class, 1);
 		System.out.println(teacher);
+		System.out.println(teacher.getStudents());		
+	}
+	
+	/**
+	 * fetch="join"似乎只对load和get的查询起作用,就是说像下面这种用hql语句查询的，尽管teacher端配置了fetch="join" 
+	 * 但是不会被left join 出来
+	 * */
+	@Test
+	public void doSearch6() throws ParseException {
+		String hql = "from Teacher where id =1";
+		List<Teacher> list = session.createQuery(hql).list();
+		Teacher teacher = list.get(0);
+		System.out.println(teacher);
+		//session.close();
 		System.out.println(teacher.getStudents());		
 	}
 	
