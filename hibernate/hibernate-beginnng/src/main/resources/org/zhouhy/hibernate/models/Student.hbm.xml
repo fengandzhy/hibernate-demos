@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="org.zhouhy.hibernate.models.Student" table="STUDENT">
+    <class name="org.zhouhy.hibernate.models.Student" table="t_student">
         <id name="id" type="int">
             <column name="ID" />
             <!-- 数据库底层来实现id的增长 -->
