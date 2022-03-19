@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>hibernate-beginnng</module>
+        <module>hibernate-begining-1</module>
     </modules>
     <packaging>pom</packaging>
 
