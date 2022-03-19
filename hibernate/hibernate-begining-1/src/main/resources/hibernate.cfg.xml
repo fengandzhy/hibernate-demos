@@ -14,6 +14,6 @@
   <property name="hibernate.hbm2ddl.auto">update</property>
   
   <!-- ORM映射关系 -->
-  <mapping/>
+  <mapping class="org.zhouhy.hibernate.models.Student"/>
  </session-factory>
 </hibernate-configuration>

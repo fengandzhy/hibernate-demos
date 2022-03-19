@@ -14,6 +14,13 @@ public class Student {
     private String sex;
     private Timestamp regdate;
 
+    public Student(String name, String sex, Timestamp regDate) {
+        super();
+        this.name = name;
+        this.sex = sex;
+        this.regdate = regDate;
+    }
+    
     @Id
     @Column(name = "ID")
     public int getId() {
