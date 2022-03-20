@@ -17,3 +17,4 @@
   <mapping resource="org/zhouhy/hibernate/models/Student.hbm.xml" />
  </session-factory>
 </hibernate-configuration>
+        
