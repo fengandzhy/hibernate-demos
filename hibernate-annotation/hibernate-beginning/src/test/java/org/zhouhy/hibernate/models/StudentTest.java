@@ -7,11 +7,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.Test;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -30,7 +25,8 @@ public class StudentTest {
         /*③开始事务*/
         Transaction transaction = session.beginTransaction();
         /*④执行数据库的操作*/
-        Student stu = new Student("sam", "male", new Timestamp(new Date().getTime()));
+//        Student stu = new Student("sam", "male", new Timestamp(new Date().getTime()));
+        Student stu = new Student("sam", "male", new Date());
         session.save(stu);
 
         /*⑤提交事务*/
