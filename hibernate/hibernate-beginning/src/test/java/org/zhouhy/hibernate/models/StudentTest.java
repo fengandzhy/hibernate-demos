@@ -34,4 +34,6 @@ public class StudentTest {
         /*⑦关闭工厂类*/
         sessionFactory.close();
     }
+    
+    
 }
