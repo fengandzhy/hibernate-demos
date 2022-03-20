@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>hibernate-1</artifactId>
+    <artifactId>hibernate-annotation</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>hibernate-begining</module>
+        <module>hibernate-beginning</module>
     </modules>
     <packaging>pom</packaging>
 
