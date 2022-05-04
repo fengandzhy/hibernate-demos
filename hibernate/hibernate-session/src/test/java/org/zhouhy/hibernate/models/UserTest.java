@@ -35,19 +35,20 @@ public class UserTest {
     @Test
     public void testSave() throws SQLException {
         User user = new User("sam","111111");
-        System.out.println(user);
-        session.save(user);        
-        session.flush();
-//        SessionImpl sessionImpl = (SessionImpl) session;
-//        System.out.println(sessionImpl.connection().getAutoCommit());
-//        throw new SQLException();
-        transaction.rollback();
+        try {
+            System.out.println(user);
+            session.save(user);
+//            int i = 1 / 0;
+            transaction.commit();            
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }     
     }
 
-//    @After
-//    public void destory() {
-//        transaction.commit();
-//        session.close();
-//        sessionFactory.close();
-//    }
+    @After
+    public void destroy() {        
+        session.close();
+        sessionFactory.close();
+    }
 }
