@@ -36,17 +36,18 @@ public class UserTest {
     public void testSave() throws SQLException {
         User user = new User("sam","111111");
         System.out.println(user);
-        session.save(user);
+        session.save(user);        
         session.flush();
-        SessionImpl sessionImpl = (SessionImpl) session;
-        System.out.println(sessionImpl.connection().getAutoCommit());
+//        SessionImpl sessionImpl = (SessionImpl) session;
+//        System.out.println(sessionImpl.connection().getAutoCommit());
+//        throw new SQLException();
         transaction.rollback();
     }
 
 //    @After
-    public void destory() {
-        transaction.commit();
-        session.close();
-        sessionFactory.close();
-    }
+//    public void destory() {
+//        transaction.commit();
+//        session.close();
+//        sessionFactory.close();
+//    }
 }
