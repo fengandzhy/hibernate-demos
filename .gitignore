@@ -96,5 +96,6 @@ buildNumber.properties
 mvnw
 mvnw.cmd
 HELP.md
-*.imi
+*.iml
+
 

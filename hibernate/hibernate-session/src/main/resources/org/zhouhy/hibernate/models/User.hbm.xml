@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-8-14 7:45:53 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="org.zhouhy.hibernate.models.User" table="USER">
+    <class name="org.zhouhy.hibernate.models.User" table="t_user">
         <id name="id" type="long">
             <column name="ID" />
             <generator class="native" />

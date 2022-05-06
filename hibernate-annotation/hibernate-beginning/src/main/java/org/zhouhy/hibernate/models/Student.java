@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "Student")
-@Table(name = "t_student")
+@Table(name = "t1_student")
 public class Student implements Serializable{
 	/**
 	 * 	通过annotation来映射hibernate实体的,基于annotation的hibernate主键标识为@Id,其生成规则由@GeneratedValue设定的.	
