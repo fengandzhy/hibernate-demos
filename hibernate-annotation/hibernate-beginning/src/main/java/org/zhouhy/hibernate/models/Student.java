@@ -44,8 +44,8 @@ public class Student implements Serializable{
 	private static final long serialVersionUID = 8954726584866114741L;
 	
 	@Id
-	@GeneratedValue(generator = "paymentableGenerator")
-	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@GeneratedValue(generator = "xxx") // 这里的xxx 只是一个名字 可以随意起, 只要确保和下面的名字相同.
+	@GenericGenerator(name = "xxx", strategy = "native")
 	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
