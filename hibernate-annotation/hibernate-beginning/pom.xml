@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hibernate-begining</artifactId>
+    <artifactId>hibernate-beginning</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
