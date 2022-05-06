@@ -71,6 +71,39 @@ public class UserTest {
         transaction.commit();
     }
 
+    /**
+     * 这里的 session.refresh(user); 方法就是强制让session里面的对象跟数据库保持一一致，如果不一致，则更新session里面的对象 
+     * 而不是更新数据库.
+     * 它这个 flush是针对的全体 session里的缓存对象 而这个 refresh 只是针对的某一个对象.
+     * 
+     * */
+    @Test
+    public void testRefresh(){
+        transaction = session.beginTransaction();
+        User user = session.get(User.class,1L); // 原来的id 是 long 所以这里就是 1l
+        user.setPassword("123456");
+        session.refresh(user);
+        logger.info(user.getPassword());
+        transaction.commit();
+    }
+
+    /**
+     * clear 只是清理缓存, 它并不负责同步数据库, 所以它即便改了password 它也不去执行update语句
+     * 另外 执行session.clear(); 之后再去执行 User user1 = session.get(User.class,1L); 它会再次发起sql语句
+     * 所以由此可以证明缓存被清除了.
+     * */
+    @Test
+    public void testClear(){
+        transaction = session.beginTransaction();
+        User user = session.get(User.class,1L); // 原来的id 是 long 所以这里就是 1l
+        logger.info(user.toString());
+        user.setPassword("1234567");
+        session.clear();
+        user = session.get(User.class,1L);
+        logger.info(user.toString());
+        transaction.commit();
+    }
+
     @After
     public void destroy() {        
         session.close();
