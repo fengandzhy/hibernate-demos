@@ -103,6 +103,8 @@ public class UserTest {
         logger.info(user.toString());
         transaction.commit();
     }
+    
+    
 
     @After
     public void destroy() {        
