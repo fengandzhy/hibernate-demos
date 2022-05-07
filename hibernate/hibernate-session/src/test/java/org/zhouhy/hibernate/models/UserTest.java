@@ -30,13 +30,21 @@ public class UserTest {
         session = sessionFactory.openSession();             
     }
 
+    /**
+     * 1. 当一个对象执行了save方法之后又这样几个变化
+     *  1) 它被纳入到了session 的缓存, 受session 管理
+     *  2) hibernate 会给它一个id 这个id就是它插入到数据库之后的id, 它如果原先没有id 它会给它生成一个id 但如果有id 了 它还会重新给它分配一个id 
+     * 
+     * */
     @Test
     public void testSave(){
         transaction = session.beginTransaction();
         User user = new User("sam","111111");
+//        user.setId(2L);
         try {
             logger.info(user.toString());
             session.save(user);
+            logger.info(user.toString());
             transaction.commit();            
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,9 +110,7 @@ public class UserTest {
         user = session.get(User.class,1L);
         logger.info(user.toString());
         transaction.commit();
-    }
-    
-    
+    }    
 
     @After
     public void destroy() {        

@@ -7,7 +7,7 @@ import java.util.Date;
  * 因为hibernate有可能需要这个类的代理,产生这个类的子类
  * */
 public class Student {
-	private int id;
+	private String id;
 	private String name;
 	private String sex;
 	private Date regDate;
@@ -23,11 +23,11 @@ public class Student {
 		this.regDate = regDate;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -57,7 +57,12 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [name=" + name + ", sex=" + sex + ", regDate=" + regDate + "]";
-	}	
-	
+		return "Student{" +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
+				", sex='" + sex + '\'' +
+				", regDate=" + regDate +
+				'}';
+	}
+
 }
