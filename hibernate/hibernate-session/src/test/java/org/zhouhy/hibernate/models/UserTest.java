@@ -274,21 +274,21 @@ public class UserTest extends AbstractTest{
      * 1.get方法会立即加载对象，发起sql语句
      * 2.load方法不会立即加载对象，而是当加载的对象被使用的时候才会去加载对象，发起sql语句
      * 3.get方法返回的是就是对象本身
-     * 4.load方法返回值不是student的对象本身而是student对象的一个代理
+     * 4.load方法返回值不是user的对象本身而是user对象的一个代理
      * 5.get方法，如果查询的数据在数据库中没有对应的id的记录值, get方法返回null, 不报异常, 
      * 6.load方法，当使用加载对象的时候, 代理对象才加载真正的对象并发起sql,这时才发现查不到对象,所以就只能报出异常了!
      * 
      * */
     @Test
     public void testGet() {
-        Student stu = session.get(Student.class, 1L);
-        System.out.println(stu.getClass());        
+        User user = session.get(User.class, 1L);
+//        logger.info(user.getClass().getName());        
     }
 
     @Test
     public void testLoad() {
-        Student stu = session.load(Student.class, 1L);
-        System.out.println(stu.getClass());        
+        User user = session.load(User.class, 1L);
+//        logger.info(user.getClass().getName());         
     }
         
 }
