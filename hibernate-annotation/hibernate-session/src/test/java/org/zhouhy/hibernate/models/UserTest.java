@@ -1,11 +1,7 @@
 package org.zhouhy.hibernate.models;
 
 import org.hibernate.Session;
-import org.hibernate.jdbc.Work;
 import org.junit.Test;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class UserTest extends AbstractTest{
     
@@ -130,7 +126,7 @@ public class UserTest extends AbstractTest{
     @Test
     public void testUpdate(){
         Session session = sessionFactory.openSession();
-        User user = session.get(User.class,7L);
+        User user = session.get(User.class,2L);
         session.close();        
 //        user.setId(8L);
         user.setUsername("fek");
@@ -148,7 +144,7 @@ public class UserTest extends AbstractTest{
     }
 
     /**
-     * 这里的 user 虽然是 new 出来的, 但是它的ID值是 6 而对应的数据库里也有ID 为6 的记录， 不管其他部分是否相等, 
+     * 这里的 user 虽然是 new 出来的, 但是它的ID值是 2 而对应的数据库里也有ID 为2 的记录， 不管其他部分是否相等, 
      * 那么此刻的 user 就是一个游离对象
      * 
      * 但是如果这里的user 的ID是数据库里没有的, 那就会报错
@@ -163,7 +159,7 @@ public class UserTest extends AbstractTest{
     public void testUpdateWithNewInstance(){
         transaction = session.beginTransaction();
         User user = new User("122","3wqq25");
-        user.setId(6L);
+        user.setId(2L);
         try {
             session.update(user);
             user.setUsername("pky");
@@ -182,10 +178,12 @@ public class UserTest extends AbstractTest{
     public void testDeleteFromDetachedToTransient(){
         transaction = session.beginTransaction();
         User user = new User();
-        user.setId(6L);
+        user.setId(3L);
         try {
             session.delete(user);
+            logger.info(user.toString());
             user.setId(1L);
+            logger.info(user.toString());
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -198,7 +196,7 @@ public class UserTest extends AbstractTest{
     @Test
     public void testDeleteFromPersistentToTransient(){
         transaction = session.beginTransaction();
-        User user = session.get(User.class,7L);        
+        User user = session.get(User.class,3L);        
         try {
             session.delete(user);
             user.setId(1L);
@@ -215,7 +213,7 @@ public class UserTest extends AbstractTest{
     public void testSaveOrUpdateFromDetachedToPersistent(){
         transaction = session.beginTransaction();
         User user = new User("abc","2345");
-        user.setId(8L);
+        user.setId(1L);
         try {
             session.saveOrUpdate(user);            
             transaction.commit();
@@ -245,9 +243,9 @@ public class UserTest extends AbstractTest{
     @Test
     public void testSaveOrUpdateDuplicateId(){
         transaction = session.beginTransaction();
-        @SuppressWarnings("unused") User user = session.get(User.class,8L);
+        @SuppressWarnings("unused") User user = session.get(User.class,1L);
         User user1 = new User();
-        user1.setId(8L);
+        user1.setId(1L);
         try {
             session.saveOrUpdate(user1);
             transaction.commit();
