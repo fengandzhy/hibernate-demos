@@ -1,5 +1,6 @@
 package org.zhouhy.hibernate.models;
 
+import org.hibernate.Session;
 import org.junit.Test;
 
 public class UserTest extends AbstractTest{
@@ -113,5 +114,160 @@ public class UserTest extends AbstractTest{
         user = session.get(User.class,1L);
         logger.info(user.toString());
         transaction.commit();
-    }    
+    }
+
+    /**
+     * 1 什么是游离状态的对象, 字面上讲是session 关闭了或者clear之后, 原来持久状态的对象就变成游离状态了. 事实上
+     * 只要一个对象的ID 在数据库里有相同 ID 的记录 不管是这个对象是new 出来的 还是持久状态转变而来的, 它都可以是游离状态
+     * 
+     * 2. session.update(user); 语句可以把一个游离状态的对象转换成持久状态, 它会在session.flush()的时候执行一个update语句
+     * 但是这个update 语句执行成功的前提是 user 的ID 必须在数据库里存在, 如果ID 在数据库里不存在就会报出错误 
+     * */
+    @Test
+    public void testUpdate(){
+        Session session = sessionFactory.openSession();
+        User user = session.get(User.class,7L);
+        session.close();        
+//        user.setId(8L);
+        user.setUsername("fek");
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();        
+        try {
+            session.update(user);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+    /**
+     * 这里的 user 虽然是 new 出来的, 但是它的ID值是 6 而对应的数据库里也有ID 为6 的记录， 不管其他部分是否相等, 
+     * 那么此刻的 user 就是一个游离对象
+     * 
+     * 但是如果这里的user 的ID是数据库里没有的, 那就会报错
+     * 
+     * 另外非常要注意的是, update语句本身所触发的就是一条update语句, 所以当user 被执行session.update(user); 再次变成持久状态对象时
+     * 再去改user的其他属性, 它不会重复执行一条update语句. 它只会用一条update语句改变所有. 这点跟save方法不一样. save方法是
+     * 当你执行了save变成持久对象后, 再去改变对象的某个属性, 它会执行一条update语句. 
+     * 
+     * 持久状态下的对象绝对不能修改ID
+     * */
+    @Test
+    public void testUpdateWithNewInstance(){
+        transaction = session.beginTransaction();
+        User user = new User("122","3wqq25");
+        user.setId(6L);
+        try {
+            session.update(user);
+            user.setUsername("pky");
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * delete 方法可以把一个游离对象直接转变成为一个临时对象. 在session缓存中被清除, 在数据库的相关记录也别删除，
+     * 它会在 flush的时候执行一条delete语句.
+     * */
+    @Test
+    public void testDeleteFromDetachedToTransient(){
+        transaction = session.beginTransaction();
+        User user = new User();
+        user.setId(6L);
+        try {
+            session.delete(user);
+            user.setId(1L);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * delete 也会把一个持久状态转换成一个临时状态
+     * */
+    @Test
+    public void testDeleteFromPersistentToTransient(){
+        transaction = session.beginTransaction();
+        User user = session.get(User.class,7L);        
+        try {
+            session.delete(user);
+            user.setId(1L);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 对于一个游离状态的对象 saveOrUpdate 会表现出update的特性执行一条update语句
+     * */
+    @Test
+    public void testSaveOrUpdateFromDetachedToPersistent(){
+        transaction = session.beginTransaction();
+        User user = new User("abc","2345");
+        user.setId(8L);
+        try {
+            session.saveOrUpdate(user);            
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 对于一个临时状态的对象 saveOrUpdate 会表现出save的特性执行一条insert语句
+     * */
+    @Test
+    public void testSaveOrUpdateFromTransientToPersistent(){
+        transaction = session.beginTransaction();
+        User user = new User();
+        try {
+            session.saveOrUpdate(user);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 在一个session 缓存中绝对不能出现两个id值相同的对象，否则报错
+     * */
+    @Test
+    public void testSaveOrUpdateDuplicateId(){
+        transaction = session.beginTransaction();
+        @SuppressWarnings("unused") User user = session.get(User.class,8L);
+        User user1 = new User();
+        user1.setId(8L);
+        try {
+            session.saveOrUpdate(user1);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * persist方法跟save方法唯一的区别就是在persist方法之前不能进行id 设置
+     * */
+    @Test
+    public void testPersist(){
+        transaction = session.beginTransaction();
+        User user = new User("sam","111111");
+//        user.setId(10L);
+        try {            
+            session.persist(user);
+            user.setUsername("Frank");
+            logger.info(user.toString());
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+    }
+        
 }
