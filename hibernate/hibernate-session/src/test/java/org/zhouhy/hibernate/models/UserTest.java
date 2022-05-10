@@ -301,7 +301,7 @@ public class UserTest extends AbstractTest{
      */    
     @Test
     public void testDoWork() {
-        session.doWork(connection -> logger.info(connection.getSchema()));      
+        session.doWork(connection -> logger.info(connection.toString()));      
     }
         
 }
