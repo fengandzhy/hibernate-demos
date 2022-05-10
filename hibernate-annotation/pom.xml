@@ -10,6 +10,7 @@
     <modules>
         <module>hibernate-beginning</module>
         <module>hibernate-session</module>
+        <module>hibernate-c3p0</module>
     </modules>
     <packaging>pom</packaging>
 
