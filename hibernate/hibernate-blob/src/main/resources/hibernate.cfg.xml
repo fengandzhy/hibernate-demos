@@ -23,12 +23,10 @@
   <property name="hibernate.c3p0.min_size">5</property>
   <property name="hibernate.c3p0.timeout">2000</property>
   <property name="hibernate.jdbc.batch_size">30</property>
-  <property name="hibernate.jdbc.fetch_size">100</property>
-  
+  <property name="hibernate.jdbc.fetch_size">100</property> 
   
   <!-- ORM映射关系 -->
-<!--  <mapping class="org.zhouhy.hibernate.models.Student"/>-->
-<!--  <mapping class="org.zhouhy.hibernate.models.User"/>-->
+  <mapping resource="org/zhouhy/hibernate/blob/models/Member.hbm.xml" />
  </session-factory>
 </hibernate-configuration>
         

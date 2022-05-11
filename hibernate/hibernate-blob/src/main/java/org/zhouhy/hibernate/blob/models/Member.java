@@ -1,6 +1,7 @@
 package org.zhouhy.hibernate.blob.models;
 
 import java.sql.Blob;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Member {
@@ -8,7 +9,7 @@ public class Member {
     private String name;
     private String sex;
     private String textContent;
-    private Blob blob;
+    private Blob myBlob;
     private Date birthday;
     private int age;
 
@@ -16,12 +17,12 @@ public class Member {
         
     }
 
-    public Member(String name,String sex,String textContent,Blob blob,Date birthday){
+    public Member(String name,String sex,String textContent,Blob myBlob,Date birthday){
         super();
         this.name = name;
         this.sex = sex;
         this.textContent = textContent;
-        this.blob = blob;
+        this.myBlob = myBlob;
         this.birthday = birthday;
     }
     
@@ -58,11 +59,11 @@ public class Member {
     }
 
     public Blob getBlob() {
-        return blob;
+        return myBlob;
     }
 
-    public void setBlob(Blob blob) {
-        this.blob = blob;
+    public void setBlob(Blob myBlob) {
+        this.myBlob = myBlob;
     }
 
     public Date getBirthday() {

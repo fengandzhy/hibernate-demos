@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.zhouhy.hibernate.blob.models">
+    <class name="Member" table="t_member">
+        <id name="id" type="int">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="sex" />
+        </property>
+        <property name="textContent" type="text">
+            <column name="text_content" sql-type="text"/>
+        </property>
+        <property name="blob" type="java.sql.Blob">
+            <column name="blob"/>
+        </property>
+        <property name="birthday" type="java.util.Date">
+            <column name="birthday" />
+        </property>
+        <property name="age" type="int"
+                  formula="(select floor(datediff(now(),s.birthday)/365.25) from student2 s where s.id=id)">
+        </property>
+    </class>
+</hibernate-mapping>
