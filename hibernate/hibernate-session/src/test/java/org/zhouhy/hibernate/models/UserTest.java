@@ -1,11 +1,10 @@
 package org.zhouhy.hibernate.models;
 
 import org.hibernate.Session;
-import org.hibernate.jdbc.Work;
+
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+
 
 public class UserTest extends AbstractTest{
     

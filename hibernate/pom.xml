@@ -11,7 +11,7 @@
         <module>hibernate-beginning</module>
         <module>hibernate-session</module>
         <module>hibernate-c3p0</module>
-        <module>hibernate-blob</module>
+        <module>hibernate-mapping</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -18,8 +18,8 @@
         <property name="textContent" type="text">
             <column name="text_content" sql-type="text"/>
         </property>
-        <property name="blob" type="java.sql.Blob">
-            <column name="blob"/>
+        <property name="myBlob" type="java.sql.Blob">
+            <column name="my_blob" sql-type="mediumblob"/>
         </property>
         <property name="birthday" type="java.util.Date">
             <column name="birthday" />

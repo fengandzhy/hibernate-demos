@@ -37,12 +37,14 @@ public class MembersTest {
 
     @Test
     public void saveTest() throws ParseException {
-//        Member member = new Member();
-//        member.setName("F");
-//        member.setTextContent("QY");
-//        member.setSex("M");
-//        member.setBirthday(sm.parse("2000-12-23"));
-//        session.save(member);
+        transaction = session.getTransaction(); 
+        Member member = new Member();
+        member.setName("F");
+        member.setTextContent("QY");
+        member.setSex("M");
+        member.setBirthday(sm.parse("2000-12-23"));
+        session.save(member);
+        transaction.commit();
     }
 
     @After

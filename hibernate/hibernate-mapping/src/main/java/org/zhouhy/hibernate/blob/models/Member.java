@@ -58,11 +58,11 @@ public class Member {
         this.textContent = textContent;
     }
 
-    public Blob getBlob() {
+    public Blob getMyBlob() {
         return myBlob;
     }
 
-    public void setBlob(Blob myBlob) {
+    public void setMyBlob(Blob myBlob) {
         this.myBlob = myBlob;
     }
 
