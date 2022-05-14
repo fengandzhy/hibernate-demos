@@ -25,7 +25,7 @@
             <column name="birthday" />
         </property>
         <property name="age" type="int"
-                  formula="(select floor(datediff(now(),s.birthday)/365.25) from student2 s where s.id=id)">
+                  formula="(select floor(datediff(now(),s.birthday)/365.25) from t_member s where s.id=id)">
         </property>
     </class>
 </hibernate-mapping>

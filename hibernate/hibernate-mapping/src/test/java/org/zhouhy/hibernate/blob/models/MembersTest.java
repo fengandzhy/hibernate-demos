@@ -1,12 +1,11 @@
 package org.zhouhy.hibernate.blob.models;
 
-import org.hibernate.Hibernate;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.After;
 import org.junit.Before;
@@ -52,6 +51,10 @@ public class MembersTest {
         transaction.commit();        
     }
 
+    /**
+     * 这里的get方法不需要Member显示的指定构造器, 就是说session.get(Member.class,1L); 可以把对应的member 取到, 不需要Member非得有一个包含
+     * 全部属性的构造器
+     * */
     @Test
     public void getTest() {
         Member member = session.get(Member.class,1L);
