@@ -18,7 +18,8 @@
   
   <!-- ORM映射关系 -->
   <mapping resource="org/zhouhy/hibernate/models/Student.hbm.xml" />
-  <mapping resource="org/zhouhy/hibernate/models/User.hbm.xml" />  
+  <mapping resource="org/zhouhy/hibernate/models/User.hbm.xml" />
+  <mapping resource="org/zhouhy/hibernate/models/Member.hbm.xml" />
  </session-factory>
 </hibernate-configuration>
         

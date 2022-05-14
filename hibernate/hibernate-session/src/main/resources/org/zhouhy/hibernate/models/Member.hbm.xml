@@ -2,10 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
-<hibernate-mapping package="org.zhouhy.hibernate.blob.models">
+<hibernate-mapping package="org.zhouhy.hibernate.models">
     <class name="Member" table="t_member">
-        <id name="id" type="long">
-            <column name="ID" />
+        <id name="id" type="int">            
             <!-- 数据库底层来实现id的增长 -->
             <generator class="native" />
         </id>

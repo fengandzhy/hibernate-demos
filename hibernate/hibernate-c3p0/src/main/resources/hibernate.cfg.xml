@@ -28,7 +28,7 @@
   
   <!-- ORM映射关系 -->
 <!--  <mapping class="org.zhouhy.hibernate.models.Student"/>-->
-<!--  <mapping class="org.zhouhy.hibernate.models.User"/>-->
+  <mapping class="org.zhouhy.hibernate.c3p0.models.User"/>
  </session-factory>
 </hibernate-configuration>
         

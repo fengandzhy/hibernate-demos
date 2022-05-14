@@ -1,12 +1,10 @@
-package org.zhouhy.hibernate.blob.models;
+package org.zhouhy.hibernate.models;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.After;
 import org.junit.Before;
@@ -50,12 +48,6 @@ public class MembersTest {
 //            transaction.commit();
 //        }
         transaction.commit();        
-    }
-
-    @Test
-    public void getTest() {
-        Member member = session.get(Member.class,1L);
-        logger.info(member.toString());
     }
 
     @After
