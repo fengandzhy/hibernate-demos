@@ -15,13 +15,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URL;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 
 public class MembersTest {
@@ -63,9 +64,9 @@ public class MembersTest {
      * 全部属性的构造器
      * */
     @Test
-    public void getTest() {
-        Member member = session.get(Member.class,1L);
-        logger.info(member.toString());
+    public void getTest() throws SQLException, IOException {
+        Member member = session.get(Member.class,7L);
+        this.writeBlob(member.getMyBlob());        
     }
 
     @After
@@ -74,11 +75,28 @@ public class MembersTest {
         sessionFactory.close();
     }
     
-    private Blob populateBlob(Session session) throws IOException {
-        InputStream inputStream=new FileInputStream("/img/720.jpg");
+    private Blob populateBlob(Session session) throws IOException {        
+        InputStream inputStream=this.getClass().getResourceAsStream("/img/720.jpg");
         byte[] byteArray2=new byte[inputStream.available()];
         inputStream.read(byteArray2);
         inputStream.close();
         return Hibernate.getLobCreator(session).createBlob(byteArray2);
     }
+    
+    private void writeBlob(Blob blob) throws SQLException, IOException {
+        byte[] bytes =  blob.getBytes(1, (int) blob.length());
+        File file = new File("D://test//a.jpg");
+        if(!file.exists()){
+            file.createNewFile();
+        }
+        FileOutputStream fos = new FileOutputStream(file);
+        InputStream is = new ByteArrayInputStream(bytes);
+        byte[] buff = new byte[1024];
+        int len = 0;
+        while((len=is.read(buff))!=-1){
+            fos.write(buff, 0, len);
+        }
+        is.close();
+        fos.close();
+    }   
 }
