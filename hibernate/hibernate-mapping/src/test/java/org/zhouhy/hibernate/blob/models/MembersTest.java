@@ -1,6 +1,7 @@
 package org.zhouhy.hibernate.blob.models;
 
 
+import com.sun.istack.internal.NotNull;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,13 +17,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 
 public class MembersTest {
@@ -31,7 +29,6 @@ public class MembersTest {
 
     private SessionFactory sessionFactory = null;
     private Session session = null;
-    private Transaction transaction = null;
     private SimpleDateFormat sm;
 
     @Before
@@ -40,12 +37,12 @@ public class MembersTest {
         ServiceRegistry serviceRegistry = configuration.getStandardServiceRegistryBuilder().build();
         sessionFactory = new MetadataSources(serviceRegistry).buildMetadata().buildSessionFactory();
         session = sessionFactory.openSession();
-        sm = new SimpleDateFormat("yyyy-mm-dd");
+        sm = new SimpleDateFormat("yyyy-MM-dd");
     }
 
     @Test
     public void saveTest() throws ParseException, IOException {
-        transaction = session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         Member member = new Member();
         member.setName("F");
         member.setTextContent("QY");
@@ -74,16 +71,19 @@ public class MembersTest {
         session.close();
         sessionFactory.close();
     }
-    
+        
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private Blob populateBlob(Session session) throws IOException {        
         InputStream inputStream=this.getClass().getResourceAsStream("/img/720.jpg");
+        assert inputStream != null;
         byte[] byteArray2=new byte[inputStream.available()];
         inputStream.read(byteArray2);
         inputStream.close();
         return Hibernate.getLobCreator(session).createBlob(byteArray2);
     }
     
-    private void writeBlob(Blob blob) throws SQLException, IOException {
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void writeBlob(@NotNull Blob blob) throws SQLException, IOException {
         byte[] bytes =  blob.getBytes(1, (int) blob.length());
         File file = new File("D://test//a.jpg");
         if(!file.exists()){
@@ -92,11 +92,12 @@ public class MembersTest {
         FileOutputStream fos = new FileOutputStream(file);
         InputStream is = new ByteArrayInputStream(bytes);
         byte[] buff = new byte[1024];
-        int len = 0;
+        int len;
         while((len=is.read(buff))!=-1){
             fos.write(buff, 0, len);
         }
         is.close();
         fos.close();
+        logger.info("write blob finished!");
     }   
 }
