@@ -1,15 +1,36 @@
 package org.zhouhy.hibernate.models;
 
+import org.hibernate.annotations.Formula;
+
+import javax.persistence.*;
 import java.sql.Blob;
 import java.util.Date;
 
+@Entity(name = "Member")
+@Table(name = "t1_member")
 public class Member {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "sex")
     private String sex;
+
+    @Column(name="text_content", columnDefinition="TEXT", nullable=true)
     private String textContent;
+
+    @SuppressWarnings("JpaAttributeTypeInspection")
+    @Column(name="my_blob", columnDefinition="mediumblob", nullable=true)
     private Blob myBlob;
+
+    @Column(name = "birthday")
     private Date birthday;
+
+    @Formula("(select floor(datediff(now(),s.birthday)/365.25) from t1_member s where s.id=id)")
     private int age;
 
     public Member(){
