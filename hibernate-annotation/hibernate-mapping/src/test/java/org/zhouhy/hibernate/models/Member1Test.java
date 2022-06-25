@@ -21,7 +21,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class MemberTest {
+public class Member1Test {
+
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private SessionFactory sessionFactory = null;
@@ -40,12 +41,12 @@ public class MemberTest {
     @Test
     public void saveTest() throws ParseException, IOException {
         Transaction transaction = session.beginTransaction();
-        Member member = new Member();
+        Member1 member = new Member1();
         member.setName("F");
         member.setTextContent("QY");
         member.setSex("M");
         member.setBirthday(sm.parse("2000-12-23"));
-        member.setMyBlob(this.populateBlob(session));
+        member.setFileImage(this.getBytes());
         session.save(member);
         System.out.println(transaction.getStatus());
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
@@ -55,8 +56,8 @@ public class MemberTest {
 
     @Test
     public void getTest() throws SQLException, IOException {
-        Member member = session.get(Member.class,1L);
-        this.writeBlob(member.getMyBlob());
+        Member1 member = session.get(Member1.class,1L);
+        this.writeBlob(member.getFileImage());
     }
 
     @After
@@ -66,19 +67,18 @@ public class MemberTest {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private Blob populateBlob(@NotNull Session session) throws IOException {
+    private byte[] getBytes() throws IOException {
         InputStream inputStream=this.getClass().getResourceAsStream("/img/720.jpg");
         assert inputStream != null;
         byte[] byteArray2=new byte[inputStream.available()];
         inputStream.read(byteArray2);
         inputStream.close();
-        return Hibernate.getLobCreator(session).createBlob(byteArray2);
+        return byteArray2;
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void writeBlob(@NotNull Blob blob) throws SQLException, IOException {
-        byte[] bytes =  blob.getBytes(1, (int) blob.length());
-        File file = new File("D://test//b.jpg");
+    private void writeBlob(@NotNull byte[] bytes) throws SQLException, IOException {        
+        File file = new File("D://test//c.jpg");
         if(!file.exists()){
             file.createNewFile();
         }
