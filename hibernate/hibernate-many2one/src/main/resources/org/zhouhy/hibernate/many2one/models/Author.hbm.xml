@@ -11,6 +11,12 @@
         </id>
         <property name="name" type="java.lang.String" >
             <column name="name" not-null="true"/>
-        </property>        
+        </property>
+        <set name="articles" table="t_article">
+            <key>
+                <column name="author_id"/>
+            </key>
+            <one-to-many class="Article"/>
+        </set>
     </class>
 </hibernate-mapping>

@@ -1,10 +1,13 @@
 package org.zhouhy.hibernate.many2one.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Author implements Serializable {
     private long id;
     private String name;
+    private Set<Article> articles = new HashSet<>();
 
     public Author() {
     }
@@ -28,6 +31,14 @@ public class Author implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
 
     @Override

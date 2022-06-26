@@ -85,7 +85,7 @@ public class Many2OneTest {
     @Test
     public void testGet(){
         Article a1 = session.get(Article.class,1L);        
-//        a1.getAuthor().getName();
+        System.out.println(a1.getAuthor().getName());
     }
 
     @After
