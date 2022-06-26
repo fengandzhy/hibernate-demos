@@ -17,8 +17,7 @@
   <property name="hibernate.connection.autocommit">true</property>
   
   <!-- ORM映射关系 -->
-  <mapping class="org.zhouhy.hibernate.models.Member"/>
-  <mapping class="org.zhouhy.hibernate.models.Member1"/>
+  
  </session-factory>
 </hibernate-configuration>
         
