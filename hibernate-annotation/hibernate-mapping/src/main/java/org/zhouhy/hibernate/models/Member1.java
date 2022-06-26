@@ -5,6 +5,8 @@ import org.hibernate.annotations.Formula;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity(name = "Member1")
+@Table(name = "t1_member")
 public class Member1 {
 
     @Id
