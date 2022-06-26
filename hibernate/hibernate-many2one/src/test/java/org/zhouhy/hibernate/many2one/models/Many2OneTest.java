@@ -77,6 +77,16 @@ public class Many2OneTest {
             transaction.commit();
         }
     }
+    
+    /**
+     * 1 注意当延迟加载时一定是getName()方法才会触发SQL语句, getId()方法都不行，因为Author本身的Id值就作为外键存储在Article对应的表中
+     * 所以在延迟加载的时候getId()并不能触发对应的SQL语句. 
+     * */
+    @Test
+    public void testGet(){
+        Article a1 = session.get(Article.class,1L);        
+//        a1.getAuthor().getName();
+    }
 
     @After
     public void destroy() {

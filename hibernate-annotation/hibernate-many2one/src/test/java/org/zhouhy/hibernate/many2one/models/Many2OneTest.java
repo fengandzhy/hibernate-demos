@@ -77,6 +77,14 @@ public class Many2OneTest {
         }
     }
 
+    /**
+     * 1 注意@ManyToOne的默认是立即加载, 这一点跟映射文件 many-to-one有些不同
+     * */
+    @Test
+    public void testGet(){
+        Article a1 = session.get(Article.class,1L);
+    }
+
     @After
     public void destroy() {
         session.close();

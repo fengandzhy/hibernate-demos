@@ -1,5 +1,8 @@
 package org.zhouhy.hibernate.many2one.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,8 +17,9 @@ public class Article implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
+    @Fetch(FetchMode.JOIN)
     private Author author;
 
     public Article() {

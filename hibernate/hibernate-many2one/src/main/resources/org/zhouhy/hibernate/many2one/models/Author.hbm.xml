@@ -9,7 +9,7 @@
             <!-- 数据库底层来实现id的增长 -->
             <generator class="native" />
         </id>
-        <property name="name" type="java.lang.String">
+        <property name="name" type="java.lang.String" >
             <column name="name" not-null="true"/>
         </property>        
     </class>
