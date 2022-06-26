@@ -12,6 +12,7 @@
         <module>hibernate-session</module>
         <module>hibernate-c3p0</module>
         <module>hibernate-mapping</module>
+        <module>hibernate-many2one</module>
     </modules>
     <packaging>pom</packaging>
 

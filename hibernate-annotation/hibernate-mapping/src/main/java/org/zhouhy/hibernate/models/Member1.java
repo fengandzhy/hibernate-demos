@@ -29,7 +29,7 @@ public class Member1 {
     @Column(name = "birthday")
     private Date birthday;
 
-    @Formula("(select floor(datediff(now(),s.birthday)/365.25) from t1_member s where s.id=id)")
+    @Formula("(select floor(datediff(now(),s.birthday)/365.25) from t1_member member where member.id=id)")
     private int age;
 
     public Member1(){
