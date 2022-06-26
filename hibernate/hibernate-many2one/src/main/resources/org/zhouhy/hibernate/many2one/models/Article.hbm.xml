@@ -10,7 +10,7 @@
             <generator class="native" />
         </id>
         <property name="name" type="java.lang.String">
-            <column name="name" />
+            <column name="name" not-null="true"/>
         </property>
         <many-to-one name="author" class="Author">
             <column name="author_id"/>
