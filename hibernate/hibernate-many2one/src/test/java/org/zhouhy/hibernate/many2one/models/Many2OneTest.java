@@ -121,6 +121,10 @@ public class Many2OneTest {
         Article a1 = session.get(Article.class,1L);       
     }
 
+    /**     
+     * 1 当一端(Author端)配置了lazy="false"的时候, 查询这个一端(Author端)时, 会立即带出多端(Article端)的数据
+     * 2 以此类推可以得到上述相似的其他结论     
+     * */
     @Test
     public void testGet2(){
         Author author = session.get(Author.class,1L);
