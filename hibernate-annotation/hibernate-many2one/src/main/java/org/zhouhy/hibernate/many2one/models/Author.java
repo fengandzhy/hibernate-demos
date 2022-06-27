@@ -1,7 +1,12 @@
 package org.zhouhy.hibernate.many2one.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Author")
 @Table(name = "t1_author")
@@ -13,6 +18,11 @@ public class Author implements Serializable {
 
     @Column(name = "name",nullable = false)
     private String name;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="author_id")
+    @Fetch(FetchMode.SELECT)
+    private Set<Article> articles = new HashSet<>();
 
     public Author() {
     }
@@ -36,6 +46,14 @@ public class Author implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
 
     @Override
