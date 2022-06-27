@@ -108,6 +108,72 @@ public class Many2OneTest {
             transaction.commit();
         }
     }
+
+    
+    /**
+     * 1 如果没有设置cascade的话, 这里没有调用 session.save(a1); session.save(a2); 那么a1,a2 这两条记录是不会插入到 表中的
+     * 2 如果在多端(Author端)设置了cascade="save-update", 那么在session.save(author); 
+     * 时即便没有调用session.save(a1); session.save(a2); 也会相应的去保存a1 a2
+     * 3 另外非常要注意的是, 当在多端(Author端)设置了cascade="save-update" 的时候, 当保存session.save(author); 的时候, 它只是同时会保存
+     * author的关联 Article对象.
+     * 
+     * */
+    @Test
+    public void testSave4(){
+        Transaction transaction = session.beginTransaction();
+        Author author = new Author();
+        author.setName("A");
+
+        Article a1 = new Article();
+        a1.setName("a1");
+
+        Article a2 = new Article();
+        a2.setName("a2");
+
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        articles.add(a2);
+
+        author.setArticles(articles);
+
+        session.save(author);        
+
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+
+    /**
+     * 1 由于在一端(Article端)设置了cascade="save-update", 所以当其保存a1时，它也会保存a1的关联对象 author, 但是由于在Author短
+     * 也同样设置了 cascade="save-update" 所以当author被保存的时候，它也会保存它关联的对象 a2. 
+     * 
+     * 
+     * */
+    @Test
+    public void testSave5(){
+        Transaction transaction = session.beginTransaction();
+        Author author = new Author();
+        author.setName("A");
+
+        Article a1 = new Article();
+        a1.setName("a1");
+        a1.setAuthor(author);
+
+        Article a2 = new Article();
+        a2.setName("a2");
+
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        articles.add(a2);
+
+        author.setArticles(articles);
+
+        session.save(a1);
+
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
     
     /**
      * 1 注意当延迟加载时一定是getName()方法才会触发SQL语句, getId()方法都不行，因为Author本身的Id值就作为外键存储在Article对应的表中

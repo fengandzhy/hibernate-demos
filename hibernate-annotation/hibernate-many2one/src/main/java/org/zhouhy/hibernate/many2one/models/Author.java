@@ -19,8 +19,7 @@ public class Author implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="author" )
-//    @JoinColumn(name="author_id")    
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "author")
     @Fetch(FetchMode.SELECT)
     private Set<Article> articles = new HashSet<>();
 
