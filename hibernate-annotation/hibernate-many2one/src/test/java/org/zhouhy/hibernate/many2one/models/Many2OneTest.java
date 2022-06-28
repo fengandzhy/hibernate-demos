@@ -121,6 +121,11 @@ public class Many2OneTest {
         Author author = session.get(Author.class,1L);
     }
 
+    @Test
+    public void testGet3(){
+        Author author = session.get(Author.class,1L);
+    }
+
     @After
     public void destroy() {
         session.close();

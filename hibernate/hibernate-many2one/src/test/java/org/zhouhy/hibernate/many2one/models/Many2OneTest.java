@@ -14,7 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Many2OneTest {
@@ -126,9 +128,11 @@ public class Many2OneTest {
 
         Article a1 = new Article();
         a1.setName("a1");
+//        a1.setAuthor(author);
 
         Article a2 = new Article();
         a2.setName("a2");
+//        a2.setAuthor(author);
 
         Set<Article> articles = new HashSet<>();
         articles.add(a1);
@@ -144,9 +148,10 @@ public class Many2OneTest {
     }
 
     /**
-     * 1 由于在一端(Article端)设置了cascade="save-update", 所以当其保存a1时，它也会保存a1的关联对象 author, 但是由于在Author短
+     * 1 由于在多端(Article端)设置了cascade="save-update", 所以当其保存a1时，它也会保存a1的关联对象 author, 但是由于在Author端
      * 也同样设置了 cascade="save-update" 所以当author被保存的时候，它也会保存它关联的对象 a2. 
      * 
+     * 2 cascade究竟是什么意思呢？
      * 
      * */
     @Test
@@ -194,6 +199,69 @@ public class Many2OneTest {
     @Test
     public void testGet2(){
         Author author = session.get(Author.class,1L);
+    }
+
+    /**
+     * 
+     * */
+    @Test
+    public void testGet3(){
+        Author author = session.get(Author.class,1L);
+        Set<Article> articles = author.getArticles();
+        Article a1 = (Article) articles.toArray()[0];
+        session.evict(a1);        
+        a1.setName("b2");
+    }
+
+    @Test
+    public void testGet4(){
+        Author author = session.get(Author.class,1L);
+        Set<Article> articles = author.getArticles();
+        Article a1 = (Article) articles.toArray()[0];
+        session.evict(a1);
+        session.evict(author);
+        a1.setName("b2");
+        session.update(author);
+    }
+
+    @Test
+    public void testGet5(){
+        Author author = new Author();
+        author.setName("author");
+        Set<Article> articles = new HashSet<>();
+        Article a1 = session.get(Article.class,1L);
+        articles.add(a1);
+        a1.setName("b2");
+        a1.setAuthor(author);
+        author.setArticles(articles);
+        session.evict(a1);        
+//        a1.setName("b2");
+        session.save(author);
+    }
+
+    @Test
+    public void testGet6(){
+        Author author = new Author();
+        author.setName("author");
+        Set<Article> articles = new HashSet<>();
+        Article a1 = new Article();
+        a1.setName("b3");
+        articles.add(a1);
+        author.setArticles(articles);        
+        session.save(author);
+    }
+
+    @Test
+    public void testGet7(){
+        Author author = new Author();
+        author.setName("author");
+        Set<Article> articles = new HashSet<>();
+        Article a1 = new Article();
+        a1.setId(2L);
+        a1.setName("b3");
+        articles.add(a1);
+        author.setArticles(articles);
+        session.save(author);
     }
 
     @After
