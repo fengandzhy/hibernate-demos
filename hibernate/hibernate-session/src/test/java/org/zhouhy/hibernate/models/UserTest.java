@@ -165,7 +165,7 @@ public class UserTest extends AbstractTest{
         user.setId(6L);
         try {
             session.update(user);
-            user.setUsername("pky");
+//            user.setUsername("pky");
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();

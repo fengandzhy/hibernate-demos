@@ -202,15 +202,56 @@ public class Many2OneTest {
     }
 
     /**
+     * 1 当Author端设置 cascade="save-update"时, 如果Author是一个临时对象, Article 也是临时对象
+     * 保存Author对象时也会把Article对象保存进去.
      * 
      * */
     @Test
-    public void testGet3(){
-        Author author = session.get(Author.class,1L);
-        Set<Article> articles = author.getArticles();
-        Article a1 = (Article) articles.toArray()[0];
-        session.evict(a1);        
-        a1.setName("b2");
+    public void testCascade1(){
+        Transaction transaction = session.beginTransaction();
+        Author author = new Author();
+        author.setName("A");
+
+        Article a1 = new Article();
+        a1.setName("a1");
+        a1.setAuthor(author);
+
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        author.setArticles(articles);
+        
+        session.save(author);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+
+    /**
+     * 1 当Author时持久状态对象时, Article是临时对象, 它不会级联更新.
+     * */
+    @Test
+    public void testCascade2(){
+        Author author = session.get(Author.class,27L);
+        
+        Article a1 = new Article();
+        a1.setName("a1");
+        a1.setAuthor(author);
+
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        author.setArticles(articles);        
+    }
+
+    @Test
+    public void testCascade3(){
+//        Transaction transaction = session.beginTransaction();
+        Article a1 = new Article();
+        a1.setId(27L);
+        a1.setName("a3");       
+        session.update(a1);
+//        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+//            transaction.commit();
+//        }
     }
 
     @Test
