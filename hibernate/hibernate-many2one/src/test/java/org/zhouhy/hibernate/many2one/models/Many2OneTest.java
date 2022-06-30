@@ -205,6 +205,7 @@ public class Many2OneTest {
      * 1 当Author端设置 cascade="save-update"时, 如果Author是一个临时对象, Article 也是临时对象
      * 保存Author对象时也会把Article对象保存进去.
      * 
+     * 2 这里用save 和 persist 的结果是一样的
      * */
     @Test
     public void testCascade1(){
@@ -220,7 +221,7 @@ public class Many2OneTest {
         articles.add(a1);
         author.setArticles(articles);
         
-        session.save(author);
+        session.persist(author);
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }

@@ -1,5 +1,6 @@
 package org.zhouhy.hibernate.many2one.models;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -19,7 +20,7 @@ public class Author implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "author")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "author",cascade = {CascadeType.DETACH})
     @Fetch(FetchMode.SELECT)
     private Set<Article> articles = new HashSet<>();
 

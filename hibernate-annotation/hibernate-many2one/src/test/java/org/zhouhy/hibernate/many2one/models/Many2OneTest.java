@@ -126,6 +126,29 @@ public class Many2OneTest {
         Author author = session.get(Author.class,1L);
     }
 
+    /**
+     * 1 当 CascadeType.PERSIST 时只有persist方法才能级联保存 save 方法不行.
+     * */
+    @Test
+    public void testCascade1(){
+        Transaction transaction = session.beginTransaction();
+        Author author = new Author();
+        author.setName("A");
+
+        Article a1 = new Article();
+        a1.setName("a1");
+        a1.setAuthor(author);
+
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        author.setArticles(articles);
+
+        session.save(author);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+
     @After
     public void destroy() {
         session.close();
