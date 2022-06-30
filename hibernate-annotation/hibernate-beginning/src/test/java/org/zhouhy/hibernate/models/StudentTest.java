@@ -7,7 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.Test;
-import java.sql.Timestamp;
+
 import java.util.Date;
 
 public class StudentTest {
