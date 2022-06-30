@@ -246,68 +246,31 @@ public class Many2OneTest {
         }
     }
 
+    /**
+     * 1 当Author为游离对象时, Article也为游离对象, 此时当Author对象变成持久化对象时， 它会级联更新与之相关联的对象
+     * 
+     * 总结, 无论Author是临时对象,持久对象还是游离对象, 当它变成持久对象时，如果此时cascade="save-update" 它都会级联的更新与之相关联的对象
+     * 
+     * 什么叫级联更新？就是有关联关系的时候会去更新, 现在的cascade="save-update"设置在Author端, 所以级联关系是author.setArticles(articles); 
+     * */
     @Test
     public void testCascade3(){
         Transaction transaction = session.beginTransaction();
+        Author author = new Author();
+        author.setName("B");
+        author.setId(27L);
         Article a1 = new Article();
-        a1.setId(27L);
-        a1.setName("a3");       
-        session.update(a1);
+        a1.setId(27L); 
+        a1.setName("a3");
+        a1.setAuthor(author);
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        author.setArticles(articles);
+        session.update(author);
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
-    }
-
-    @Test
-    public void testGet4(){
-        Author author = session.get(Author.class,1L);
-        Set<Article> articles = author.getArticles();
-        Article a1 = (Article) articles.toArray()[0];
-        session.evict(a1);
-        session.evict(author);
-        a1.setName("b2");
-        session.update(author);
-    }
-
-    @Test
-    public void testGet5(){
-        Author author = new Author();
-        author.setName("author");
-        Set<Article> articles = new HashSet<>();
-        Article a1 = session.get(Article.class,1L);
-        articles.add(a1);
-        a1.setName("b2");
-        a1.setAuthor(author);
-        author.setArticles(articles);
-        session.evict(a1);        
-//        a1.setName("b2");
-        session.save(author);
-    }
-
-    @Test
-    public void testGet6(){
-        Author author = new Author();
-        author.setName("author");
-        Set<Article> articles = new HashSet<>();
-        Article a1 = new Article();
-        a1.setName("b3");
-        articles.add(a1);
-        author.setArticles(articles);        
-        session.save(author);
-    }
-
-    @Test
-    public void testGet7(){
-        Author author = new Author();
-        author.setName("author");
-        Set<Article> articles = new HashSet<>();
-        Article a1 = new Article();
-        a1.setId(2L);
-        a1.setName("b3");
-        articles.add(a1);
-        author.setArticles(articles);
-        session.save(author);
-    }
+    }   
 
     @After
     public void destroy() {
