@@ -227,10 +227,11 @@ public class Many2OneTest {
     }
 
     /**
-     * 1 当Author时持久状态对象时, Article是临时对象, 它不会级联更新.
+     * 1 当Author时持久状态对象时, Article是临时对象, 当author对象更新时，它会级联更新与之相关联的临时对象.
      * */
     @Test
     public void testCascade2(){
+        Transaction transaction = session.beginTransaction();
         Author author = session.get(Author.class,27L);
         
         Article a1 = new Article();
@@ -239,19 +240,22 @@ public class Many2OneTest {
 
         Set<Article> articles = new HashSet<>();
         articles.add(a1);
-        author.setArticles(articles);        
+        author.setArticles(articles);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
     }
 
     @Test
     public void testCascade3(){
-//        Transaction transaction = session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         Article a1 = new Article();
         a1.setId(27L);
         a1.setName("a3");       
         session.update(a1);
-//        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
-//            transaction.commit();
-//        }
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
     }
 
     @Test
