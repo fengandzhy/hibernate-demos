@@ -19,6 +19,8 @@
   <!-- ORM映射关系 -->
   <mapping class="org.zhouhy.hibernate.many2one.models.Article"/>
   <mapping class="org.zhouhy.hibernate.many2one.models.Author"/>
+  <mapping class="org.zhouhy.hibernate.many2one.models.SysOrg"/>
+  <mapping class="org.zhouhy.hibernate.many2one.models.SysUser"/>
  </session-factory>
 </hibernate-configuration>
         
