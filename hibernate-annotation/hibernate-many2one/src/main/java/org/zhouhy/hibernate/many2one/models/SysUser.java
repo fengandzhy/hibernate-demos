@@ -3,7 +3,7 @@ package org.zhouhy.hibernate.many2one.models;
 import javax.persistence.*;
 
 @Entity(name = "SysUser")
-@Table(name = "t1_sys-user")
+@Table(name = "t1_sys_user")
 public class SysUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,11 +15,11 @@ public class SysUser {
     @Column(name = "USER_NAME", length = 60)
     private String userName;			
 
-    @Column(name = "DEPT_ID", length = 40)
+    @Column(name = "DEPT_ID", insertable = false, updatable = false, length = 40)
     private String deptId;				
 
     @ManyToOne
-    @JoinColumn(name = "DEPT_ID", insertable = false, updatable = false, nullable=true)
+    @JoinColumn(name = "DEPT_ID", nullable=false)
     private SysOrg dept;
 
     public long getId() {

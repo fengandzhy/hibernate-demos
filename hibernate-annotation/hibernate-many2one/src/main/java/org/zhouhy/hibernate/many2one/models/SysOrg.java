@@ -3,7 +3,7 @@ package org.zhouhy.hibernate.many2one.models;
 import javax.persistence.*;
 
 @Entity(name = "SysOrg")
-@Table(name = "t1_sys-org")
+@Table(name = "t1_sys_org")
 public class SysOrg {
 
     @Id

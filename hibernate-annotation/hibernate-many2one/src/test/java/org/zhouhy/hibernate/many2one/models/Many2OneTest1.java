@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +38,14 @@ public class Many2OneTest1 {
         sysUser.setUserCode("0001");
         sysUser.setUserName("user1");
         
+        sysUser.setDept(sysOrg);
         
+        session.save(sysOrg);
+        session.save(sysUser);
+
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+        logger.info("save finished.");
     }
 }
