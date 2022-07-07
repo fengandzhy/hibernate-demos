@@ -13,6 +13,13 @@ public class SysOrg {
     @Column(name = "ORG_NAME", length = 60)
     private String orgName;
 
+    public SysOrg(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public SysOrg() {
+    }
+
     public long getId() {
         return id;
     }

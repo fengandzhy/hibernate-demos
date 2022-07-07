@@ -229,6 +229,8 @@ public class Many2OneTest {
 
     /**
      * 1 当Author时持久状态对象时, Article是临时对象, 当author对象更新时，它会级联更新与之相关联的临时对象.
+     * 
+     * 2 注意这里一定要加上transaction的begin和commit 否则修改无效
      * */
     @Test
     public void testCascade2(){
