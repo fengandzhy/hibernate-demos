@@ -61,4 +61,14 @@ public class SysUser {
     public void setDept(SysOrg dept) {
         this.dept = dept;
     }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id=" + id +
+                ", userCode='" + userCode + '\'' +
+                ", userName='" + userName + '\'' +
+                ", deptId='" + deptId + '\'' +
+                '}';
+    }
 }

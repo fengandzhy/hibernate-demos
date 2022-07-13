@@ -48,4 +48,10 @@ public class Many2OneTest1 {
         }
         logger.info("save finished.");
     }
+
+    @Test
+    public void testGet1(){
+        SysUser sysUser = session.get(SysUser.class,1L);
+        logger.info(sysUser.toString());
+    }
 }
