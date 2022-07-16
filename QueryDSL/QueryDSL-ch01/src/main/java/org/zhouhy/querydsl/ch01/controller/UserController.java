@@ -18,19 +18,13 @@ import java.util.Optional;
 @RequestMapping(value = "/user")
 public class UserController {
 
-    @Autowired
-    private UserJPA userJPA;
+    private final UserJPA userJPA;
 
-    @Autowired
-    private EntityManager entityManager;
+    private final JPAQueryFactory queryFactory;
 
-    //JPA查询工厂
-    private JPAQueryFactory queryFactory;
-
-    @PostConstruct
-    public void initFactory(){
-        queryFactory = new JPAQueryFactory(entityManager);
-        System.out.println("init JPAQueryFactory successfully");
+    public UserController(UserJPA userJPA, JPAQueryFactory queryFactory) {
+        this.userJPA = userJPA;
+        this.queryFactory = queryFactory;
     }
 
     @RequestMapping(value = "/queryAll")
