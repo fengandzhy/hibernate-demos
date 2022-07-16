@@ -21,4 +21,15 @@ public class UserBean implements Serializable {
     private String address;
     @Column(name = "t_pwd")
     private String pwd;
+
+    @Override
+    public String toString() {
+        return "UserBean{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                ", pwd='" + pwd + '\'' +
+                '}';
+    }
 }

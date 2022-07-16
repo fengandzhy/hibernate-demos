@@ -1,18 +1,13 @@
 package org.zhouhy.querydsl.ch01.controller;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zhouhy.querydsl.ch01.entity.QUserBean;
 import org.zhouhy.querydsl.ch01.entity.UserBean;
 import org.zhouhy.querydsl.ch01.jpa.UserJPA;
-
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping(value = "/user")
@@ -55,7 +50,13 @@ public class UserController {
     public List<UserBean> queryLike (String name ){
         QUserBean qUserBean = QUserBean.userBean;
         return queryFactory.selectFrom(qUserBean)
-                .where(qUserBean.name.like(name))
+                .where(qUserBean.name.like(name+"%"))
                 .fetch();
+    }
+
+    @RequestMapping(value = "/update_by_jpa")
+    public void updateByJPA (UserBean bean ){
+        System.out.println(bean);
+        userJPA.save(bean);
     }
 }
