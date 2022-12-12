@@ -10,13 +10,13 @@ public class SysUser {
     private long id;
 
     @Column(name = "USER_CODE", nullable = false, length = 40)
-    private String userCode;		
-    
+    private String userCode;
+
     @Column(name = "USER_NAME", length = 60)
-    private String userName;			
+    private String userName;
 
     @Column(name = "DEPT_ID", insertable = false, updatable = false, length = 40)
-    private String deptId;				
+    private String deptId;
 
     @ManyToOne
     @JoinColumn(name = "DEPT_ID", nullable=false)
