@@ -14,26 +14,26 @@ public class StudentTest {
 
     @Test
     public void test() {
-        /*¢Ù´´½¨Ò»¸öSessionFactory¹¤³§Àà*/
+        /*â‘ åˆ›å»ºä¸€ä¸ªSessionFactoryå·¥å‚ç±»*/
         SessionFactory sessionFactory = null;
         Configuration configuration = new Configuration().configure();
-        //hibernate¹æ¶¨,ËùÓĞÅäÖÃ»ò·şÎñ£¬ÒªÉúĞ§,±ØĞëÅäÖÃ»ò·şÎñ×¢²áµ½Ò»¸ö·şÎñ×¢²áÀà
+        //hibernateè§„å®š,æ‰€æœ‰é…ç½®æˆ–æœåŠ¡ï¼Œè¦ç”Ÿæ•ˆ,å¿…é¡»é…ç½®æˆ–æœåŠ¡æ³¨å†Œåˆ°ä¸€ä¸ªæœåŠ¡æ³¨å†Œç±»
         ServiceRegistry serviceRegistry = configuration.getStandardServiceRegistryBuilder().build();
         sessionFactory = new MetadataSources(serviceRegistry).buildMetadata().buildSessionFactory();
-        /*¢ÚÍ¨¹ı¹¤³§Àà¿ªÆôSession¶ÔÏó*/
+        /*â‘¡é€šè¿‡å·¥å‚ç±»å¼€å¯Sessionå¯¹è±¡*/
         Session session = sessionFactory.openSession();
-        /*¢Û¿ªÊ¼ÊÂÎñ*/
+        /*â‘¢å¼€å§‹äº‹åŠ¡*/
         Transaction transaction = session.beginTransaction();
-        /*¢ÜÖ´ĞĞÊı¾İ¿âµÄ²Ù×÷*/
+        /*â‘£æ‰§è¡Œæ•°æ®åº“çš„æ“ä½œ*/
 //        Student stu = new Student("sam", "male", new Timestamp(new Date().getTime()));
         Student stu = new Student("sam", "male", new Date());
         session.save(stu);
 
-        /*¢İÌá½»ÊÂÎñ*/
+        /*â‘¤æäº¤äº‹åŠ¡*/
         transaction.commit();
-        /*¢Ş¹Ø±ÕSession*/
+        /*â‘¥å…³é—­Session*/
         session.close();
-        /*¢ß¹Ø±Õ¹¤³§Àà*/
+        /*â‘¦å…³é—­å·¥å‚ç±»*/
         sessionFactory.close();
     }    
 }

@@ -8,32 +8,32 @@ import java.util.Date;
 @Table(name = "t1_student")
 public class Student implements Serializable{
 	/**
-	 * 	Í¨¹ıannotationÀ´Ó³ÉähibernateÊµÌåµÄ,»ùÓÚannotationµÄhibernateÖ÷¼ü±êÊ¶Îª@Id,ÆäÉú³É¹æÔòÓÉ@GeneratedValueÉè¶¨µÄ.	
-	 * 	TABLE£ºÊ¹ÓÃÒ»¸öÌØ¶¨µÄÊı¾İ¿â±í¸ñÀ´±£´æÖ÷¼ü¡£
-	 * 	SEQUENCE£º¸ù¾İµ×²ãÊı¾İ¿âµÄĞòÁĞÀ´Éú³ÉÖ÷¼ü£¬Ìõ¼şÊÇÊı¾İ¿âÖ§³ÖĞòÁĞ¡£
-	 * 	IDENTITY£ºÖ÷¼üÓÉÊı¾İ¿â×Ô¶¯Éú³É£¨Ö÷ÒªÊÇ×Ô¶¯Ôö³¤ĞÍ£©
-	 * 	AUTO£ºÖ÷¼üÓÉ³ÌĞò¿ØÖÆ¡£ ËüÊÇÄ¬ÈÏµÄÅäÖÃ¡£Èç¹û²»Ö¸¶¨Ö÷¼üÉú³É²ßÂÔ£¬Ä¬ÈÏÎªAUTO¡£
+	 * 	é€šè¿‡annotationæ¥æ˜ å°„hibernateå®ä½“çš„,åŸºäºannotationçš„hibernateä¸»é”®æ ‡è¯†ä¸º@Id,å…¶ç”Ÿæˆè§„åˆ™ç”±@GeneratedValueè®¾å®šçš„.	
+	 * 	TABLEï¼šä½¿ç”¨ä¸€ä¸ªç‰¹å®šçš„æ•°æ®åº“è¡¨æ ¼æ¥ä¿å­˜ä¸»é”®ã€‚
+	 * 	SEQUENCEï¼šæ ¹æ®åº•å±‚æ•°æ®åº“çš„åºåˆ—æ¥ç”Ÿæˆä¸»é”®ï¼Œæ¡ä»¶æ˜¯æ•°æ®åº“æ”¯æŒåºåˆ—ã€‚
+	 * 	IDENTITYï¼šä¸»é”®ç”±æ•°æ®åº“è‡ªåŠ¨ç”Ÿæˆï¼ˆä¸»è¦æ˜¯è‡ªåŠ¨å¢é•¿å‹ï¼‰
+	 * 	AUTOï¼šä¸»é”®ç”±ç¨‹åºæ§åˆ¶ã€‚ å®ƒæ˜¯é»˜è®¤çš„é…ç½®ã€‚å¦‚æœä¸æŒ‡å®šä¸»é”®ç”Ÿæˆç­–ç•¥ï¼Œé»˜è®¤ä¸ºAUTOã€‚
 	 * **************************************************************************
-	 * 	hibernateÖ÷¼ü²ßÂÔÉú³ÉÆ÷
-	 * 	native: ¶ÔÓÚ oracle ²ÉÓÃ Sequence ·½Ê½£¬¶ÔÓÚMySQL ºÍ SQL Server ²ÉÓÃidentity£¨×ÔÔöÖ÷¼üÉú³É»úÖÆ£©£¬native¾ÍÊÇ½«Ö÷¼üµÄÉú³É¹¤×÷½»ÓÉÊı¾İ¿âÍê³É£¬hibernate²»¹Ü
-	 * 	uuid: ²ÉÓÃ128Î»µÄuuidËã·¨Éú³ÉÖ÷¼ü£¬uuid±»±àÂëÎªÒ»¸ö32Î»16½øÖÆÊı×ÖµÄ×Ö·û´®¡£Õ¼ÓÃ¿Õ¼ä´ó£¨×Ö·û´®ÀàĞÍ£©¡£
-	 * 	assigned: ÔÚ²åÈëÊı¾İµÄÊ±ºòÖ÷¼üÓÉ³ÌĞò´¦Àí£¨¼´³ÌĞòÔ±ÊÖ¶¯Ö¸¶¨£©£¬ÕâÊÇ <generator>ÔªËØÃ»ÓĞÖ¸¶¨Ê±µÄÄ¬ÈÏÉú³É²ßÂÔ¡£µÈÍ¬ÓÚJPAÖĞµÄAUTO¡£
-	 * 	identity: Ê¹ÓÃSQL Server ºÍ MySQL µÄ×ÔÔö×Ö¶Î£¬Õâ¸ö·½·¨²»ÄÜ·Åµ½ Oracle ÖĞ£¬Oracle ²»Ö§³Ö×ÔÔö×Ö¶Î£¬ÒªÉè¶¨sequence£¨MySQL ºÍ SQL Server ÖĞºÜ³£ÓÃ£©¡£ µÈÍ¬ÓÚJPAÖĞµÄINDENTITY¡£
-	 * 	increment: ²åÈëÊı¾İµÄÊ±ºòhibernate»á¸øÖ÷¼üÌí¼ÓÒ»¸ö×ÔÔöµÄÖ÷¼ü£¬µ«ÊÇÒ»¸öhibernateÊµÀı¾ÍÎ¬»¤Ò»¸ö¼ÆÊıÆ÷£¬ËùÒÔÔÚ¶à¸öÊµÀıÔËĞĞµÄÊ±ºò²»ÄÜÊ¹ÓÃÕâ¸ö·½·¨¡£
+	 * 	hibernateä¸»é”®ç­–ç•¥ç”Ÿæˆå™¨
+	 * 	native: å¯¹äº oracle é‡‡ç”¨ Sequence æ–¹å¼ï¼Œå¯¹äºMySQL å’Œ SQL Server é‡‡ç”¨identityï¼ˆè‡ªå¢ä¸»é”®ç”Ÿæˆæœºåˆ¶ï¼‰ï¼Œnativeå°±æ˜¯å°†ä¸»é”®çš„ç”Ÿæˆå·¥ä½œäº¤ç”±æ•°æ®åº“å®Œæˆï¼Œhibernateä¸ç®¡
+	 * 	uuid: é‡‡ç”¨128ä½çš„uuidç®—æ³•ç”Ÿæˆä¸»é”®ï¼Œuuidè¢«ç¼–ç ä¸ºä¸€ä¸ª32ä½16è¿›åˆ¶æ•°å­—çš„å­—ç¬¦ä¸²ã€‚å ç”¨ç©ºé—´å¤§ï¼ˆå­—ç¬¦ä¸²ç±»å‹ï¼‰ã€‚
+	 * 	assigned: åœ¨æ’å…¥æ•°æ®çš„æ—¶å€™ä¸»é”®ç”±ç¨‹åºå¤„ç†ï¼ˆå³ç¨‹åºå‘˜æ‰‹åŠ¨æŒ‡å®šï¼‰ï¼Œè¿™æ˜¯ <generator>å…ƒç´ æ²¡æœ‰æŒ‡å®šæ—¶çš„é»˜è®¤ç”Ÿæˆç­–ç•¥ã€‚ç­‰åŒäºJPAä¸­çš„AUTOã€‚
+	 * 	identity: ä½¿ç”¨SQL Server å’Œ MySQL çš„è‡ªå¢å­—æ®µï¼Œè¿™ä¸ªæ–¹æ³•ä¸èƒ½æ”¾åˆ° Oracle ä¸­ï¼ŒOracle ä¸æ”¯æŒè‡ªå¢å­—æ®µï¼Œè¦è®¾å®šsequenceï¼ˆMySQL å’Œ SQL Server ä¸­å¾ˆå¸¸ç”¨ï¼‰ã€‚ ç­‰åŒäºJPAä¸­çš„INDENTITYã€‚
+	 * 	increment: æ’å…¥æ•°æ®çš„æ—¶å€™hibernateä¼šç»™ä¸»é”®æ·»åŠ ä¸€ä¸ªè‡ªå¢çš„ä¸»é”®ï¼Œä½†æ˜¯ä¸€ä¸ªhibernateå®ä¾‹å°±ç»´æŠ¤ä¸€ä¸ªè®¡æ•°å™¨ï¼Œæ‰€ä»¥åœ¨å¤šä¸ªå®ä¾‹è¿è¡Œçš„æ—¶å€™ä¸èƒ½ä½¿ç”¨è¿™ä¸ªæ–¹æ³•ã€‚
 	 * **********************************************************************************	
-	 * 	hibernateÌá¹©ÁË¶àÖÖÉú³ÉÆ÷¹©Ñ¡Ôñ,»ùÓÚAnnotationµÄ·½Ê½Í¨¹ı@GenericGeneratorÊµÏÖ
-	 * 	±ÈÈçËµ£¬JPA±ê×¼ÓÃ·¨
+	 * 	hibernateæä¾›äº†å¤šç§ç”Ÿæˆå™¨ä¾›é€‰æ‹©,åŸºäºAnnotationçš„æ–¹å¼é€šè¿‡@GenericGeneratorå®ç°
+	 * 	æ¯”å¦‚è¯´ï¼ŒJPAæ ‡å‡†ç”¨æ³•
 	 * 	@Id 
 	 * 	@GeneratedValue(GenerationType.AUTO)  
-	 * 	¾Í¿ÉÒÔÓÃhibernateÌØÓĞÒÔÏÂÓÃ·¨À´´úÌæ:
+	 * 	å°±å¯ä»¥ç”¨hibernateç‰¹æœ‰ä»¥ä¸‹ç”¨æ³•æ¥ä»£æ›¿:
 	 * 	@Id
 	 * 	@GeneratedValue(generator = "paymentableGenerator")
 	 * 	@GenericGenerator(name = "paymentableGenerator", strategy = "assigned")  
-	 *  ÔÚ±¾ÀıÖĞ²ÉÓÃ
+	 *  åœ¨æœ¬ä¾‹ä¸­é‡‡ç”¨
 	 *  @Id
 	 *  @GeneratedValue(generator = "paymentableGenerator")
 	 *  @GenericGenerator(name = "paymentableGenerator", strategy = "native")
-	 *  Ïàµ±ÓÚJPAÖĞÊ¹ÓÃ
+	 *  ç›¸å½“äºJPAä¸­ä½¿ç”¨
 	 * 	@Id
 	 * 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	 * 
