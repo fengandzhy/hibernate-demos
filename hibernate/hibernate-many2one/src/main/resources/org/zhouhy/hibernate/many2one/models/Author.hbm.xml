@@ -12,11 +12,11 @@
         <property name="name" type="java.lang.String" >
             <column name="name" not-null="true"/>
         </property>
-        <set name="articles" table="t_article" lazy="false" fetch="join" inverse="true" cascade="save-update">
-            <key>
-                <column name="author_id"/>
-            </key>
-            <one-to-many class="Article"/>
-        </set>
+<!--        <set name="articles" table="t_article" lazy="false" fetch="join" inverse="true" cascade="save-update">-->
+<!--            <key>-->
+<!--                <column name="author_id"/>-->
+<!--            </key>-->
+<!--            <one-to-many class="Article"/>-->
+<!--        </set>-->
     </class>
 </hibernate-mapping>
