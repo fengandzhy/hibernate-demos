@@ -1,5 +1,6 @@
 package org.zhouhy.hibernate.many2one.models;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -19,7 +20,7 @@ public class Article implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
-    @Fetch(FetchMode.JOIN)
+    @Fetch(FetchMode.JOIN)    
     private Author author;
 
     public Article() {
