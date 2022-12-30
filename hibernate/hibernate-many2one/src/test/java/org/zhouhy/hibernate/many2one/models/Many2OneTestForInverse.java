@@ -6,6 +6,16 @@ import org.junit.Test;
 
 public class Many2OneTestForInverse extends Many2OneTest{
 
+    
+    /**
+     *    单项多对一关联，     
+     *         <many-to-one name="author" class="Author">
+     *              <column name="author_id"/>
+     *         </many-to-one>
+     *   先保存Author端再保存Article端执行三条insert语句, 
+     *   先保存Article端在保存Author端执行三条insert语句, 外交两条update语句.
+     * 
+     * */
     @Test
     public void testSave1(){
         Transaction transaction = session.beginTransaction();
@@ -22,7 +32,7 @@ public class Many2OneTestForInverse extends Many2OneTest{
 
         session.save(author);
         session.save(a1);
-        session.save(a2);
+        session.save(a2);        
 
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
