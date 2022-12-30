@@ -22,7 +22,7 @@ public class Many2OneTest {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private SessionFactory sessionFactory = null;
-    private Session session = null;
+    protected Session session = null;
     private SimpleDateFormat sm;
 
     @Before
