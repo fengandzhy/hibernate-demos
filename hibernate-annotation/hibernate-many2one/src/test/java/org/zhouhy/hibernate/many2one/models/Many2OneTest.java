@@ -113,7 +113,7 @@ public class Many2OneTest {
      * */
     @Test
     public void testGet1(){
-        Article a1 = session.get(Article.class,1L);
+        Article a1 = session.get(Article.class,13L);
     }
 
     @Test
