@@ -20,10 +20,10 @@ public class Author implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "author")
-    @Fetch(FetchMode.SELECT)
-    @Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private Set<Article> articles = new HashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER,mappedBy = "author")
+//    @Fetch(FetchMode.SELECT)
+//    @Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+//    private Set<Article> articles = new HashSet<>();
 
     public Author() {
     }
@@ -49,13 +49,13 @@ public class Author implements Serializable {
         this.name = name;
     }
 
-    public Set<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(Set<Article> articles) {
-        this.articles = articles;
-    }
+//    public Set<Article> getArticles() {
+//        return articles;
+//    }
+//
+//    public void setArticles(Set<Article> articles) {
+//        this.articles = articles;
+//    }
 
     @Override
     public String toString() {

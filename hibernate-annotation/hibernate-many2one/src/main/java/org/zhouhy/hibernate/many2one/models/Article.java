@@ -21,6 +21,7 @@ public class Article implements Serializable {
  //   @ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name="author_id")
+//    @Fetch(FetchMode.SELECT)
     //@Fetch(FetchMode.SUBSELECT) // 多端不能配置FetchMode.SUBSELECT 
 //    @Fetch(FetchMode.JOIN)
     private Author author;
