@@ -12,4 +12,14 @@ public class Many2OneTestForFetch extends Many2OneTest{
         Article a1 = session.get(Article.class,25L);
         logger.info(a1.getAuthor().getId()+"");
     }
+
+    /**
+     * @OneToMany 默认的FetchMode.JOIN 然后 FetchType.LAZY  
+     * 
+     * */
+    @Test
+    public void testGet2(){
+        Author author = session.get(Author.class, 21L);
+        logger.info(author.getArticles().toString());
+    }
 }

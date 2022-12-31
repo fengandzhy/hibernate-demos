@@ -16,4 +16,10 @@ public class Many2OneTestForFetch extends Many2OneTest{
         Article a1 = session.get(Article.class,27L);
         logger.info(a1.getAuthor().getId()+"");
     }
+
+    @Test
+    public void testGet2(){
+        Article a1 = session.get(Article.class,27L);
+        logger.info(a1.getAuthor().toString());
+    }
 }
