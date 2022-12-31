@@ -44,10 +44,6 @@ public class Many2OneTestForInverse extends Many2OneTest{
 
     /**
      *   在Article 端 没有办法实现 inverse="true" 所以 a1.setAuthor(author); a2.setAuthor(author); 必须参与外键维护. 
-     *         <many-to-one name="author" class="Author" lazy="false" fetch="join">
-     *             <column name="author_id"/>
-     *         </many-to-one>
-     *
      *
      * */
 
