@@ -16,8 +16,7 @@ public class c3p0Test {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private SessionFactory sessionFactory = null;
-    private Session session = null;
-    private Transaction transaction = null;
+    private Session session = null;    
 
     @Before
     public void init() {
