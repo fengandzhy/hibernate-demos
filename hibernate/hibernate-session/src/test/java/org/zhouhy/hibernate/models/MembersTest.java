@@ -43,7 +43,7 @@ public class MembersTest {
         member.setSex("M");
         member.setBirthday(sm.parse("2000-12-23"));
         session.save(member);
-        System.out.println(transaction.getStatus());
+        logger.info(transaction.getStatus()+"");
 //        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
 //            transaction.commit();
 //        }
