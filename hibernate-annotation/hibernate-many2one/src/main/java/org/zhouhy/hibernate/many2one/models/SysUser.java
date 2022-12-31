@@ -15,8 +15,8 @@ public class SysUser {
     @Column(name = "USER_NAME", length = 60)
     private String userName;
 
-    @Column(name = "DEPT_ID", insertable = false, updatable = false, length = 40)
-    private String deptId;
+//    @Column(name = "DEPT_ID", insertable = false, updatable = false, length = 40)
+//    private String deptId;
 
     @ManyToOne
     @JoinColumn(name = "DEPT_ID", nullable=false)
@@ -46,13 +46,13 @@ public class SysUser {
         this.userName = userName;
     }
 
-    public String getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(String deptId) {
-        this.deptId = deptId;
-    }
+//    public String getDeptId() {
+//        return deptId;
+//    }
+//
+//    public void setDeptId(String deptId) {
+//        this.deptId = deptId;
+//    }
 
     public SysOrg getDept() {
         return dept;
@@ -68,7 +68,7 @@ public class SysUser {
                 "id=" + id +
                 ", userCode='" + userCode + '\'' +
                 ", userName='" + userName + '\'' +
-                ", deptId='" + deptId + '\'' +
+//                ", deptId='" + deptId + '\'' +
                 '}';
     }
 }

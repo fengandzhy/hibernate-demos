@@ -28,30 +28,30 @@ public class Many2OneTest1 {
         session = sessionFactory.openSession();
     }
 
-    @Test
-    public void testSave1(){
-        Transaction transaction = session.beginTransaction();
-        
-        SysOrg sysOrg = new SysOrg("A1");
-        SysUser sysUser = new SysUser();
-        sysUser.setDept(sysOrg);
-        sysUser.setUserCode("0001");
-        sysUser.setUserName("user1");
-        
-        sysUser.setDept(sysOrg);
-        
-        session.save(sysOrg);
-        session.save(sysUser);
-
-        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
-            transaction.commit();
-        }
-        logger.info("save finished.");
-    }
-
-    @Test
-    public void testGet1(){
-        SysUser sysUser = session.get(SysUser.class,1L);
-        logger.info(sysUser.toString());
-    }
+//    @Test
+//    public void testSave1(){
+//        Transaction transaction = session.beginTransaction();
+//        
+//        SysOrg sysOrg = new SysOrg("A1");
+//        SysUser sysUser = new SysUser();
+//        sysUser.setDept(sysOrg);
+//        sysUser.setUserCode("0001");
+//        sysUser.setUserName("user1");
+//        
+//        sysUser.setDept(sysOrg);
+//        
+//        session.save(sysOrg);
+//        session.save(sysUser);
+//
+//        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+//            transaction.commit();
+//        }
+//        logger.info("save finished.");
+//    }
+//
+//    @Test
+//    public void testGet1(){
+//        SysUser sysUser = session.get(SysUser.class,1L);
+//        logger.info(sysUser.toString());
+//    }
 }
