@@ -20,9 +20,10 @@ public class Many2OneTestForInverse extends Many2OneTest{
         a2.setName("a2");
         a2.setAuthor(author);
 
-        session.save(author);
+        
         session.save(a1);
         session.save(a2);
+        session.save(author);
 
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
