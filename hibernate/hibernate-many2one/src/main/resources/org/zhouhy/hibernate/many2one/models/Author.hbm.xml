@@ -12,8 +12,8 @@
         <property name="name" type="java.lang.String" >
             <column name="name" not-null="true"/>
         </property>
-<!--        <set name="articles" table="t_article" lazy="false" fetch="join" inverse="true" cascade="save-update">-->
-        <set name="articles" table="t_article" inverse="true">
+        <set name="articles" table="t_article" lazy="false" fetch="join" inverse="true" cascade="save-update">
+<!--        <set name="articles" table="t_article" inverse="true">-->
             <key>
                 <column name="author_id"/>
             </key>
