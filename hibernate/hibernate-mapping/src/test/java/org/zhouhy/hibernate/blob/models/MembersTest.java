@@ -63,6 +63,7 @@ public class MembersTest {
     @Test
     public void getTest() throws SQLException, IOException {
         Member member = session.get(Member.class,7L);
+        logger.info(member.toString());
         this.writeBlob(member.getMyBlob());        
     }
 
@@ -71,7 +72,10 @@ public class MembersTest {
         session.close();
         sessionFactory.close();
     }
-        
+    
+    /**
+     * Blob 是由一个byte数组而来, 通过Hibernate.getLobCreator(session).createBlob(byteArray2);
+     * */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private Blob populateBlob(Session session) throws IOException {        
         InputStream inputStream=this.getClass().getResourceAsStream("/img/720.jpg");
@@ -82,6 +86,9 @@ public class MembersTest {
         return Hibernate.getLobCreator(session).createBlob(byteArray2);
     }
     
+    /**
+     * Blob 写入一个文件写得到一个byte数组
+     * */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void writeBlob(@NotNull Blob blob) throws SQLException, IOException {
         byte[] bytes =  blob.getBytes(1, (int) blob.length());
