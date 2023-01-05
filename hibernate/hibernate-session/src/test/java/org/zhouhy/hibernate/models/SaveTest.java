@@ -21,11 +21,48 @@ public class SaveTest extends AbstractTest{
     public void testSave(){
         transaction = session.beginTransaction();
         User user = new User("sam","111111");
-//        user.setId(2L);
         try {
             logger.info(user.toString());
             session.save(user);
-//            user.setUsername("Frank");
+            logger.info(user.toString());
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+    }
+
+    /**
+     * 这里预设ID是没有用的, hibernate 会根据数据库里的ID 会自动分配一个值
+     * */
+    @Test
+    public void testSaveWithIdInAdvance(){
+        transaction = session.beginTransaction();
+        User user = new User("sam","111111");
+        user.setId(2L);
+        try {
+            logger.info(user.toString());
+            session.save(user);
+            user.setUsername("Frank");
+            logger.info(user.toString());
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+    }
+
+    /**
+     * session.save完了再改某个属性值, 就会执行一条update语句, 也就是说，修改持久状态的对象的某个属性, 就会执行一条update语句
+     * */
+    @Test
+    public void testSaveWithUpdateSomeAttribute(){
+        transaction = session.beginTransaction();
+        User user = new User("sam","111111");
+        user.setId(2L);
+        try {
+            logger.info(user.toString());
+            session.save(user);
             logger.info(user.toString());
             transaction.commit();
         } catch (Exception e) {
