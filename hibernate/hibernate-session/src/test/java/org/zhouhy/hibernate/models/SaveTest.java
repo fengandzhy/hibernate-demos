@@ -1,8 +1,5 @@
 package org.zhouhy.hibernate.models;
 
-import org.hibernate.HibernateException;
-import org.hibernate.TransactionException;
-import org.hibernate.internal.ExceptionMapperStandardImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -49,7 +46,7 @@ public class SaveTest extends AbstractTest{
     public void testSaveWithIdInAdvance(){
         transaction = session.beginTransaction();
         User user = new User("sam","111111");
-        user.setId(2L); // 这里设置一个ID, 可能让它变成一个游离对象.
+        user.setId(12L); // 这里设置一个ID, 可能让它变成一个游离对象.
         try {
             logger.info(user.toString());
             session.save(user);            
