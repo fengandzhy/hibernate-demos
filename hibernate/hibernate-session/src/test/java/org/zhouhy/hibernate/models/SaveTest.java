@@ -1,10 +1,19 @@
 package org.zhouhy.hibernate.models;
 
+import org.hibernate.HibernateException;
+import org.hibernate.TransactionException;
+import org.hibernate.internal.ExceptionMapperStandardImpl;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import javax.persistence.PersistenceException;
 import java.util.Date;
 
 public class SaveTest extends AbstractTest{
+
+    @Rule
+    public ExpectedException thrown= ExpectedException.none();
 
     /**
      * 1. 当一个对象执行了save方法之后又这样几个变化
@@ -21,11 +30,9 @@ public class SaveTest extends AbstractTest{
     public void testSave(){
         transaction = session.beginTransaction();
         User user = new User("sam","111111");
-//        user.setId(2L);
         try {
             logger.info(user.toString());
             session.save(user);
-//            user.setUsername("Frank");
             logger.info(user.toString());
             transaction.commit();
         } catch (Exception e) {
@@ -33,6 +40,67 @@ public class SaveTest extends AbstractTest{
             transaction.rollback();
         }
     }
+
+    /**
+     * 这里预设ID是没有用的, hibernate 会根据数据库里的ID 会自动分配一个值
+     * 也就是说save方法可以去保存一个游离对象， 但是它会无视这个游离对象的ID, 会把它当成一个新建对象重新分配一个ID给它
+     * */
+    @Test
+    public void testSaveWithIdInAdvance(){
+        transaction = session.beginTransaction();
+        User user = new User("sam","111111");
+        user.setId(2L); // 这里设置一个ID, 可能让它变成一个游离对象.
+        try {
+            logger.info(user.toString());
+            session.save(user);            
+            logger.info(user.toString()); // 这里你会发现重新分配了一个ID值给它
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+    }
+
+    /**
+     * session.save完了再改某个属性值, 就会执行一条update语句, 也就是说，修改持久状态的对象的某个属性, 就会执行一条update语句
+     * */
+    @Test
+    public void testSaveWithUpdateSomeAttribute(){
+        transaction = session.beginTransaction();
+        User user = new User("sam","111111");        
+        try {
+            logger.info(user.toString());
+            session.save(user);
+            user.setUsername("Frank");
+            logger.info(user.toString());
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+    }
+
+    /**
+     * session.save完了再改ID,就会抛出异常 
+     * 对于测试来说 (expected = PersistenceException.class) 就是期盼这个东西能丢一个PersistenceException的异常，
+     * 但是如果这个方法没有抛出异常, 就会出错，所以一定要把异常抛出去.
+     * 
+     * */
+    @Test(expected = PersistenceException.class)
+    public void testSaveWithUpdateId(){
+        transaction = session.beginTransaction();
+        User user = new User("sam","111111");        
+        try {
+            logger.info(user.toString());            
+            session.save(user);
+            user.setId(2L);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            throw e; // 注意这里一定要把异常抛出,否则就会测试失败.
+        }
+    }    
 
     /**
      * 1. 注意这里的clear方法记录插入了但是没有执行修改, 这是因为当你执行session.save(user); 它已经发出了insert 语句
