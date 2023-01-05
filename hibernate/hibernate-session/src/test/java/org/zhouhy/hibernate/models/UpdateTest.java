@@ -1,6 +1,6 @@
 package org.zhouhy.hibernate.models;
 
-import org.hibernate.Session;
+
 import org.junit.Test;
 
 import javax.persistence.OptimisticLockException;
