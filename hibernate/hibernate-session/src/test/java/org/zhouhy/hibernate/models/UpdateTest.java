@@ -14,7 +14,7 @@ public class UpdateTest extends AbstractTest{
      * 只要一个对象的ID 在数据库里有相同 ID 的记录 不管是这个对象是new 出来的 还是持久状态转变而来的, 它都可以是游离状态
      *
      * 2. session.update(user); 语句可以把一个游离状态的对象转换成持久状态, 它会在session.flush()的时候执行一个update语句
-     * 但是这个update 语句执行成功的前提是 user 的ID 必须在数据库里存在, 如果ID 在数据库里不存在就会报出错误 
+     * 但是这个update 语句执行成功的前提是 user 的ID 必须在数据库里存在, 如果ID 在数据库里不存在就会报出错误, 无论该对象跟数据库里是否相同，这条update语句都会执行. 
      * 
      * 3. 这里的游离对象是从数据库里取到的. 
      * */
@@ -25,7 +25,7 @@ public class UpdateTest extends AbstractTest{
             User user = session.get(User.class,12L);
             session.evict(user);
             assertFalse(session.contains(user));
-            user.setUsername("fek");
+            user.setUsername("frank");
             session.update(user);
             transaction.commit();
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class UpdateTest extends AbstractTest{
      *
      * */
     @Test(expected = OptimisticLockException.class)
-    public void testUpdateWithNewInstance(){
+    public void testUpdateWithTransientInstance(){
         transaction = session.beginTransaction();
         try {
             User user = new User();            
