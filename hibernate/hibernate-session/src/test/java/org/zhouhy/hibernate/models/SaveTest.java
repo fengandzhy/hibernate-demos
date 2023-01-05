@@ -1,10 +1,19 @@
 package org.zhouhy.hibernate.models;
 
+import org.hibernate.HibernateException;
+import org.hibernate.TransactionException;
+import org.hibernate.internal.ExceptionMapperStandardImpl;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import javax.persistence.PersistenceException;
 import java.util.Date;
 
 public class SaveTest extends AbstractTest{
+
+    @Rule
+    public ExpectedException thrown= ExpectedException.none();
 
     /**
      * 1. 当一个对象执行了save方法之后又这样几个变化
@@ -68,6 +77,28 @@ public class SaveTest extends AbstractTest{
         } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback();
+        }
+    }
+
+    /**
+     * session.save完了再改ID,就会抛出异常 
+     * 对于测试来说 (expected = PersistenceException.class) 就是期盼这个东西能丢一个PersistenceException的异常，
+     * 但是如果这个方法没有抛出异常, 就会出错，所以一定要把异常抛出去.
+     * 
+     * */
+    @Test(expected = PersistenceException.class)
+    public void testSaveWithUpdateId(){
+        transaction = session.beginTransaction();
+        User user = new User("sam","111111");        
+        try {
+            logger.info(user.toString());            
+            session.save(user);
+            user.setId(2L);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            throw e; // 注意这里一定要把异常抛出,否则就会测试失败.
         }
     }
 
