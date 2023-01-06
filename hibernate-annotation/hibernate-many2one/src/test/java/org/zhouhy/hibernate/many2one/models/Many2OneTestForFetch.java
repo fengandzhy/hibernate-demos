@@ -14,6 +14,12 @@ public class Many2OneTestForFetch extends Many2OneTest{
      *     @ManyToOne(fetch = FetchType.LAZY)
      *     @JoinColumn(name="author_id") 
      *     private Author author;
+     *     
+     * 当如下注解时，只要加入了 FetchMode.JOIN 无论是否延迟加载都会用表连接的方式立即加载.
+     *     @ManyToOne(fetch = FetchType.LAZY)
+     *     @JoinColumn(name="author_id")
+     *     @Fetch(FetchMode.JOIN)
+     *     private Author author;    
      * 
      * */
     @Test
@@ -31,6 +37,12 @@ public class Many2OneTestForFetch extends Many2OneTest{
      *      @OneToMany(fetch = FetchType.EAGER)
      *      @JoinColumn(name="author_id")
      *      private Set<Article> articles = new HashSet<>();
+     *
+     * 当如下注解时，只要加入了 FetchMode.JOIN 无论是否延迟加载都会用表连接的方式立即加载.
+     *      @OneToMany
+     *      @JoinColumn(name="author_id")
+     *      @Fetch(FetchMode.JOIN)
+     *      private Set<Article> articles = new HashSet<>();    
      * 
      * */
     @Test

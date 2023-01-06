@@ -20,11 +20,10 @@ public class Author implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
-//    @OneToMany(fetch = FetchType.LAZY,mappedBy = "author")
-//    @Fetch(FetchMode.JOIN)
-//    @Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="author_id")    
+
+    @OneToMany
+    @JoinColumn(name="author_id")
+    @Fetch(FetchMode.JOIN)
     private Set<Article> articles = new HashSet<>();
 
     public Author() {
