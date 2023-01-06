@@ -23,9 +23,9 @@ public class Author implements Serializable {
 //    @OneToMany(fetch = FetchType.LAZY,mappedBy = "author")
 //    @Fetch(FetchMode.JOIN)
 //    @Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="author_id")
-    private Set<Article> articles = new HashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name="author_id")
+//    private Set<Article> articles = new HashSet<>();
 
     public Author() {
     }
@@ -51,13 +51,13 @@ public class Author implements Serializable {
         this.name = name;
     }
 
-    public Set<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(Set<Article> articles) {
-        this.articles = articles;
-    }
+//    public Set<Article> getArticles() {
+//        return articles;
+//    }
+//
+//    public void setArticles(Set<Article> articles) {
+//        this.articles = articles;
+//    }
 
     @Override
     public String toString() {

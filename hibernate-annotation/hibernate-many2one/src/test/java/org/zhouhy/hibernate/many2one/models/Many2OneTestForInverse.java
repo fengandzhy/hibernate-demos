@@ -82,7 +82,7 @@ public class Many2OneTestForInverse extends Many2OneTest{
         articles.add(a1);
         articles.add(a2);
 
-        author.setArticles(articles);
+//        author.setArticles(articles);
 
         session.save(author);
         session.save(a1);
