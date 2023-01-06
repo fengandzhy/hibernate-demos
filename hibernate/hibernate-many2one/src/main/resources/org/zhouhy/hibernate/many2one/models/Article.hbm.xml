@@ -12,7 +12,7 @@
         <property name="name" type="java.lang.String">
             <column name="name" not-null="true"/>
         </property>
-        <many-to-one name="author" class="Author">
+        <many-to-one name="author" class="Author" lazy="false">
             <column name="author_id"/>
         </many-to-one>
     </class>

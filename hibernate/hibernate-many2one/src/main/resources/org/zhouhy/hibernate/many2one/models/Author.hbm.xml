@@ -12,7 +12,7 @@
         <property name="name" type="java.lang.String" >
             <column name="name" not-null="true"/>
         </property>
-        <set name="articles" table="t_article">
+        <set name="articles" table="t_article" lazy="false">
             <key>
                 <column name="author_id"/>
             </key>

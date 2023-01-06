@@ -14,23 +14,38 @@ public class Many2OneTestForFetch extends Many2OneTest{
      * 3 当多端(Article端)不配置了lazy="false"的时候(注意多端不能写lazy="ture"), 查询这个多端(Article端)时, 会延迟带出一端(Author端)的数据,此时fetch="select"
      * 4 当多端(Article端)不配置了fetch="join"的时候,查询这个多端(Article端)时,会用这个join的方式来找到一端(Author端)
      * 
-     * 当配置如下所示时, 默认的情况下是延迟加载，默认的fetch=select 
+     * 1.当配置如下所示时, 默认的情况下是延迟加载，默认的fetch=select 
      *          <many-to-one name="author" class="Author">
      *             <column name="author_id"/>
      *          </many-to-one>
-     * 延迟加载只有当取其他非ID的属性时,才会去取数据         
+     * 延迟加载只有当取其他非ID的属性时,才会去取数据 
+     * 
+     * 2 当加入lazy="false"时它会立即加载, 此时fetch=select 
+     *          <many-to-one name="author" class="Author" lazy="false">
+     *             <column name="author_id"/>
+     *          </many-to-one>
+     * 
+     * 
+     * 
+     * 
      * */
     @Test
     public void testGetArticleForLazyTest(){
         session.get(Article.class,27L);
-//        logger.info(a1.getAuthor().getId()+"");
-//        logger.info(a1.getAuthor().toString());
     }
     
     /**
      *          
      * 如下配置，默认是lazy fetch = select         
      *          <set name="articles" table="t_article"> 
+     *             <key>
+     *                 <column name="author_id"/>
+     *             </key>
+     *             <one-to-many class="Article"/>
+     *          </set>
+     *
+     * 如下配置，当它加入lazy="false" 时是立即加载，fetch = select
+     *          <set name="articles" table="t_article" lazy="false"> 
      *             <key>
      *                 <column name="author_id"/>
      *             </key>

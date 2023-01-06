@@ -4,12 +4,16 @@ import org.junit.Test;
 
 public class Many2OneTestForFetch extends Many2OneTest{
 
-    /**
-     * @ManyToOne 默认的FetchMode.JOIN 然后 FetchType.EAGER
-     * 当注解是如下所示是, 默认的FetchMode.JOIN 然后 FetchType.EAGER
+    /**    
+     * 当注解是如下所示是,默认是立即加载, 默认的FetchMode.JOIN 然后 FetchType.EAGER
      * @ManyToOne
      * @JoinColumn(name="author_id")    
      * private Author author;
+     * 
+     * 当如下注释时，此时为延迟加载, 但是它的FetchMode.SELECT, 
+     *     @ManyToOne(fetch = FetchType.LAZY)
+     *     @JoinColumn(name="author_id") 
+     *     private Author author;
      * 
      * */
     @Test
@@ -20,7 +24,10 @@ public class Many2OneTestForFetch extends Many2OneTest{
     }
 
     /**
-     * @OneToMany 默认的FetchMode.JOIN 然后 FetchType.LAZY  
+     * 当如下注解时，默认是延迟加载, 然后FetchMode.SELECT  
+     *      @OneToMany
+     *      @JoinColumn(name="author_id")
+     *      private Set<Article> articles = new HashSet<>();
      * 
      * */
     @Test
