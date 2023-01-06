@@ -24,8 +24,11 @@ public class Many2OneTestForFetch extends Many2OneTest{
      *          <many-to-one name="author" class="Author" lazy="false">
      *             <column name="author_id"/>
      *          </many-to-one>
-     * 
-     * 
+     *          
+     * 3 当fetch="join"时, 无论lazy怎样，都会用表连接的方式立即加载
+     *          <many-to-one name="author" class="Author" fetch="join">
+     *             <column name="author_id"/>
+     *          </many-to-one>
      * 
      * 
      * */
@@ -51,6 +54,14 @@ public class Many2OneTestForFetch extends Many2OneTest{
      *             </key>
      *             <one-to-many class="Article"/>
      *          </set>
+     *
+     * 当如下配置，无论lazy怎样, 只要fetch=join 都会用表连接的方式立即加载
+     *          <set name="articles" table="t_article" fetch="join"> 
+     *             <key>
+     *                 <column name="author_id"/>
+     *             </key>
+     *             <one-to-many class="Article"/>
+     *          </set>         
      * 
      * */
     @Test
