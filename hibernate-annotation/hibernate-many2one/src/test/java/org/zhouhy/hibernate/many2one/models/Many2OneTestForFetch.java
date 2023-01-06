@@ -19,8 +19,6 @@ public class Many2OneTestForFetch extends Many2OneTest{
     @Test
     public void testGeArticleForLazyTest(){
         session.get(Article.class,25L);
-//        logger.info(a1.getAuthor().getId()+"");
-//        logger.info(a1.getAuthor().toString());
     }
 
     /**
@@ -28,11 +26,16 @@ public class Many2OneTestForFetch extends Many2OneTest{
      *      @OneToMany
      *      @JoinColumn(name="author_id")
      *      private Set<Article> articles = new HashSet<>();
+     *      
+     * 当它改成立即加载的时候,  FetchMode.JOIN
+     *      @OneToMany(fetch = FetchType.EAGER)
+     *      @JoinColumn(name="author_id")
+     *      private Set<Article> articles = new HashSet<>();
      * 
      * */
     @Test
     public void testGetAuthorForLazyTest(){
         session.get(Author.class, 21L);
-//        logger.info(author.getArticles().toString());
+
     }
 }
