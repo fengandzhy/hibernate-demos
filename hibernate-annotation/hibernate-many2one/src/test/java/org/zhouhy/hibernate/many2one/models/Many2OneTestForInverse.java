@@ -59,13 +59,16 @@ public class Many2OneTestForInverse extends Many2OneTest{
     /**
      * @OneToMany(fetch = FetchType.EAGER,mappedBy = "author") 
      * 表示inverse=true 也就是说 author.setArticles(articles); 不参与外键维护
+     * 先保存author 再保存 article时 执行三条insert语句, 如果先保存article 再保存 author时 执行三条insert语句以及两条update语句
      * 
      * @OneToMany(fetch = FetchType.EAGER)
-     * @JoinColumn(name="author_id")
-     * 表示 inverse=false author.setArticles(articles); 要参与外键维护
+     * @JoinColumn(name="author_id") 
+     * 表示 inverse=false author.setArticles(articles); 要参与外键维护,  
+     * 先保存author 再保存 article时 执行三条insert语句以及两条update语句, 如果先保存article 再保存 author时 执行三条insert语句以及四条update语句
+     * 
      * */
     @Test
-    public void testSave3(){
+    public void testSaveForInverse(){
         Transaction transaction = session.beginTransaction();
         Author author = new Author();
         author.setName("A");
@@ -82,11 +85,11 @@ public class Many2OneTestForInverse extends Many2OneTest{
         articles.add(a1);
         articles.add(a2);
 
-//        author.setArticles(articles);
+        author.setArticles(articles);
 
         session.save(author);
         session.save(a1);
-        session.save(a2);
+        session.save(a2);        
 
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
