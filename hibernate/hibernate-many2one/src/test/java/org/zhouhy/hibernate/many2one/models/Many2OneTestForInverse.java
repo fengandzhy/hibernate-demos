@@ -90,7 +90,7 @@ public class Many2OneTestForInverse extends Many2OneTest{
      * */
     
     @Test
-    public void testSave3(){
+    public void testSaveForInverse(){
         Transaction transaction = session.beginTransaction();
         Author author = new Author();
         author.setName("A");
