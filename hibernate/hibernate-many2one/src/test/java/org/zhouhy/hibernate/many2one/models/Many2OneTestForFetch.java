@@ -2,6 +2,9 @@ package org.zhouhy.hibernate.many2one.models;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+import java.util.Set;
+
 public class Many2OneTestForFetch extends Many2OneTest{
 
     /**
@@ -11,7 +14,7 @@ public class Many2OneTestForFetch extends Many2OneTest{
      * 3 当多端(Article端)不配置了lazy="false"的时候(注意多端不能写lazy="ture"), 查询这个多端(Article端)时, 会延迟带出一端(Author端)的数据,此时fetch="select"
      * 4 当多端(Article端)不配置了fetch="join"的时候,查询这个多端(Article端)时,会用这个join的方式来找到一端(Author端)
      * 
-     * 当配置如下所示时, 默认的情况下是延迟加载，默认的fetch 是 select 
+     * 当配置如下所示时, 默认的情况下是延迟加载，默认的fetch=select 
      *          <many-to-one name="author" class="Author">
      *             <column name="author_id"/>
      *          </many-to-one>
@@ -19,15 +22,25 @@ public class Many2OneTestForFetch extends Many2OneTest{
      * */
     @Test
     public void testGetArticleForLazyTest(){
-        Article a1 = session.get(Article.class,27L);
-        logger.info(a1.getAuthor().getId()+"");
-        logger.info(a1.getAuthor().toString());
+        session.get(Article.class,27L);
+//        logger.info(a1.getAuthor().getId()+"");
+//        logger.info(a1.getAuthor().toString());
     }
-
+    
+    /**
+     *          
+     * 如下配置，默认是lazy fetch = select         
+     *          <set name="articles" table="t_article"> 
+     *             <key>
+     *                 <column name="author_id"/>
+     *             </key>
+     *             <one-to-many class="Article"/>
+     *          </set>
+     * 
+     * */
     @Test
-    public void testGet2(){
-        Article a1 = session.get(Article.class,27L);
-        logger.info(a1.getAuthor().toString());
+    public void testGetAuthorForLazyTest(){
+        session.get(Author.class,27L);        
     }
     
     
