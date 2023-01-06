@@ -23,8 +23,8 @@ public class Author implements Serializable {
 //    @OneToMany(fetch = FetchType.LAZY,mappedBy = "author")
 //    @Fetch(FetchMode.JOIN)
 //    @Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="author_id")
+    @OneToMany
+    @JoinColumn(name="author_id")    
     private Set<Article> articles = new HashSet<>();
 
     public Author() {
