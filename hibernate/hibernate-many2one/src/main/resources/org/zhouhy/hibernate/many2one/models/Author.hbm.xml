@@ -12,7 +12,7 @@
         <property name="name" type="java.lang.String" >
             <column name="name" not-null="true"/>
         </property>
-        <set name="articles" table="t_article" fetch="join">
+        <set name="articles" table="t_article" fetch="join" inverse="true">
             <key>
                 <column name="author_id"/>
             </key>

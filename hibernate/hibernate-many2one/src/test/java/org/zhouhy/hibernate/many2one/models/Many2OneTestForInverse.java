@@ -78,7 +78,14 @@ public class Many2OneTestForInverse extends Many2OneTest{
      *             </key>
      *             <one-to-many class="Article"/>
      *         </set>
-     * 
+     *  当inverse = true 先保存author 再保存 article时 执行三条insert 
+     *  当没有inverse = true 时， 先保存author 再保存 article时 执行三条insert 之后再来两条update 因为author.setArticles(articles); 参与了外键维护
+     *  
+     *  当inverse = true 先保存article 再保存 author时 执行三条insert 之后再来两条update 
+     *  因为 a1 a2 存在数据库里是为空, 而a1.setAuthor(author); a2.setAuthor(author);需要维护外键
+     *  
+     *  当没有inverse = true 时 先保存article 再保存 author时 执行三条insert 之后再来四条update 因为两条是给 a1.setAuthor(author); a2.setAuthor(author);需要维护外键
+     *  另外两条是 author.setArticles(articles); 参与了外键维护
      * 
      * */
     
@@ -102,9 +109,10 @@ public class Many2OneTestForInverse extends Many2OneTest{
 
         author.setArticles(articles);
 
-        session.save(author);
+        
         session.save(a1);
         session.save(a2);
+        session.save(author);
 
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
