@@ -18,12 +18,10 @@ public class Article implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
- //   @ManyToOne(fetch = FetchType.LAZY)
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
-//    @Fetch(FetchMode.SELECT)
-    //@Fetch(FetchMode.SUBSELECT) // 多端不能配置FetchMode.SUBSELECT 
-//    @Fetch(FetchMode.JOIN)
+    @Fetch(FetchMode.JOIN)
     private Author author;
 
     public Article() {
