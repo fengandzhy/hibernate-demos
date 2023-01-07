@@ -4,7 +4,6 @@ package org.zhouhy.hibernate.many2one.models;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.junit.Test;
-import javax.persistence.PersistenceException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -163,7 +162,7 @@ public class Many2OneTestForCascade extends Many2OneTest{
         a1.setName("a1");
         a1.setAuthor(author);
 
-        Set<Article> articles = author.getArticles();       
+        Set<Article> articles = author.getArticles();// 由于author已经是游离对象了,如果是懒加载，这里就会报错,所以一定是立即加载或者fetch = join       
         
         articles.add(a1);
         author.setArticles(articles);
