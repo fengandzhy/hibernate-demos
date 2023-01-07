@@ -30,13 +30,19 @@ public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
         }
     }
 
+    /**
+     * CascadeType.MERGE
+     * The merge operation copies the state of the given object onto the persistent object with the same identifier. 
+     * CascadeType.MERGE propagates the merge operation from a parent to a child entity.
+     * */
     @Test
     public void whenParentSavedThenMerged() {
+        Transaction transaction = session.beginTransaction();
         int addressId;
         Person person = buildPerson("devender");
         Address address = buildAddress(person);
         person.setAddresses(Arrays.asList(address));
-        session.persist(person);
+        session.persist(person); // 这里保存person并不伴随着保存address, 因为此时的CascadeType.MERGE
         session.flush();
         addressId = address.getId();
         session.clear();
@@ -47,6 +53,9 @@ public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
         savedAddressEntity.setHouseNumber(24);
         session.merge(savedPersonEntity);
         session.flush();
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
     }
     
     private Person buildPerson(@NotNull String name){
@@ -57,6 +66,7 @@ public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
     
     private Address buildAddress(@NotNull Person person){
         Address address = new Address();
+        address.setId(6);
         address.setPerson(person);
         return address;
     }
