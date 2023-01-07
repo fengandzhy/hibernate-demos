@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Many2OneTest {
+public abstract class Many2OneTest {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
