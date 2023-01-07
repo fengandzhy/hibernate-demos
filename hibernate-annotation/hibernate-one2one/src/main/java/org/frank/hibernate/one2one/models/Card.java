@@ -1,5 +1,8 @@
 package org.frank.hibernate.one2one.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +17,7 @@ public class Card {
     private String cardNo;
 
     @OneToOne(mappedBy = "card",cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SELECT)
     private Person person;
 
     public Card(String cardNo) {
