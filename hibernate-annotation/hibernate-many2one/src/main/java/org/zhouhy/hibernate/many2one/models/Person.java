@@ -10,7 +10,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-    @OneToMany(mappedBy = "person", cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.REFRESH)
     private List<Address> addresses;
 
     public int getId() {

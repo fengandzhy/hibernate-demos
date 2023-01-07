@@ -1,6 +1,9 @@
 package org.zhouhy.hibernate.many2one.models;
 
 import com.sun.istack.NotNull;
+import org.hibernate.LockMode;
+import org.hibernate.LockOptions;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.junit.Test;
@@ -112,6 +115,34 @@ public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
         session.detach(person); // CascadeType.DETACH 可以把person的关联对象也从持久化变成游离态
         assertFalse(session.contains(person));
         assertFalse(session.contains(address));
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+
+    /**
+     * CascadeType.REFRESH
+     * Refresh operations reread the value of a given instance from the database. 
+     * In some cases, we may change an instance after persisting in the database, but later we need to undo those changes.
+     *
+     * In that kind of scenario, this may be useful. 
+     * When we use this operation with Cascade Type REFRESH, the child entity also gets reloaded from the database whenever the parent entity is refreshed.
+     * */
+    @Test
+    public void whenParentRefreshedThenChildRefreshed() {
+        Transaction transaction = session.beginTransaction();
+        Person person = buildPerson("devender");
+        Address address = buildAddress(person,0);
+        person.setAddresses(Arrays.asList(address));
+        session.persist(person);
+        session.persist(address);
+        session.flush();
+        person.setName("Devender Kumar");
+        address.setHouseNumber(24);
+        session.refresh(person); // CascadeType.REFRESH 你session.refresh 了person 它连同person的关联对象一块refresh了
+
+        assertTrue(person.getName().equals("devender"));
+        assertTrue(address.getHouseNumber()==0);
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
