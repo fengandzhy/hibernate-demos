@@ -21,6 +21,8 @@
   <mapping class="org.zhouhy.hibernate.many2one.models.Author"/>
   <mapping class="org.zhouhy.hibernate.many2one.models.SysOrg"/>
   <mapping class="org.zhouhy.hibernate.many2one.models.SysUser"/>
+  <mapping class="org.zhouhy.hibernate.many2one.models.Person"/>
+  <mapping class="org.zhouhy.hibernate.many2one.models.Address"/>
  </session-factory>
 </hibernate-configuration>
         
