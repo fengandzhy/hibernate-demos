@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.frank.hibernate.one2one.models">
+    <class name="Person" table="t_person">
+        <id name="id" type="long">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String" >
+            <column name="name" not-null="true"/>
+        </property>
+        <many-to-one name="card" class="Card" fetch="join">
+            <column name="card_id" unique="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
