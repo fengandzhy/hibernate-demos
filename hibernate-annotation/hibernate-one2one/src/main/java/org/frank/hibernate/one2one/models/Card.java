@@ -1,8 +1,19 @@
 package org.frank.hibernate.one2one.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "t1_card")
 public class Card {
+    
+    @javax.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
+    
+    @Column(name = "card_no",nullable = false)
     private String cardNo;
+
+    @OneToOne(mappedBy = "card",cascade = CascadeType.ALL)
     private Person person;
 
     public Card(String cardNo) {
