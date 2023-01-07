@@ -1,8 +1,23 @@
 package org.frank.hibernate.one2one.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "t1_person")
 public class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "name",nullable = false)
     private String name;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cid") 
+//    @Fetch(FetchMode.SELECT)
     private Card card;
 
     public Person(String name, Card card) {
