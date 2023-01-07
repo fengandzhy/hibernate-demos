@@ -40,7 +40,7 @@ public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
         Transaction transaction = session.beginTransaction();
         int addressId;
         Person person = buildPerson("devender");
-        Address address = buildAddress(person);
+        Address address = buildAddress(person,6);
         person.setAddresses(Arrays.asList(address));
         session.persist(person); // 这里保存person并不伴随着保存address, 因为此时的CascadeType.MERGE
         session.flush();
@@ -57,6 +57,36 @@ public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
             transaction.commit();
         }
     }
+
+    /**
+     * CascadeType.REMOVE
+     * As the name suggests, the remove operation removes the row corresponding to the entity from the database and also from the persistent context.
+     * 
+     * CascadeType.REMOVE propagates the remove operation from parent to child entity. 
+     * Similar to JPA's CascadeType.REMOVE, we have CascadeType.DELETE, which is specific to Hibernate. 
+     * There is no difference between the two.
+     * 
+     * */
+    @Test
+    public void whenParentRemovedThenChildRemoved() {
+        Transaction transaction = session.beginTransaction();
+        int personId;
+        Person person = buildPerson("devender");
+        Address address = buildAddress(person,0);
+        person.setAddresses(Arrays.asList(address));
+        session.persist(person);
+        session.persist(address);
+        session.flush();
+        personId = person.getId();
+        session.clear();
+
+        Person savedPersonEntity = session.find(Person.class, personId);
+        session.remove(savedPersonEntity);
+        session.flush();
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
     
     private Person buildPerson(@NotNull String name){
         Person person = new Person();
@@ -64,9 +94,11 @@ public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
         return person;
     }
     
-    private Address buildAddress(@NotNull Person person){
+    private Address buildAddress(@NotNull Person person, int Id){
         Address address = new Address();
-        address.setId(6);
+        if(Id!=0){
+            address.setId(Id); 
+        }        
         address.setPerson(person);
         return address;
     }
