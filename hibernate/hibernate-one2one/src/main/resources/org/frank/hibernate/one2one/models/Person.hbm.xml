@@ -12,7 +12,7 @@
         <property name="name" type="java.lang.String" >
             <column name="name" not-null="true"/>
         </property>
-        <many-to-one name="card" class="Card" fetch="join">
+        <many-to-one name="card" class="Card">
             <column name="card_id" unique="true"/>
         </many-to-one>
     </class>
