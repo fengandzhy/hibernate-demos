@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.*;
+
+
 public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
     
     /**
@@ -83,6 +86,32 @@ public class Many2OneTestForCascadePersonAndAddress extends Many2OneTest{
         Person savedPersonEntity = session.find(Person.class, personId);
         session.remove(savedPersonEntity);
         session.flush();
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+    
+    /**
+     * CascadeType.DETACH
+     * The detach operation removes the entity from the persistent context. 
+     * When we use CascadeType.DETACH, the child entity will also get removed from the persistent context.
+     * */
+    @Test
+    public void whenParentDetachedThenChildDetached() {
+        Transaction transaction = session.beginTransaction();
+        Person person = buildPerson("devender");
+        Address address = buildAddress(person,0);
+        person.setAddresses(Arrays.asList(address));
+        session.persist(person);
+        session.persist(address);
+        session.flush();
+
+        assertTrue(session.contains(person));
+        assertTrue(session.contains(address));
+
+        session.detach(person); // CascadeType.DETACH 可以把person的关联对象也从持久化变成游离态
+        assertFalse(session.contains(person));
+        assertFalse(session.contains(address));
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
