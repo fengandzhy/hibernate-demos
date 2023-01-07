@@ -16,6 +16,7 @@ public class Card {
         return Id;
     }
 
+    @SuppressWarnings("unused")
     public void setId(long id) {
         Id = id;
     }
@@ -24,10 +25,12 @@ public class Card {
         return cardNo;
     }
 
+    @SuppressWarnings("unused")
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
 
+    @SuppressWarnings("JpaAttributeTypeInspection")
     public Person getPerson() {
         return person;
     }

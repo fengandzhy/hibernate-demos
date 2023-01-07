@@ -5,6 +5,7 @@ public class Person {
     private String name;
     private Card card;
 
+    @SuppressWarnings("unused")
     public Person(String name, Card card) {
         this.name = name;
         this.card = card;
@@ -17,6 +18,7 @@ public class Person {
         return id;
     }
 
+    @SuppressWarnings("unused")
     public void setId(long id) {
         this.id = id;
     }
@@ -29,6 +31,7 @@ public class Person {
         this.name = name;
     }
 
+    @SuppressWarnings("JpaAttributeTypeInspection")
     public Card getCard() {
         return card;
     }
