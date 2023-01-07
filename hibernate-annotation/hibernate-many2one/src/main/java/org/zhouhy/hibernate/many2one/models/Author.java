@@ -21,7 +21,9 @@ public class Author implements Serializable {
     private String name;
 
 
-    @OneToMany(mappedBy = "author")        
+    @OneToMany(mappedBy = "author")
+    @Fetch(FetchMode.JOIN)
+    @Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Set<Article> articles = new HashSet<>();
 
     public Author() {

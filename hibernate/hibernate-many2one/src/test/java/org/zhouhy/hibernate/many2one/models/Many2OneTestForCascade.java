@@ -4,15 +4,10 @@ package org.zhouhy.hibernate.many2one.models;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.junit.Test;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
-
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 public class Many2OneTestForCascade extends Many2OneTest{
 
     /**
@@ -167,11 +162,7 @@ public class Many2OneTestForCascade extends Many2OneTest{
         a1.setName("a1");
         a1.setAuthor(author);
 
-        Set<Article> articles = author.getArticles();
-        
-        for(Article article:articles){
-            assertFalse(session.contains(article));
-        }
+        Set<Article> articles = author.getArticles();// 由于author已经是游离对象了,如果是懒加载，这里就会报错,所以一定是立即加载或者fetch = join       
         
         articles.add(a1);
         author.setArticles(articles);
@@ -192,12 +183,107 @@ public class Many2OneTestForCascade extends Many2OneTest{
     public void testCascadeSaveUpdateForDetachedAuthor2(){
         Transaction transaction = session.beginTransaction();
         Author author = session.get(Author.class,27L);
-//        author.setArticles(new HashSet<>());
         session.evict(author);
         Set<Article> articles = author.getArticles();
         for(Article article:articles){
             assertTrue(session.contains(article));
         }
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }    
+
+    /**
+     * 1 当cascade="persist" author与a1 都是临时对象时，author因为 执行 session.persist(author); 变成持久对象后，它也会级联到与之关联的 a1对象.
+     * 
+     * */
+    @Test
+    public void testCascadePersistForTransientAuthor1(){
+        Transaction transaction = session.beginTransaction();
+        Author author = new Author();
+        author.setName("A");
+
+        Article a1 = new Article();
+        a1.setName("a1");
+        a1.setAuthor(author);
+
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        author.setArticles(articles);
+
+        session.persist(author);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+
+    /**
+     * 1 当cascade="persist" author临时对象时，a1是游离对象，author因为 执行 session.persist(author); 变成持久对象后，commit的时候会报错, 因为cascade="persist" 被级联的
+     * 不能是游离对象.
+     * 2 当cascade="save-update" author临时对象时，a1是游离对象，author因为 执行 session.persist(author); 变成持久对象后，可以级联更新 a1
+     *
+     * */
+    @Test
+    public void testCascadePersistForTransientAuthor2(){
+        Transaction transaction = session.beginTransaction();
+        Author author = new Author();
+        author.setName("A");
+
+        Article a1 = new Article();
+        a1.setId(66);
+        a1.setName("a2");
+        a1.setAuthor(author);
+
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        author.setArticles(articles);
+
+        session.persist(author);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+
+    /**
+     * 1 当cascade="persist" author为持久化对象 a1是临时对象, 它不会级联a1 
+     * 
+     * */
+    @Test
+    public void testCascadePersistForPersistentAuthor(){
+        Transaction transaction = session.beginTransaction();
+        Author author = session.get(Author.class,27L);
+
+        Article a1 = new Article();
+        a1.setName("a1");
+        a1.setAuthor(author);
+
+        Set<Article> articles = author.getArticles();
+        articles.add(a1);
+        author.setArticles(articles);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+
+    /**
+     *  1 当cascade="persist" author为游离对象 a1是临时对象, session.update(author); author 变成了持久化对象,它不会级联a1     
+     * */
+    @Test
+    public void testCascadePersistForDetachedAuthor(){
+        Transaction transaction = session.beginTransaction();
+        Author author = session.get(Author.class,27L);
+        session.evict(author);
+        Article a1 = new Article();
+        a1.setName("a1");
+        a1.setAuthor(author);
+
+        Set<Article> articles = author.getArticles();        
+
+        articles.add(a1);
+        author.setArticles(articles);
+
+        session.update(author);
+
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
