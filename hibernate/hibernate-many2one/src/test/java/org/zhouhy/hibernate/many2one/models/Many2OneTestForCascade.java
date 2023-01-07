@@ -40,4 +40,19 @@ public class Many2OneTestForCascade extends Many2OneTest{
             transaction.commit();
         }
     }
+
+    /**
+     * 1 当Author时持久状态对象时, Article是临时对象, 当author对象更新时，它会级联更新与之相关联的临时对象.
+     *
+     * 2 注意这里一定要加上transaction的begin和commit 否则修改无效
+     * */
+    @Test
+    public void testUpdateMany2OneOjb(){
+        Transaction transaction = session.beginTransaction();
+        Author author = session.get(Author.class,27L);
+        
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
 }
