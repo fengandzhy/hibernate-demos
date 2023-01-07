@@ -118,4 +118,25 @@ public class Many2OneTestForCascade extends Many2OneTest{
             transaction.commit();
         }
     }
+
+    @Test
+    public void testCascadePersistForTransientAuthor2(){
+        Transaction transaction = session.beginTransaction();
+        Author author = new Author();
+        author.setName("A");
+
+        Article a1 = new Article();
+        a1.setId(41);
+        a1.setName("a2");
+        a1.setAuthor(author);
+
+        Set<Article> articles = new HashSet<>();
+        articles.add(a1);
+        author.setArticles(articles);
+
+        session.persist(author);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
 }
