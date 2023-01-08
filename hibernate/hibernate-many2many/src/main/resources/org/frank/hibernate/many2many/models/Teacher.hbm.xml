@@ -15,7 +15,7 @@
         <property name="teacherNo" type="java.lang.String" >
             <column name="teacher_no" not-null="true"/>
         </property>
-        <set name="courses" table="t_teacher_course">
+        <set name="courses" table="t_teacher_course" cascade="save-update">
             <key>
                 <column name="teacher_id"/>
             </key>
