@@ -16,6 +16,7 @@
         <module>hibernate-one2one</module>
         <module>hibernate-many2many</module>
         <module>hibernate-component</module>
+        <module>hibernate-inheritance</module>
     </modules>
     <packaging>pom</packaging>
 
