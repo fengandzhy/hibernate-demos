@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.frank.hibernate.many2many.models">
+    <class name="Course" table="t_course">
+        <id name="id" type="long">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="native" />
+        </id>
+        <property name="courseNo" type="java.lang.String">
+            <column name="course_no" not-null="true"/>
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="name" not-null="true"/>
+        </property>
+        <set name="teachers" table="t_teacher_course" inverse="true">
+            <key>
+                <column name="course_id"/>
+            </key>
+            <many-to-many class="Teacher" column="teacher_id"/>
+        </set>
+    </class>
+</hibernate-mapping>
