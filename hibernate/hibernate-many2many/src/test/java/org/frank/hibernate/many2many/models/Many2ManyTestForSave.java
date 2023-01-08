@@ -23,8 +23,8 @@ public class Many2ManyTestForSave extends Many2ManyTest{
         Course c2 = new Course("b2","c2");
         t1.getCourses().add(c1);
         t2.getCourses().add(c2);
-        t1.getCourses().add(c2);
-        t2.getCourses().add(c1);
+//        t1.getCourses().add(c2);
+//        t2.getCourses().add(c1);
         
         session.save(c1);
         session.save(c2);
