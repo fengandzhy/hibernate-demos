@@ -119,24 +119,36 @@ public class Many2OneTestForCascade extends Many2OneTest{
         }
     }
 
+    /**
+     * cascade=CascadeType.PERSIST 用persist 方法保存一个关联着游离对象的临时对象会报错. 
+     * 用save 方法就不会报错, 但不会把游离对象级联变成持久化对象, 就是说游离对象还是无法改变. 
+     * 
+     * */
     @Test
     public void testCascadePersistForTransientAuthor2(){
         Transaction transaction = session.beginTransaction();
         Author author = new Author();
         author.setName("A");
 
-        Article a1 = new Article();
-        a1.setId(41);
-        a1.setName("a2");
-        a1.setAuthor(author);
+        Article a1 = session.get(Article.class,41L);
+        session.evict(a1);
 
-        Set<Article> articles = new HashSet<>();
+        Set<Article> articles = author.getArticles();
         articles.add(a1);
         author.setArticles(articles);
 
+//        session.save(author);
         session.persist(author);
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
     }
+    
+//    public void testCascadePersistForDetachedAuthor(){
+//        Transaction transaction = session.beginTransaction();
+//        
+//        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+//            transaction.commit();
+//        }
+//    }
 }

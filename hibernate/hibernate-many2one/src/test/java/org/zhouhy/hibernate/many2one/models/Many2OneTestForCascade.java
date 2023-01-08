@@ -218,10 +218,13 @@ public class Many2OneTestForCascade extends Many2OneTest{
     }
 
     /**
-     * 1 当cascade="persist" author临时对象时，a1是游离对象，author因为 执行 session.persist(author); 变成持久对象后，commit的时候会报错, 因为cascade="persist" 被级联的
+     * 1 当cascade="persist" author临时对象时，a1是游离对象，author因为 执行 session.persist(author); 变成持久对象后，commit的时候会报错, 因为cascade="persist", 所以 被级联的
      * 不能是游离对象.
      * 2 当cascade="save-update" author临时对象时，a1是游离对象，author因为 执行 session.persist(author); 变成持久对象后，可以级联更新 a1
      *
+     * 当cascade="persist" 以下用save方法保存是可以的. 但是不会去更改 Article 表, 因为 Author 这里 inverse=true 不维护外键. 但是如果去掉了 inverse=true, 它变成维护外键了
+     * 那也只是更新一个外键, 其他的不会级联更新, 也就是说, a1 这里还是游离对象.
+     * 
      * */
     @Test
     public void testCascadePersistForTransientAuthor2(){
@@ -231,14 +234,17 @@ public class Many2OneTestForCascade extends Many2OneTest{
 
         Article a1 = new Article();
         a1.setId(66);
-        a1.setName("a2");
+        a1.setName("a8");
         a1.setAuthor(author);
 
         Set<Article> articles = new HashSet<>();
         articles.add(a1);
         author.setArticles(articles);
+        
+//        a1.setAuthor(author);
 
-        session.persist(author);
+//        session.save(author);  
+        session.persist(author); // cascade="persist" 用persist 方法保存一个关联着游离对象的临时对象会报错. PersistentObjectException: detached entity passed to persist
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
