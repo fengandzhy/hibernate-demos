@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.frank.hibernate.component.models">
+    <class name="Student" table="t_stu">
+        <id name="id" type="long">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" not-null="true"/>
+        </property>
+        
+        <component name="info" class="StudentInfo" >
+            <property name="address" type="java.lang.String">
+                <column name="address"/>
+            </property>
+            <property name="address" type="java.util.Date">
+                <column name="birthday"/>
+            </property>
+            <property name="email" type="java.lang.String">
+                <column name="email"/>
+            </property>
+        </component>
+    </class>
+</hibernate-mapping>
