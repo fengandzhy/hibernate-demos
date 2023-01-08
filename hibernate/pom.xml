@@ -14,6 +14,7 @@
         <module>hibernate-mapping</module>
         <module>hibernate-many2one</module>
         <module>hibernate-one2one</module>
+        <module>hibernate-many2many</module>
     </modules>
     <packaging>pom</packaging>
 
