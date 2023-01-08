@@ -243,7 +243,8 @@ public class Many2OneTestForCascade extends Many2OneTest{
         
 //        a1.setAuthor(author);
 
-        session.save(author);
+//        session.save(author);  
+        session.persist(author); // cascade="persist" 用persist 方法保存一个关联着游离对象的临时对象会报错. PersistentObjectException: detached entity passed to persist
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
