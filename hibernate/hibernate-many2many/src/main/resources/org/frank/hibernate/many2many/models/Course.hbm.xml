@@ -15,7 +15,7 @@
         <property name="name" type="java.lang.String">
             <column name="name" not-null="true"/>
         </property>
-        <set name="teachers" table="t_teacher_course" inverse="true">
+        <set name="teachers" table="t_teacher_course">
             <key>
                 <column name="course_id"/>
             </key>
