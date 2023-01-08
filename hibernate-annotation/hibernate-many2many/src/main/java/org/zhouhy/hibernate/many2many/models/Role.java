@@ -7,9 +7,9 @@ import java.util.Set;
 @Entity(name = "Role")
 @Table(name = "t1_role")
 public class Role {
-    @Id@Column(name="role_id")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private Long Id;
 
     @Column(name = "username", unique=true)
     private String name;
@@ -17,8 +17,8 @@ public class Role {
     
     @ManyToMany 
     @JoinTable(name="t1_user_role",
-            joinColumns = @JoinColumn(referencedColumnName="role_id",name="roleid"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName="user_id",name="userid"))
+            joinColumns = @JoinColumn(referencedColumnName="Id",name="role_id"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName="Id",name="user_id"))
     private Set<User> users = new HashSet<>();
 
     public String getName() {
@@ -37,11 +37,11 @@ public class Role {
         this.users = users;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public Long getId() {
+        return Id;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setId(Long id) {
+        Id = id;
     }
 }

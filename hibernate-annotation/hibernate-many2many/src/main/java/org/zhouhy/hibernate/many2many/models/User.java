@@ -8,9 +8,9 @@ import java.util.Set;
 @Table(name = "t1_user")
 public class User {
     
-    @Id@Column(name="user_id")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long Id;
 
     @Column(name = "username", unique=true)
     private String username;
@@ -21,8 +21,8 @@ public class User {
     
     @ManyToMany    
     @JoinTable(name="t1_user_role",            
-            joinColumns = @JoinColumn(referencedColumnName="user_id",name="userid"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName="role_id",name="roleid"))
+            joinColumns = @JoinColumn(referencedColumnName="Id",name="user_id"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName="Id",name="role_id"))
     private Set<Role> roles = new HashSet<>();
 
     public String getUsername() {
@@ -49,11 +49,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return Id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        Id = id;
     }
 }
