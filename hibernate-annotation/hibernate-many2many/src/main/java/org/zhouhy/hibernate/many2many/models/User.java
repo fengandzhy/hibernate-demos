@@ -21,8 +21,8 @@ public class User {
     
     @ManyToMany    
     @JoinTable(name="t1_user_role",            
-            joinColumns = @JoinColumn(referencedColumnName="user_id",name="user_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName="role_id",name="role_id"))
+            joinColumns = @JoinColumn(referencedColumnName="user_id",name="userid"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName="role_id",name="roleid"))
     private Set<Role> roles = new HashSet<>();
 
     public String getUsername() {
