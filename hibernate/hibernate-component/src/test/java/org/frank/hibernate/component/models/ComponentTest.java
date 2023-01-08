@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ComponentTest {
+public abstract class ComponentTest {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private SessionFactory sessionFactory = null;
