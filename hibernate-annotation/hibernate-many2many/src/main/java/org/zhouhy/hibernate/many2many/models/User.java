@@ -19,10 +19,10 @@ public class User {
     private String password;
 
     
-    @ManyToMany    
-    @JoinTable(name="t1_user_role",            
-            joinColumns = @JoinColumn(referencedColumnName="Id",name="user_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName="Id",name="role_id"))
+    @ManyToMany(targetEntity=Role.class)    
+    @JoinTable(name="t1_user_role",  // t1_user_role 中间表的表名          
+            joinColumns = @JoinColumn(referencedColumnName="Id",name="user_id"),// Id 是 User对应表 主键的列名, user_id 中间表中关联User的列名.
+            inverseJoinColumns = @JoinColumn(referencedColumnName="Id",name="role_id")) // Id 是Role对应表 主键列的名称, role_id 是中间表中关联Role的列名.
     private Set<Role> roles = new HashSet<>();
 
     public String getUsername() {
