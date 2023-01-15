@@ -1,6 +1,7 @@
 package org.frank.hibernate.inheritance.models.single;
 
 import org.frank.hibernate.inheritance.models.InheritanceTest;
+import org.frank.hibernate.inheritance.models.joined.AutomationWebAppMenu;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.junit.Test;
@@ -45,6 +46,24 @@ public class InheritanceSingleSaveTest extends InheritanceTest {
         folder.setType("B");
         folder.setFileCount(3);
         session.save(folder);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
+    
+    @Test
+    public void saveAutoMenu(){
+        Transaction transaction = session.beginTransaction();
+        AutomationWebAppMenu menu = new AutomationWebAppMenu();
+        menu.setFoot("foot");
+        menu.setAbstract(false);
+        menu.setDescription("Auto menu");
+        menu.setName("name");
+        menu.setPinyin("pin yin");
+        menu.setRemark("remark");
+        menu.setShow(true);
+        menu.setStatus(true);
+        session.save(menu);
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
