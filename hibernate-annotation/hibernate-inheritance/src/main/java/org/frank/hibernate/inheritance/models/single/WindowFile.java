@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "t_window_file")
+@Table(name = "t1_window_file")
 @DiscriminatorColumn(name = "DISCRIMINATOR", discriminatorType = DiscriminatorType.STRING, length = 30)
 @DiscriminatorValue("WindowFile")
 public class WindowFile {
