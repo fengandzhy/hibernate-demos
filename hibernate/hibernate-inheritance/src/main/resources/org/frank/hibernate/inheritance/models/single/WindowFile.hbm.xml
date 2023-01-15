@@ -11,24 +11,24 @@
         </id>
         <discriminator column="discriminator" type="string"/>
         <property name="name" type="java.lang.String">
-            <column name="name" not-null="true"/>
+            <column name="name" />
         </property>
         <property name="type" type="java.lang.String">
-            <column name="type" not-null="true"/>
+            <column name="type" />
         </property>
         <property name="date" type="java.util.Date">
-            <column name="date" not-null="true"/>
+            <column name="date"/>
         </property>
         
         <subclass name="Document" discriminator-value="document">
             <property name="size" type="java.util.Date">
-                <column name="size" not-null="true"/>
+                <column name="size"/>
             </property>
         </subclass>
 
         <subclass name="Folder" discriminator-value="folder">
             <property name="fileCount" type="int">
-                <column name="file-count" not-null="true"/>
+                <column name="file_count" />
             </property>
         </subclass>
     </class>
