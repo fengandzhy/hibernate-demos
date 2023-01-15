@@ -18,4 +18,16 @@ public class InheritanceUnionSaveTest extends InheritanceTest {
             transaction.commit();
         }
     }
+
+    @Test
+    public void testSaveBike(){
+        Transaction transaction = session.beginTransaction();
+        Bike bike = new Bike();
+        bike.setSpeed(20);
+        bike.setName("bike");
+        session.save(bike);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
 }
