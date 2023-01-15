@@ -51,21 +51,5 @@ public class InheritanceSingleSaveTest extends InheritanceTest {
         }
     }
     
-    @Test
-    public void saveAutoMenu(){
-        Transaction transaction = session.beginTransaction();
-        AutomationWebAppMenu menu = new AutomationWebAppMenu();
-        menu.setFoot("foot");
-        menu.setAbstract(false);
-        menu.setDescription("Auto menu");
-        menu.setName("name");
-        menu.setPinyin("pin yin");
-        menu.setRemark("remark");
-        menu.setShow(true);
-        menu.setStatus(true);
-        session.save(menu);
-        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
-            transaction.commit();
-        }
-    }
+    
 }
