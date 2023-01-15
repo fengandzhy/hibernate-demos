@@ -57,6 +57,14 @@ public class WindowFile {
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "WindowFile{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }
