@@ -6,19 +6,19 @@ import org.junit.Test;
 public class InheritanceSingleGetAndDeleteTest extends InheritanceTest {
     
     @Test
-    public void getWindowFile(){
+    public void testGetWindowFile(){
         WindowFile windowFile = session.get(WindowFile.class,1);
         logger.info(windowFile.toString());
     }
 
     @Test
-    public void getFolder(){
+    public void testGetFolder(){
         WindowFile windowFile = session.get(WindowFile.class,4);
         logger.info(windowFile.getClass().toString());
     }
 
     @Test
-    public void getDocument(){
+    public void testGetDocument(){
         WindowFile windowFile = session.get(WindowFile.class,3);
         logger.info(windowFile.getClass().toString());
     }
