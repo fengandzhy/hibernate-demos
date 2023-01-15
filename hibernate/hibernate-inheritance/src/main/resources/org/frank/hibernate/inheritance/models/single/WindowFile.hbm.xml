@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.frank.hibernate.inheritance.models.single">
+    <class name="WindowFile" table="t_window_file" discriminator-value="window-file">
+        <id name="id" type="int">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="native" />
+        </id>
+        <discriminator column="discriminator" type="string"/>
+        <property name="name" type="java.lang.String">
+            <column name="name" not-null="true"/>
+        </property>
+        <property name="type" type="java.lang.String">
+            <column name="type" not-null="true"/>
+        </property>
+        <property name="date" type="java.util.Date">
+            <column name="date" not-null="true"/>
+        </property>
+        
+        <subclass name="Document" discriminator-value="document">
+            <property name="size" type="java.util.Date">
+                <column name="size" not-null="true"/>
+            </property>
+        </subclass>
+
+        <subclass name="Folder" discriminator-value="folder">
+            <property name="fileCount" type="int">
+                <column name="file-count" not-null="true"/>
+            </property>
+        </subclass>
+    </class>
+</hibernate-mapping>
