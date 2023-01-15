@@ -26,6 +26,9 @@
   <mapping class="org.frank.hibernate.inheritance.models.joined.BaseWebAppMenu"/>
   <mapping class="org.frank.hibernate.inheritance.models.joined.AutomationWebAppMenu"/>
   <mapping class="org.frank.hibernate.inheritance.models.joined.WebAppMenu"/>
+  <mapping class="org.frank.hibernate.inheritance.models.union.Car"/>
+  <mapping class="org.frank.hibernate.inheritance.models.union.Vehicle"/>
+  <mapping class="org.frank.hibernate.inheritance.models.union.Bike"/>
  </session-factory>
 </hibernate-configuration>
         
