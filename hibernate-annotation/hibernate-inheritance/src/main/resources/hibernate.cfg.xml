@@ -20,6 +20,12 @@
   <mapping class="org.frank.hibernate.inheritance.models.single.WindowFile"/>
   <mapping class="org.frank.hibernate.inheritance.models.single.Folder"/>
   <mapping class="org.frank.hibernate.inheritance.models.single.Document"/>
+  <mapping class="org.frank.hibernate.inheritance.models.joined.Animal"/>
+  <mapping class="org.frank.hibernate.inheritance.models.joined.Bird"/>
+  <mapping class="org.frank.hibernate.inheritance.models.joined.Dog"/>
+  <mapping class="org.frank.hibernate.inheritance.models.joined.BaseWebAppMenu"/>
+  <mapping class="org.frank.hibernate.inheritance.models.joined.AutomationWebAppMenu"/>
+  <mapping class="org.frank.hibernate.inheritance.models.joined.WebAppMenu"/>
  </session-factory>
 </hibernate-configuration>
         
