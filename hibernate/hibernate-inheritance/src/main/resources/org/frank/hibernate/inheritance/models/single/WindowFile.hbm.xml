@@ -21,7 +21,7 @@
         </property>
         
         <subclass name="Document" discriminator-value="document">
-            <property name="size" type="java.util.Date">
+            <property name="size" type="java.lang.String">
                 <column name="size"/>
             </property>
         </subclass>
