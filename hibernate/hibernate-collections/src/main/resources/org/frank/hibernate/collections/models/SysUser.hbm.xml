@@ -18,7 +18,7 @@
             key子元素：集合外键的列名
             element子元素：存放集合元素的列的信息
         -->
-        <set name="addressSet" table="user_addressSet">
+        <set name="addressSet" table="user_addressSet" order-by="address ASC">
             <key column="sys_user_Id"></key>
             <element type="string" column="address"></element>
         </set>        
