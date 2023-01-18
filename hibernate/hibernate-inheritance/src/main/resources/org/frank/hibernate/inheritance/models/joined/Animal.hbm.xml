@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.frank.hibernate.inheritance.models.joined">
+    <class name="Animal" table="t_animal">
+        <id name="id" type="int">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="native" />
+        </id>        
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+        <property name="color" type="java.lang.String">
+            <column name="color" />
+        </property>
+        
+        
+        <joined-subclass name="Bird" table="t_bird">
+            <key column="BIRD_ID"></key>                
+            <property name="speed" type="java.lang.String">
+                <column name="speed"/>
+            </property>
+        </joined-subclass>
+
+        <joined-subclass name="Dog" table="t_dog">
+            <key column="DOG_ID"></key>
+            <property name="legs" type="java.lang.Integer">
+                <column name="legs"/>
+            </property>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>
