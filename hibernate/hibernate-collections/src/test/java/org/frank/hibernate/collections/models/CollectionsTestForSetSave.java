@@ -18,7 +18,7 @@ public class CollectionsTestForSetSave extends CollectionsTest{
         
         SysUser sysUser = new SysUser();
         sysUser.setAddressSet(address);
-        sysUser.setName("王刚");
+        sysUser.setName("李刚");
         session.save(sysUser);
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
