@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.frank.hibernate.inheritance.models.union">
+    <class name="Vehicle" table="t_vehicle">
+        <id name="id" type="string">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="uuid2" />
+        </id>        
+        <property name="speed" type="java.lang.Integer">
+            <column name="speed" />
+        </property>      
+        
+        
+        <union-subclass name="Bike" table="t_bike">                       
+            <property name="name" type="java.lang.String">
+                <column name="name"/>
+            </property>
+        </union-subclass>
+
+        <union-subclass name="Car" table="t_car">            
+            <property name="engine" type="java.lang.String">
+                <column name="engine"/>
+            </property>
+        </union-subclass>
+    </class>
+</hibernate-mapping>

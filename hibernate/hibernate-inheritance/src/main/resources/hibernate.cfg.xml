@@ -28,6 +28,7 @@
   <!-- ORM映射关系 -->
   <mapping resource="org/frank/hibernate/inheritance/models/single/WindowFile.hbm.xml" />
   <mapping resource="org/frank/hibernate/inheritance/models/joined/Animal.hbm.xml" />
+  <mapping resource="org/frank/hibernate/inheritance/models/union/Vehicle.hbm.xml" />
  </session-factory>
 </hibernate-configuration>
         
