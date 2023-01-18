@@ -90,4 +90,18 @@ public class CollectionTestForSetGet extends CollectionsTest{
             transaction.commit();
         }
     }
+
+    /**
+     * 这会执行一条delete 删除user_addressSet 和 sysUser1 关联的所有项目, 然后然后再执行一条delete 语句删除t_sys_user表中的相应内容.
+     *
+     * */
+    @Test
+    public void testGetForSetAndUpdateRemoveSysUser(){
+        Transaction transaction = session.beginTransaction();
+        SysUser sysUser1 = session.get(SysUser.class,1L);
+        session.delete(sysUser1);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
 }
