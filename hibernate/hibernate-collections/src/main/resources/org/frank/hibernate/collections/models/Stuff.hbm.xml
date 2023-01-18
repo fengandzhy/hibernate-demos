@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping package="org.frank.hibernate.collections.models">
-    <class name="SysUser" table="t_sys_user">
+    <class name="Stuff" table="t_stuff">
         <id name="id" type="long">
             <column name="ID" />
             <!-- 数据库底层来实现id的增长 -->
@@ -17,10 +17,13 @@
             table属性：集合表的名字
             key子元素：集合外键的列名
             element子元素：存放集合元素的列的信息
+            这里的element 只能有一个,也就是说 t_user_addressList 不能有多列.
+            idx列是自动插入的,是一个整数.
         -->
-        <set name="addressSet" table="user_addressSet" order-by="address ASC">
-            <key column="sys_user_Id"></key>
-            <element type="string" column="address"></element>
-        </set>        
+        <list name="addressList" table="t_stuff_addressList">
+            <key column="stuff_Id"></key>
+            <list-index column="idx"></list-index>
+            <element type="string" column="address"></element>            
+        </list>           
     </class>
 </hibernate-mapping>
