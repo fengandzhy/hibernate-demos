@@ -17,6 +17,7 @@
         <module>hibernate-many2many</module>
         <module>hibernate-component</module>
         <module>hibernate-inheritance</module>
+        <module>hibernate-collections</module>
     </modules>
     <packaging>pom</packaging>
 
