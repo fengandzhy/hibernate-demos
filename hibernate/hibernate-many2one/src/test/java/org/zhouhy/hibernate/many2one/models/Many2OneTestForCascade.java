@@ -76,7 +76,7 @@ public class Many2OneTestForCascade extends Many2OneTest{
     }
 
     /**
-     *  1. 正常情况下讲 cascade=none时, author为持久化对象,  article 也吃持久对象, 但是执行了 iterator.remove(); 之后article仍然是持久化对象, 所以它并不删除article  
+     *  1. 正常情况下讲 cascade=none时, author为持久化对象,  article 也为持久对象, 但是执行了 iterator.remove(); 之后article仍然是持久化对象, 所以它并不删除article  
      *  2 iterator.remove(); 只是解除了又author 到 article 的关联关系, 由于Author 端 inverse= true 所以单纯地解除 author 到 article 的关联关系, 并没有改变外键值
      *  
      * */
@@ -96,7 +96,7 @@ public class Many2OneTestForCascade extends Many2OneTest{
     }
 
     /**
-     * 1. 正常情况下讲 cascade=none时, author为持久化对象,  article 也吃持久对象, 所以当 session.delete(a); 时 article变成临时对象, 所以当commit时article在数据库中就会删除.
+     * 1. 正常情况下讲 cascade=none时, author为持久化对象,  article 也是持久对象, 所以当 session.delete(a); 时 article变成临时对象, 所以当commit时article在数据库中就会删除.
      * 2. 但是当 cascade=save-update时, 这个就有很大的问题了, 由于author为持久化对象, 当commit 的时候, 它会级联到它所关联的对象, 就是 article, 发现此时的article 由于session.delete(a);
      * 变成了临时对象, 所以它会再次地把它变成持久化对象, 因此, 这样的话跟之前的delete操作矛盾，所以就会抛出异常. 所以要加上 iterator.remove(); 来解除 author 到 article 的关联关系.
      * 
