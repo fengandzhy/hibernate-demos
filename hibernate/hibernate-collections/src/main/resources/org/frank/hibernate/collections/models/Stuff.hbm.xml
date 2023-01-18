@@ -18,6 +18,7 @@
             key子元素：集合外键的列名
             element子元素：存放集合元素的列的信息
             这里的element 只能有一个,也就是说 t_user_addressList 不能有多列.
+            idx列是自动插入的,是一个整数.
         -->
         <list name="addressList" table="t_stuff_addressList">
             <key column="stuff_Id"></key>
