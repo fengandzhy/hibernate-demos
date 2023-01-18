@@ -23,4 +23,12 @@ public class CollectionTestForList extends CollectionsTest{
             transaction.commit();
         }
     }
+
+    /**
+     * list 默认其实是懒加载.
+     * */
+    @Test
+    public void testGetForList(){
+        Stuff stuff = session.get(Stuff.class,1L);
+    }
 }
