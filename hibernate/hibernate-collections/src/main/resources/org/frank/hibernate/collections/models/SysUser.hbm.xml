@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.frank.hibernate.collections.models">
+    <class name="SysUser" table="t_sys_user">
+        <id name="id" type="long">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" not-null="true"/>
+        </property>
+        <!-- 
+            addressSet属性，Set集合
+            table属性：集合表的名字
+            key子元素：集合外键的列名
+            element子元素：存放集合元素的列的信息
+        -->
+        <set name="addressSet" table="user_addressSet">
+            <key column="sys_user_Id"></key>
+            <element type="string" column="address"></element>
+        </set>        
+    </class>
+</hibernate-mapping>
