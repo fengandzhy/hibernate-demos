@@ -3,6 +3,10 @@ package org.frank.hibernate.collections.models;
 import java.io.Serializable;
 import java.util.Set;
 
+/**
+ * 1. Set是无序，不可重复的集合。 
+ * 
+ * */
 public class SysUser implements Serializable {
 
     private Long id; 
@@ -31,5 +35,14 @@ public class SysUser implements Serializable {
 
     public void setAddressSet(Set<String> addressSet) {
         this.addressSet = addressSet;
+    }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", addressSet=" + addressSet +
+                '}';
     }
 }
