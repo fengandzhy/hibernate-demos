@@ -19,7 +19,7 @@
             element子元素：存放集合元素的列的信息
         -->
         <set name="addressSet" table="user_addressSet">
-            <key column="userId"></key>
+            <key column="sys_user_Id"></key>
             <element type="string" column="address"></element>
         </set>        
     </class>

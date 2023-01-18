@@ -26,7 +26,7 @@
   <property name="hibernate.jdbc.fetch_size">100</property> 
   
   <!-- ORM映射关系 -->
-  <mapping resource="org/frank/hibernate/component/models/Student.hbm.xml" />  
+  <mapping resource="org/frank/hibernate/collections/models/SysUser.hbm.xml" />  
  </session-factory>
 </hibernate-configuration>
         
