@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-8-7 7:08:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="org.frank.hibernate.collections.models">
+    <class name="Employee" table="t_employee">
+        <id name="id" type="long">
+            <column name="ID" />
+            <!-- 数据库底层来实现id的增长 -->
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name"/>
+        </property>
+        <!-- 
+            addressSet属性，Set集合
+            table属性：集合表的名字
+            key子元素：集合外键的列名
+            element子元素：存放集合元素的列的信息
+            这里的element 只能有一个,也就是说 t_user_addressList 不能有多列.
+            idx列是自动插入的,是一个整数.
+        -->
+        <map  name="addressMap" table="t_employee_address_map">
+            <key column="employee_Id"></key>
+            <map-key type="string" column="key"></map-key>
+            <element type="string" column="address"></element>          
+        </map>           
+    </class>
+</hibernate-mapping>
