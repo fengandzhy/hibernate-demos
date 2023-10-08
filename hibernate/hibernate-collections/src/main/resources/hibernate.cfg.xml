@@ -28,6 +28,7 @@
   <!-- ORM映射关系 -->
   <mapping resource="org/frank/hibernate/collections/models/SysUser.hbm.xml" />
   <mapping resource="org/frank/hibernate/collections/models/Stuff.hbm.xml" />
+  <mapping resource="org/frank/hibernate/collections/models/Employee.hbm.xml" />
  </session-factory>
 </hibernate-configuration>
         
