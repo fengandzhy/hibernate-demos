@@ -29,7 +29,8 @@ public class DeleteTest extends AbstractTest{
     }
 
     /**
-     * 如果删除一个数据库里没有ID的记录,就会抛出异常.
+     * 如果删除一个数据库里没有ID的记录,就会抛出异常. 因为delete方法只能删除游离对象和持久化对象
+     * 
      * */
     @Test(expected = OptimisticLockException.class)
     public void testDeleteWithIdNotExistsInDB(){
