@@ -23,7 +23,7 @@ public class MergeTest extends AbstractTest{
             session.evict(user);
             logger.info(user.toString());
             assertFalse(session.contains(user));
-            user.setUsername("frank");
+            user.setUsername("frank1"); // merge方法也可以改变数据库里的记录, 但是执行完成之后user仍旧是游离对象,还有执行前会发出一条select语句看看user跟数据是否一致，不一致才执行update
             session.merge(user);
             logger.info(user.toString());
             assertFalse(session.contains(user));
@@ -33,7 +33,10 @@ public class MergeTest extends AbstractTest{
             transaction.rollback();
         }
     }
-
+    
+    /**
+     *  如下 user 是一个游离对象, 执行了merge之后, 它会改变数据库里的值，但对象仍然是游离的
+     * */
     @Test
     public void testMergeWithDetachObj2(){
         transaction = session.beginTransaction();
@@ -50,7 +53,7 @@ public class MergeTest extends AbstractTest{
     }
 
     /**
-     * 当这个ID数据库里没有时，它会执行一条insert语句.执行完之后，这个对象还是新建状态, 这个对象的ID值并没有改变
+     * 当这个ID数据库里没有时，它会执行一条insert语句.执行完之后，这个对象还是新建状态, 这个对象的ID值并没有改变, 但是数据库里会多一条记录
      * 
      * */
     @Test
