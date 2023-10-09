@@ -47,12 +47,12 @@ public class DeleteTest extends AbstractTest{
     }
 
     /**
-     * delete 也会把一个持久状态转换成一个临时状态, 临时状态的对象它是没有ID的或者ID为的
+     * delete 也会把一个持久状态转换成一个临时状态, 临时状态的对象它是没有ID的或者ID为数据库里不存在的
      * */
     @Test
     public void testDeleteFromPersistentToTransient(){
         transaction = session.beginTransaction();
-        User user = session.get(User.class,32L);
+        User user = session.get(User.class,39L);
         try {
             assertTrue(session.contains(user));
             session.delete(user);
