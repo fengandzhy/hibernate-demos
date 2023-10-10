@@ -20,7 +20,7 @@
             这里的element 只能有一个,也就是说 t_user_addressList 不能有多列.
             idx列是自动插入的,是一个整数.
         -->
-        <list name="addressList" table="t_stuff_addressList">
+        <list name="addressList" table="t_stuff_address_list">
             <key column="stuff_Id"></key>
             <list-index column="idx"></list-index>
             <element type="string" column="address"></element>            
