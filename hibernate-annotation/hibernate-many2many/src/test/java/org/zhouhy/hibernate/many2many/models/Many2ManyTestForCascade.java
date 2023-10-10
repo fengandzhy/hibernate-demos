@@ -21,8 +21,8 @@ public class Many2ManyTestForCascade extends Many2ManyTest{
         Role r1 = session.get(Role.class,1L);
         session.evict(r1);
         u1.getRoles().add(r1);
-//        session.persist(u1);
-        session.save(u1);
+        session.persist(u1);
+//        session.save(u1);
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
