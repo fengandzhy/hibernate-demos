@@ -17,7 +17,7 @@ public class CollectionTestForSetGet extends CollectionsTest{
     }
 
     /**
-     * 以下执行一条 insert 语句 插入到 user_addressSet 表里
+     * 以下执行一条 insert 语句 插入到 user_address_set 表里
      * */
     @Test
     public void testGetForSetAndUpdateAddNewAddressToSysUser(){
@@ -30,7 +30,7 @@ public class CollectionTestForSetGet extends CollectionsTest{
     }
 
     /**
-     * 以下执行一条 insert 语句 插入到 user_addressSet 表里, 关联的是 sysUser2
+     * 以下执行一条 insert 语句 插入到 user_address_set 表里, 关联的是 sysUser2
      * */
     @Test
     public void testGetForSetAndUpdateAddNewAddressToAnotherSysUser(){
@@ -75,7 +75,7 @@ public class CollectionTestForSetGet extends CollectionsTest{
     }
 
     /**
-     * 这会执行一条delete 删除user_addressSet 和 sysUser1 关联的所有项目, 然后在执行两条insert 语句插入user_addressSet
+     * 这会执行一条delete 删除user_address_set 和 sysUser1 关联的所有项目, 然后在执行两条insert 语句插入user_addressSet
      * 
      * */
     @Test
@@ -92,7 +92,7 @@ public class CollectionTestForSetGet extends CollectionsTest{
     }
 
     /**
-     * 这会执行一条delete 删除user_addressSet 和 sysUser1 关联的所有项目, 然后然后再执行一条delete 语句删除t_sys_user表中的相应内容.
+     * 这会执行一条delete 删除user_address_set 和 sysUser1 关联的所有项目, 然后然后再执行一条delete 语句删除t_sys_user表中的相应内容.
      *
      * */
     @Test
