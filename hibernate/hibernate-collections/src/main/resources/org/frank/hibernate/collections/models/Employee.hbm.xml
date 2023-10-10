@@ -14,7 +14,7 @@
         </property>
         <!-- 
 45                 Map映射
-46                     name指定要映射的map集合的属性
+46                 name指定要映射的map集合的属性
 47                 table集合属性要映射的表
 48                 key指定集合表(t_addressMap)的外键字段
 49                 element指定集合map的其他字段value
