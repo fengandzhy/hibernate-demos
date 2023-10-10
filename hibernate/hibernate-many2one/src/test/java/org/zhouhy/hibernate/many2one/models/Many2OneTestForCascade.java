@@ -49,7 +49,7 @@ public class Many2OneTestForCascade extends Many2OneTest{
     @Test
     public void testUpdateMany2OneOjb1(){
         Transaction transaction = session.beginTransaction();
-        Author author = session.get(Author.class,27L);
+        Author author = session.get(Author.class,28L);
         assertTrue(session.contains(author));
         author.setName("AB");        
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){

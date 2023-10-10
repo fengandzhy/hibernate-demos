@@ -18,6 +18,7 @@
         <module>hibernate-component</module>
         <module>hibernate-inheritance</module>
         <module>hibernate-collections</module>
+        <module>hibernate-exercise</module>
     </modules>
     <packaging>pom</packaging>
 
