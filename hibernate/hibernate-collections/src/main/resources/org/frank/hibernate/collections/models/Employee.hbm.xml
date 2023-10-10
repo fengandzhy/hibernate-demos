@@ -13,16 +13,17 @@
             <column name="name"/>
         </property>
         <!-- 
-            addressSet属性，Set集合
-            table属性：集合表的名字
-            key子元素：集合外键的列名
-            element子元素：存放集合元素的列的信息
-            这里的element 只能有一个,也就是说 t_user_addressList 不能有多列.
-            idx列是自动插入的,是一个整数.
-        -->
+45                 Map映射
+46                     name指定要映射的map集合的属性
+47                 table集合属性要映射的表
+48                 key指定集合表(t_addressMap)的外键字段
+49                 element指定集合map的其他字段value
+50                 type元素类型，一定要指定
+51                 map-key指定map的key
+52      -->
         <map  name="addressMap" table="t_employee_address_map">
             <key column="employee_Id"></key>
-            <map-key type="string" column="key"></map-key>
+            <map-key type="string" column="number"></map-key>
             <element type="string" column="address"></element>          
         </map>           
     </class>
