@@ -49,7 +49,7 @@ public class Many2OneTestForCascade extends Many2OneTest{
     @Test
     public void testUpdateMany2OneOjb1(){
         Transaction transaction = session.beginTransaction();
-        Author author = session.get(Author.class,27L);
+        Author author = session.get(Author.class,28L);
         assertTrue(session.contains(author));
         author.setName("AB");        
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
@@ -125,8 +125,11 @@ public class Many2OneTestForCascade extends Many2OneTest{
      *    临时对象还是临时对象, 所以就会爆出 TransientObjectException. 
      *   
      *   2. 当 cascade=save-update时, 因为author是持久对象, a1是临时对象, 当执行commit的时候 会级联保存a1, 这个 author.setArticles(articles); 只是改变了author的关联, 
-     *   由于在author端 inverse=true, 所以它不负责改变外键. 所以当cascade=save-update 时它只是级联增加了一条记录而不会改变原有记录的外键值. 
-     *   但是如果把这个 inverse=false的时候，它会改变之前跟author关联的对象的外键值. 
+     *   由于在author端 inverse=true, 所以它不负责改变外键. 所以当cascade=save-update 时它只是级联增加了一条记录而不会改变原有记录的外键值. 除非增加一条关联a1.setAuthor(author);
+     *   或者如果把这个 inverse=false的时候，它会改变之前跟author关联的对象的外键值. 
+     *   
+     *   3. 当 cascade="persist" 因为author是持久对象, a1是临时对象, 当执行commit的时候, 不会有任何改变, 因为author已经是持久化对象,
+     *   并没有执行 session.persist(author); 所以它不会级联保存与 author相关的临时对象
      *   
      * */
     @Test
@@ -135,12 +138,13 @@ public class Many2OneTestForCascade extends Many2OneTest{
         Author author = session.get(Author.class,27L);
 
         Article a1 = new Article();
-        a1.setName("a1");
+        a1.setName("a9");
         a1.setAuthor(author);
 
         Set<Article> articles = new HashSet<>();
         articles.add(a1);
         author.setArticles(articles);
+//        session.persist(author);
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
             transaction.commit();
         }
