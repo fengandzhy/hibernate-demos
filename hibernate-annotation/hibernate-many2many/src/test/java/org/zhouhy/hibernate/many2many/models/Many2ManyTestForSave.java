@@ -26,7 +26,7 @@ public class Many2ManyTestForSave extends Many2ManyTest{
         u1.getRoles().add(r1); // 由于两边都是 @JoinTable 所以只能设置单边的关系.
         
         session.save(u1);
-        session.save(r1);
+//        session.save(r1);
         
         
         if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
