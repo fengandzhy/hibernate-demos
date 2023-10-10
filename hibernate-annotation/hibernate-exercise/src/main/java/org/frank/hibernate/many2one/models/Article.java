@@ -18,7 +18,7 @@ public class Article implements Serializable {
     private String name;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
 //    @Fetch(FetchMode.JOIN)
     private Author author;
