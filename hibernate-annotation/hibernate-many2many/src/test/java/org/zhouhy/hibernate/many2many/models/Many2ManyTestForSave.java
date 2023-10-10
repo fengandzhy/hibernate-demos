@@ -7,7 +7,8 @@ import org.junit.Test;
 public class Many2ManyTestForSave extends Many2ManyTest{
     
     /**
-     * 1.当两边都设置了 @JoinTable 表示两边都要参与维护外键，就是说两边都要去更新中间表t1_user_role, 所以当两边都设置了关联关系后, 它就会出错. 因此只设置一边的关联关系.
+     * 1.当两边都设置了 @JoinTable 表示两边都要参与维护外键，就是说两边都要去更新中间表t1_user_role, 
+     * 所以当两边都设置了关联关系后, 它就会出错. 因此只设置一边的关联关系.
      * 
      * 
      * */    
