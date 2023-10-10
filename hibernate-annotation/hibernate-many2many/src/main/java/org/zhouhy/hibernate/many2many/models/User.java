@@ -21,8 +21,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    
-    @ManyToMany(targetEntity=Role.class)    
+
+    @ManyToMany(targetEntity = Role.class, cascade = CascadeType.PERSIST)
     @JoinTable(name="t1_user_role",  // t1_user_role 中间表的表名          
             joinColumns = @JoinColumn(referencedColumnName="Id",name="user_id"),// Id 是 User对应表 主键的列名, user_id 中间表中关联User的列名.
             inverseJoinColumns = @JoinColumn(referencedColumnName="Id",name="role_id")) // Id 是Role对应表 主键列的名称, role_id 是中间表中关联Role的列名.
