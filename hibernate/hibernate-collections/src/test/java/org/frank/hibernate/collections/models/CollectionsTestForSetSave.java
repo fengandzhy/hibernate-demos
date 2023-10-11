@@ -24,4 +24,10 @@ public class CollectionsTestForSetSave extends CollectionsTest{
             transaction.commit();
         }
     }
+    
+    @Test
+    public void testDelete(){
+        Transaction transaction = session.beginTransaction();
+        
+    }
 }

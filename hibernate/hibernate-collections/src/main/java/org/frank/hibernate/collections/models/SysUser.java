@@ -6,12 +6,16 @@ import java.util.Set;
 /**
  * 1. Set是无序，不可重复的集合。 
  * 
+ * 
+ * 
  * */
 public class SysUser implements Serializable {
 
     private Long id; 
     private String name;
     private Set<String> addressSet;
+//    private Set<Info> infoSet;
+    
 
     public Long getId() {
         return id;
@@ -36,6 +40,14 @@ public class SysUser implements Serializable {
     public void setAddressSet(Set<String> addressSet) {
         this.addressSet = addressSet;
     }
+
+//    public Set<Info> getInfoSet() {
+//        return infoSet;
+//    }
+//
+//    public void setInfoSet(Set<Info> infoSet) {
+//        this.infoSet = infoSet;
+//    }
 
     @Override
     public String toString() {
