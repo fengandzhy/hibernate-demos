@@ -24,4 +24,21 @@ public class ComponentTestForSave extends ComponentTest{
             transaction.commit();
         }
     }
+    
+    /**
+     * 修改info关系
+     * */
+    @Test
+    public void testUpdate(){
+        Transaction transaction = session.beginTransaction();
+        Student s = session.get(Student.class, 1l);
+        StudentInfo info = new StudentInfo();
+        info.setAddress("Address123");
+        info.setBirthday( new GregorianCalendar(2015, 2, 11).getTime());
+        info.setEmail("aabb111@ccdd.com");
+        s.setInfo(info);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
 }
