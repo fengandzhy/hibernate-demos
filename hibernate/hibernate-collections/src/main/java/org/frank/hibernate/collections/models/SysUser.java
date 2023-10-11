@@ -1,6 +1,7 @@
 package org.frank.hibernate.collections.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -14,7 +15,7 @@ public class SysUser implements Serializable {
     private String name;
     private Set<String> addressSet;
 //    private Set<Info> infoSet;
-    
+    private Set<Date> dateSet; 
 
     public Long getId() {
         return id;
@@ -47,6 +48,14 @@ public class SysUser implements Serializable {
 //    public void setInfoSet(Set<Info> infoSet) {
 //        this.infoSet = infoSet;
 //    }
+
+    public Set<Date> getDateSet() {
+        return dateSet;
+    }
+
+    public void setDateSet(Set<Date> dateSet) {
+        this.dateSet = dateSet;
+    }
 
     @Override
     public String toString() {
