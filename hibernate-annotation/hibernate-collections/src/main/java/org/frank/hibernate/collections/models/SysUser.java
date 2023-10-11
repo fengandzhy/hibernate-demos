@@ -24,13 +24,13 @@ public class SysUser implements Serializable {
     @ElementCollection
     @CollectionTable(name = "user1_address_set", joinColumns = @JoinColumn(name = "sys_user_Id"))
     @Column(name = "address")
-    @OrderColumn(name="address ASC")    
+//    @OrderColumn(name="address ASC")    
     private Set<String> addressSet;
 
     @ElementCollection
     @CollectionTable(name = "user1_date_set", joinColumns = @JoinColumn(name = "sys_user_Id"))
     @Column(name = "date")
-    @OrderColumn(name="date ASC")
+//    @OrderColumn(name="date ASC")
     private Set<Date> dateSet; 
 
     public Long getId() {
