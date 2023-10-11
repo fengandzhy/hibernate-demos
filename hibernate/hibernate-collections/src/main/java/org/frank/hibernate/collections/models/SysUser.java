@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * 1. Set是无序，不可重复的集合。 
+ * 1. Set是无序，不可重复的集合。 这里的集合映射必须是基本数据类型或者String或者Date类型的, 不能是其他复杂类型的
+ * 例如本例中 private Set<Info> infoSet; 这个就无法映射, 这就要用到一对多这种映射关系还要映射 Info.
  * 
  * */
 public class SysUser implements Serializable {
@@ -12,6 +13,8 @@ public class SysUser implements Serializable {
     private Long id; 
     private String name;
     private Set<String> addressSet;
+//    private Set<Info> infoSet;
+    
 
     public Long getId() {
         return id;
@@ -36,6 +39,14 @@ public class SysUser implements Serializable {
     public void setAddressSet(Set<String> addressSet) {
         this.addressSet = addressSet;
     }
+
+//    public Set<Info> getInfoSet() {
+//        return infoSet;
+//    }
+//
+//    public void setInfoSet(Set<Info> infoSet) {
+//        this.infoSet = infoSet;
+//    }
 
     @Override
     public String toString() {

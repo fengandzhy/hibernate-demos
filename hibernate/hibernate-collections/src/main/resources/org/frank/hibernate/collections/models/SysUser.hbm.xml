@@ -21,6 +21,11 @@
         <set name="addressSet" table="user_address_set" order-by="address ASC">
             <key column="sys_user_Id"></key>
             <element type="string" column="address"></element>
-        </set>        
+        </set>
+
+<!--        <set name="infoSet" table="user_info_set" order-by="card_no ASC">-->
+<!--            <key column="sys_user_Id"></key>-->
+<!--            <one-to-many class="Info"/>-->
+<!--        </set>-->
     </class>
 </hibernate-mapping>

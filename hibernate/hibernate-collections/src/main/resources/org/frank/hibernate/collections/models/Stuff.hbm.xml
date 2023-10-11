@@ -20,6 +20,15 @@
             这里的element 只能有一个,也就是说 t_user_addressList 不能有多列.
             idx列是自动插入的,是一个整数.
         -->
+        <!-- 
+            List集合属性的映射
+            name指定要映射的list集合的属性
+            table集合属性要映射的表
+            key指定集合表(t_stuff_address_list)的外键字段
+            element指定集合表的其他字段
+            type元素类型，一定要指定
+            list-index是list集合一定要指定的，指定排序列的名称，因为list是有序的
+       -->
         <list name="addressList" table="t_stuff_address_list">
             <key column="stuff_Id"></key>
             <list-index column="idx"></list-index>
