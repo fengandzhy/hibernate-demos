@@ -75,7 +75,7 @@ public class CollectionTestForSetGet extends CollectionsTest{
     }
 
     /**
-     * 这会执行一条delete 删除user_address_set 和 sysUser1 关联的所有项目, 然后在执行两条insert 语句插入user_addressSet
+     * 这会执行一条delete 删除user_address_set 和 sysUser1 关联的所有项目, 然后在执行两条insert 语句插入user_address_set
      * 
      * */
     @Test
