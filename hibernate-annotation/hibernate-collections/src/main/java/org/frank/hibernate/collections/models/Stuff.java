@@ -1,4 +1,4 @@
-package org.frank.hibernate.colletions.models;
+package org.frank.hibernate.collections.models;
 
 import javax.persistence.*;
 import java.io.Serializable;

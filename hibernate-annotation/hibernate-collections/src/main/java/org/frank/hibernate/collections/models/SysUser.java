@@ -1,5 +1,6 @@
-package org.frank.hibernate.colletions.models;
+package org.frank.hibernate.collections.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -9,12 +10,27 @@ import java.util.Set;
  * 例如本例中 private Set<Info> infoSet; 这个就无法映射, 这就要用到一对多这种映射关系还要映射 Info.
  * 
  * */
+@Entity
+@Table(name = "t1_sys_user")
 public class SysUser implements Serializable {
 
-    private Long id; 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @ElementCollection
+    @CollectionTable(name = "user1_address_set", joinColumns = @JoinColumn(name = "sys_user_Id"))
+    @Column(name = "address")
+    @OrderColumn(name="address ASC")    
     private Set<String> addressSet;
-//    private Set<Info> infoSet;
+
+    @ElementCollection
+    @CollectionTable(name = "user1_date_set", joinColumns = @JoinColumn(name = "sys_user_Id"))
+    @Column(name = "date")
+    @OrderColumn(name="date ASC")
     private Set<Date> dateSet; 
 
     public Long getId() {
