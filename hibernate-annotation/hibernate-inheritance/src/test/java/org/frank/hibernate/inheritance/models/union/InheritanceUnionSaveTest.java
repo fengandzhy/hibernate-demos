@@ -30,4 +30,15 @@ public class InheritanceUnionSaveTest extends InheritanceTest {
             transaction.commit();
         }
     }
+
+    @Test
+    public void testSaveVehicle(){
+        Transaction transaction = session.beginTransaction();
+        Vehicle vehicle = new Vehicle();
+        vehicle.setSpeed(100);
+        session.save(vehicle);
+        if (transaction.getStatus().equals(TransactionStatus.ACTIVE)){
+            transaction.commit();
+        }
+    }
 }

@@ -14,7 +14,7 @@ public class Vehicle {
 //    @Column(name = "ID")
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue(generator = "xxx") // 这里的xxx 只是一个名字 可以随意起, 只要确保和下面的名字相同.
-    @GenericGenerator(name = "xxx", strategy = "uuid")
+    @GenericGenerator(name = "xxx", strategy = "uuid2")
     private String id;
 
     @Column(name = "SPEED")

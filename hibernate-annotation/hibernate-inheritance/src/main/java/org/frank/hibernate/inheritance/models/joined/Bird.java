@@ -6,11 +6,6 @@ import javax.persistence.*;
 @Table(name = "t1_bird")
 @PrimaryKeyJoinColumn(name = "BIRD_ID")
 public class Bird extends Animal{
-
-//    @Id
-//    @Column(name = "ID")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
     
     @Column(name = "SPEED")
     private String speed;
@@ -22,14 +17,4 @@ public class Bird extends Animal{
     public void setSpeed(String speed) {
         this.speed = speed;
     }
-
-//    @Override
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    @Override
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
 }
